@@ -13,6 +13,7 @@
   >
 
   <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -317,6 +318,15 @@
       object-fit: cover;
     }
 
+    .placeholder-image {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+      background: #314c3b;
+    }
+
     .card-content {
       padding: 23px;
     }
@@ -559,6 +569,7 @@
         font-size: 30px;
       }
     }
+
   </style>
 </head>
 
@@ -623,10 +634,12 @@
     <div class="about-grid">
 
       <div class="about-image">
+
         <img
           src="https://trthaberstatic.cdn.wp.trt.com.tr/resimler/1326000/1327783.jpg"
-          alt="Kadirli Ala Camii"
+          alt="Kadirli"
         >
+
       </div>
 
       <div class="about-content">
@@ -744,7 +757,7 @@
         <div class="card-image">
           <img
             src="https://trthaberstatic.cdn.wp.trt.com.tr/resimler/1326000/1327783.jpg"
-            alt="Kadirli Ala Camii"
+            alt="Ala Camii"
           >
         </div>
 
@@ -752,9 +765,7 @@
           <small>TARİH</small>
           <h3>Ala Camii</h3>
           <p>
-            Roma döneminden başlayıp farklı dönemlerde farklı
-            amaçlarla kullanılan, Kadirli'nin en dikkat çekici
-            tarihi yapılarından biri.
+            Kadirli'nin en dikkat çekici tarihi yapılarından biri.
           </p>
         </div>
 
@@ -764,14 +775,11 @@
       <article class="place-card">
 
         <div class="card-image">
-          <img
-            src="https://img.restaurantguru.com/rfb9-meals-Y-ld-z-n-Bahcesi.jpg"
-            alt="Kadirli yerel yaşam"
-          >
+          <div class="placeholder-image">🌿</div>
         </div>
 
         <div class="card-content">
-          <small>YEREL YAŞAM</small>
+          <small>ŞEHİR YAŞAMI</small>
           <h3>Kadirli Şehir Merkezi</h3>
           <p>
             Çarşı, kafeler, restoranlar ve yerel işletmelerle
@@ -785,10 +793,7 @@
       <article class="place-card">
 
         <div class="card-image">
-          <img
-            src="https://trthaberstatic.cdn.wp.trt.com.tr/resimler/1326000/1327783.jpg"
-            alt="Karatepe Aslantas bölgesi"
-          >
+          <div class="placeholder-image">🏛️</div>
         </div>
 
         <div class="card-content">
@@ -796,8 +801,7 @@
           <h3>Karatepe-Aslantaş</h3>
           <p>
             Kadirli çevresindeki en önemli tarihi ve doğal
-            bölgelerden biri. Açık hava müzesi ve milli parkıyla
-            öne çıkar.
+            bölgelerden biri.
           </p>
         </div>
 
@@ -818,20 +822,57 @@
       <span>Yeme & İçme</span>
       <h2>Kadirli'de Restoranlar ve Kafeler</h2>
       <p>
-        Gerçek Kadirli işletmelerinden seçilmiş ilk mekanlar.
+        Kadirli'deki öne çıkan yerel mekanlardan bazıları.
       </p>
     </div>
 
     <div class="restaurant-grid">
 
 
+      <!-- 1. KABURGACI SEFA -->
+
       <article class="restaurant-card">
 
         <div class="card-image">
+          <div class="placeholder-image">🥩</div>
+        </div>
+
+        <div class="card-content">
+
+          <small>KABURGA & KEBAP</small>
+
+          <h3>Kaburgacı Sefa</h3>
+
+          <p>
+            Kadirli'de kaburga, kebap ve geleneksel
+            et yemekleriyle öne çıkan yerel restoran.
+          </p>
+
+          <div class="rating">
+            ★ 4.8
+          </div>
+
+          <div class="details">
+            Pazar Mahallesi • Değirmen Cd. 58. Sokak<br>
+            ☎ 0535 947 29 46
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- 2. YILDIZIN BAHCESI -->
+
+      <article class="restaurant-card">
+
+        <div class="card-image">
+
           <img
             src="https://img.restaurantguru.com/rfb9-meals-Y-ld-z-n-Bahcesi.jpg"
             alt="Yıldız'ın Bahçesi Restoran"
           >
+
         </div>
 
         <div class="card-content">
@@ -858,13 +899,12 @@
       </article>
 
 
+      <!-- 3. PEMBE KOSK -->
+
       <article class="restaurant-card">
 
         <div class="card-image">
-          <img
-            src="https://img.restaurantguru.com/rfb9-meals-Y-ld-z-n-Bahcesi.jpg"
-            alt="Pembe Köşk Cafe Restaurant"
-          >
+          <div class="placeholder-image">☕</div>
         </div>
 
         <div class="card-content">
@@ -891,18 +931,12 @@
       </article>
 
 
+      <!-- 4. AKTURKLER -->
+
       <article class="restaurant-card">
 
         <div class="card-image">
-          <div style="
-            height:100%;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:80px;
-            background:#314c3b;">
-            🍲
-          </div>
+          <div class="placeholder-image">🍲</div>
         </div>
 
         <div class="card-content">
@@ -912,8 +946,8 @@
           <h3>Aktürkler Lokantası</h3>
 
           <p>
-            Kadirli'de uzun süredir hizmet veren
-            yerel lokantalardan biri.
+            Kadirli'de hizmet veren yerel
+            lokantalardan biri.
           </p>
 
           <div class="rating">
@@ -929,18 +963,12 @@
       </article>
 
 
+      <!-- 5. KADIRLI LAHMACUN -->
+
       <article class="restaurant-card">
 
         <div class="card-image">
-          <div style="
-            height:100%;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:80px;
-            background:#314c3b;">
-            🍕
-          </div>
+          <div class="placeholder-image">🍕</div>
         </div>
 
         <div class="card-content">
@@ -967,18 +995,12 @@
       </article>
 
 
+      <!-- 6. DUMAN KEBAP -->
+
       <article class="restaurant-card">
 
         <div class="card-image">
-          <div style="
-            height:100%;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:80px;
-            background:#314c3b;">
-            🔥
-          </div>
+          <div class="placeholder-image">🔥</div>
         </div>
 
         <div class="card-content">
@@ -1005,18 +1027,12 @@
       </article>
 
 
+      <!-- 7. AKDO -->
+
       <article class="restaurant-card">
 
         <div class="card-image">
-          <div style="
-            height:100%;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:80px;
-            background:#314c3b;">
-            ☕
-          </div>
+          <div class="placeholder-image">☕</div>
         </div>
 
         <div class="card-content">
@@ -1043,18 +1059,12 @@
       </article>
 
 
+      <!-- 8. PIKNIK ET -->
+
       <article class="restaurant-card">
 
         <div class="card-image">
-          <div style="
-            height:100%;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:80px;
-            background:#314c3b;">
-            🥩
-          </div>
+          <div class="placeholder-image">🥩</div>
         </div>
 
         <div class="card-content">
@@ -1081,18 +1091,12 @@
       </article>
 
 
+      <!-- 9. PINDA -->
+
       <article class="restaurant-card">
 
         <div class="card-image">
-          <div style="
-            height:100%;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:80px;
-            background:#314c3b;">
-            ☕
-          </div>
+          <div class="placeholder-image">☕</div>
         </div>
 
         <div class="card-content">
@@ -1119,18 +1123,12 @@
       </article>
 
 
+      <!-- 10. KARMA -->
+
       <article class="restaurant-card">
 
         <div class="card-image">
-          <div style="
-            height:100%;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:80px;
-            background:#314c3b;">
-            ☕
-          </div>
+          <div class="placeholder-image">☕</div>
         </div>
 
         <div class="card-content">
@@ -1156,6 +1154,7 @@
 
       </article>
 
+
     </div>
 
   </div>
@@ -1171,7 +1170,7 @@
       <span>Yerel Rehber</span>
       <h2>İşletme Kategorileri</h2>
       <p>
-        Daha sonra bu bölümleri gerçek işletme listelerine bağlayacağız.
+        Kadirli'deki işletmeleri kategori kategori bul.
       </p>
     </div>
 
@@ -1328,7 +1327,6 @@
       </p>
     </div>
 
-
     <div>
       <h3>Keşfet</h3>
 
@@ -1338,7 +1336,6 @@
         <li><a href="#isletmeler">İşletmeler</a></li>
       </ul>
     </div>
-
 
     <div>
       <h3>Bilgi</h3>
@@ -1352,12 +1349,9 @@
 
   </div>
 
-
   <div class="copyright">
-
     © <span id="year"></span>
     Güzelim Kadirli • Kadirli, Osmaniye
-
   </div>
 
 </footer>
