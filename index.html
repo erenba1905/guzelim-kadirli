@@ -819,22 +819,200 @@
 </section>
 
 
+<style>
+  .restaurant-card {
+    cursor: pointer;
+  }
+
+  .restaurant-card:focus {
+    outline: 3px solid #f2be62;
+    outline-offset: 3px;
+  }
+
+  .restaurant-hint {
+    margin-top: 15px;
+    color: #f2be62;
+    font-size: 13px;
+    font-weight: bold;
+  }
+
+  .restaurant-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    background: rgba(0, 0, 0, 0.72);
+    padding: 25px;
+
+    align-items: center;
+    justify-content: center;
+  }
+
+  .restaurant-modal.open {
+    display: flex;
+  }
+
+  .modal-box {
+    position: relative;
+    background: white;
+    width: 100%;
+    max-width: 850px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 22px;
+  }
+
+  .modal-image {
+    width: 100%;
+    height: 330px;
+    object-fit: cover;
+    background: #21392c;
+  }
+
+  .modal-placeholder {
+    width: 100%;
+    height: 330px;
+    background: #21392c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 100px;
+  }
+
+  .modal-content {
+    padding: 35px;
+    color: #1f2933;
+  }
+
+  .modal-category {
+    color: #1f7a4d;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-size: 13px;
+  }
+
+  .modal-content h2 {
+    font-size: 32px;
+    margin: 8px 0 15px;
+  }
+
+  .modal-description {
+    color: #5f6c65;
+    margin-bottom: 25px;
+  }
+
+  .modal-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 28px;
+  }
+
+  .modal-info {
+    background: #f4f6f4;
+    border-radius: 12px;
+    padding: 17px;
+  }
+
+  .modal-info strong {
+    display: block;
+    color: #1f7a4d;
+    margin-bottom: 4px;
+  }
+
+  .modal-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .modal-action {
+    display: inline-block;
+    padding: 13px 20px;
+    border-radius: 9px;
+    background: #1f7a4d;
+    color: white;
+    font-weight: bold;
+  }
+
+  .modal-action.secondary {
+    background: #e9efeb;
+    color: #1f7a4d;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 2;
+
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(0,0,0,0.75);
+    color: white;
+
+    font-size: 25px;
+    cursor: pointer;
+  }
+
+  @media (max-width: 650px) {
+    .modal-info-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .modal-image,
+    .modal-placeholder {
+      height: 230px;
+    }
+
+    .modal-content {
+      padding: 25px;
+    }
+
+    .modal-content h2 {
+      font-size: 26px;
+    }
+  }
+</style>
+
+
 <section class="restaurant-section" id="yeme">
 
   <div class="container">
 
     <div class="section-title">
       <span>Yeme & İçme</span>
+
       <h2>Kadirli'de Restoranlar ve Kafeler</h2>
+
       <p>
-        Kadirli'deki öne çıkan yerel mekanlardan bazıları.
+        Bir mekana tıklayarak adres, telefon ve detayları görüntüleyebilirsin.
       </p>
     </div>
+
 
     <div class="restaurant-grid">
 
 
-      <article class="restaurant-card">
+      <!-- KABURGACI SEFA -->
+
+      <article
+        class="restaurant-card"
+        tabindex="0"
+
+        data-name="Kaburgacı Sefa"
+        data-category="KABURGA & KEBAP"
+        data-description="Kadirli'de kaburga, kebap ve geleneksel et yemekleriyle öne çıkan yerel restoran."
+        data-rating="★ 4.8"
+        data-address="Pazar Mahallesi, Değirmen Cd. 58. Sokak, Kadirli, Osmaniye"
+        data-phone="0535 947 29 46"
+        data-hours="Çalışma saatlerini işletmeden doğrulayın."
+        data-image="images/kaburgaci-sefa.jpeg"
+        data-emoji="🥩"
+      >
 
         <div class="card-image">
           <img
@@ -850,17 +1028,18 @@
           <h3>Kaburgacı Sefa</h3>
 
           <p>
-            Kadirli'de kaburga, kebap ve geleneksel
-            et yemekleriyle öne çıkan yerel restoran.
+            Kaburga, kebap ve geleneksel et yemekleri.
           </p>
 
-          <div class="rating">
-            ★ 4.8
-          </div>
+          <div class="rating">★ 4.8</div>
 
           <div class="details">
-            Pazar Mahallesi • Değirmen Cd. 58. Sokak<br>
+            Pazar Mahallesi<br>
             ☎ 0535 947 29 46
+          </div>
+
+          <div class="restaurant-hint">
+            Detayları gör →
           </div>
 
         </div>
@@ -868,7 +1047,23 @@
       </article>
 
 
-      <article class="restaurant-card">
+
+      <!-- YILDIZIN BAHCESI -->
+
+      <article
+        class="restaurant-card"
+        tabindex="0"
+
+        data-name="Yıldız'ın Bahçesi Restoran"
+        data-category="KEBAP & KAHVALTI"
+        data-description="Bahçe ortamında kahvaltı ve yemek seçenekleri sunan Kadirli'deki yerel restoranlardan biri."
+        data-rating="★ 4.5"
+        data-address="Tufanpaşa, Abdulvahap Kocaman Cd. No:87, Kadirli, Osmaniye"
+        data-phone="Telefon bilgisi daha sonra eklenecek."
+        data-hours="Çalışma saatlerini işletmeden doğrulayın."
+        data-image="images/yildiz-bahcesi.jpeg"
+        data-emoji="🍽️"
+      >
 
         <div class="card-image">
           <img
@@ -884,16 +1079,17 @@
           <h3>Yıldız'ın Bahçesi Restoran</h3>
 
           <p>
-            Bahçe ortamında yemek ve kahvaltı seçenekleri sunan
-            yerel restoranlardan biri.
+            Bahçe ortamında kahvaltı ve yemek.
           </p>
 
-          <div class="rating">
-            ★ 4.5
-          </div>
+          <div class="rating">★ 4.5</div>
 
           <div class="details">
-            Tufanpaşa • Abdulvahap Kocaman Cd. No:87
+            Tufanpaşa
+          </div>
+
+          <div class="restaurant-hint">
+            Detayları gör →
           </div>
 
         </div>
@@ -901,7 +1097,23 @@
       </article>
 
 
-      <article class="restaurant-card">
+
+      <!-- PEMBE KOSK -->
+
+      <article
+        class="restaurant-card"
+        tabindex="0"
+
+        data-name="Pembe Köşk Cafe & Restaurant"
+        data-category="CAFE & RESTAURANT"
+        data-description="Kahvaltı, yemek ve kafe seçeneklerini bir arada sunan Kadirli mekanlarından biri."
+        data-rating="★ 4.3"
+        data-address="Pazar, Mehmet Can Cd. No:44, Kadirli, Osmaniye"
+        data-phone="Telefon bilgisi daha sonra eklenecek."
+        data-hours="Çalışma saatlerini işletmeden doğrulayın."
+        data-image="images/pembe-kosk.jpeg"
+        data-emoji="☕"
+      >
 
         <div class="card-image">
           <img
@@ -917,16 +1129,17 @@
           <h3>Pembe Köşk Cafe & Restaurant</h3>
 
           <p>
-            Kahvaltı, öğle ve akşam yemeği seçenekleri bulunan
-            Kadirli'nin bilinen mekanlarından biri.
+            Kahvaltı, yemek ve kafe seçenekleri.
           </p>
 
-          <div class="rating">
-            ★ 4.3
-          </div>
+          <div class="rating">★ 4.3</div>
 
           <div class="details">
-            Pazar • Mehmet Can Cd. No:44
+            Pazar
+          </div>
+
+          <div class="restaurant-hint">
+            Detayları gör →
           </div>
 
         </div>
@@ -934,7 +1147,23 @@
       </article>
 
 
-      <article class="restaurant-card">
+
+      <!-- AKTURKLER -->
+
+      <article
+        class="restaurant-card"
+        tabindex="0"
+
+        data-name="Aktürkler Lokantası"
+        data-category="LOKANTA"
+        data-description="Kadirli'de hizmet veren yerel lokantalardan biri."
+        data-rating="★ 4.3"
+        data-address="Savrun, Mehmet Orhun Döğüşçü Cd. No:5, Kadirli, Osmaniye"
+        data-phone="Telefon bilgisi daha sonra eklenecek."
+        data-hours="Çalışma saatlerini işletmeden doğrulayın."
+        data-image=""
+        data-emoji="🍲"
+      >
 
         <div class="card-image">
           <div class="placeholder-image">🍲</div>
@@ -943,20 +1172,16 @@
         <div class="card-content">
 
           <small>LOKANTA</small>
-
           <h3>Aktürkler Lokantası</h3>
 
-          <p>
-            Kadirli'de hizmet veren yerel
-            lokantalardan biri.
-          </p>
+          <p>Yerel lokanta.</p>
 
-          <div class="rating">
-            ★ 4.3
-          </div>
+          <div class="rating">★ 4.3</div>
 
-          <div class="details">
-            Savrun • Mehmet Orhun Döğüşçü Cd. No:5
+          <div class="details">Savrun</div>
+
+          <div class="restaurant-hint">
+            Detayları gör →
           </div>
 
         </div>
@@ -964,7 +1189,23 @@
       </article>
 
 
-      <article class="restaurant-card">
+
+      <!-- KADIRLI LAHMACUN -->
+
+      <article
+        class="restaurant-card"
+        tabindex="0"
+
+        data-name="Kadirli Lahmacun Restaurant"
+        data-category="LAHMACUN"
+        data-description="Lahmacun ve yöresel yemek seçenekleriyle hizmet veren Kadirli restoranı."
+        data-rating="★ 4.6"
+        data-address="7 Mart, Sütçü İmam Cd., Kadirli, Osmaniye"
+        data-phone="Telefon bilgisi daha sonra eklenecek."
+        data-hours="Çalışma saatlerini işletmeden doğrulayın."
+        data-image=""
+        data-emoji="🍕"
+      >
 
         <div class="card-image">
           <div class="placeholder-image">🍕</div>
@@ -973,20 +1214,16 @@
         <div class="card-content">
 
           <small>LAHMACUN</small>
-
           <h3>Kadirli Lahmacun Restaurant</h3>
 
-          <p>
-            Lahmacun ve yöresel yemek seçenekleriyle
-            hizmet veren Kadirli restoranı.
-          </p>
+          <p>Lahmacun ve yöresel yemekler.</p>
 
-          <div class="rating">
-            ★ 4.6
-          </div>
+          <div class="rating">★ 4.6</div>
 
-          <div class="details">
-            7 Mart • Sütçü İmam Cd.
+          <div class="details">7 Mart</div>
+
+          <div class="restaurant-hint">
+            Detayları gör →
           </div>
 
         </div>
@@ -994,7 +1231,23 @@
       </article>
 
 
-      <article class="restaurant-card">
+
+      <!-- DUMAN -->
+
+      <article
+        class="restaurant-card"
+        tabindex="0"
+
+        data-name="Duman Kebap Salonu"
+        data-category="KEBAP"
+        data-description="Kadirli'de kebap üzerine hizmet veren yerel mekanlardan biri."
+        data-rating="★ 4.8"
+        data-address="Kamil Kara Blv. No:396, Kadirli, Osmaniye"
+        data-phone="Telefon bilgisi daha sonra eklenecek."
+        data-hours="Çalışma saatlerini işletmeden doğrulayın."
+        data-image=""
+        data-emoji="🔥"
+      >
 
         <div class="card-image">
           <div class="placeholder-image">🔥</div>
@@ -1003,20 +1256,18 @@
         <div class="card-content">
 
           <small>KEBAP</small>
-
           <h3>Duman Kebap Salonu</h3>
 
-          <p>
-            Kadirli'de kebap üzerine hizmet veren
-            yerel mekanlardan biri.
-          </p>
+          <p>Kebap restoranı.</p>
 
-          <div class="rating">
-            ★ 4.8
-          </div>
+          <div class="rating">★ 4.8</div>
 
           <div class="details">
-            Kamil Kara Blv. No:396
+            Kamil Kara Blv.
+          </div>
+
+          <div class="restaurant-hint">
+            Detayları gör →
           </div>
 
         </div>
@@ -1024,7 +1275,23 @@
       </article>
 
 
-      <article class="restaurant-card">
+
+      <!-- AKDO -->
+
+      <article
+        class="restaurant-card"
+        tabindex="0"
+
+        data-name="Akdo Kahve"
+        data-category="CAFE"
+        data-description="Kahve ve oturma alanıyla Kadirli'deki yerel kafelerden biri."
+        data-rating="★ 4.2"
+        data-address="Savrun, 18. Sokak, Kadirli, Osmaniye"
+        data-phone="Telefon bilgisi daha sonra eklenecek."
+        data-hours="Çalışma saatlerini işletmeden doğrulayın."
+        data-image=""
+        data-emoji="☕"
+      >
 
         <div class="card-image">
           <div class="placeholder-image">☕</div>
@@ -1033,20 +1300,18 @@
         <div class="card-content">
 
           <small>CAFE</small>
-
           <h3>Akdo Kahve</h3>
 
-          <p>
-            Kahve ve oturma alanıyla Kadirli'deki
-            yerel kafelerden biri.
-          </p>
+          <p>Kahve ve oturma alanı.</p>
 
-          <div class="rating">
-            ★ 4.2
-          </div>
+          <div class="rating">★ 4.2</div>
 
           <div class="details">
-            Savrun • 18. Sokak
+            Savrun
+          </div>
+
+          <div class="restaurant-hint">
+            Detayları gör →
           </div>
 
         </div>
@@ -1054,7 +1319,23 @@
       </article>
 
 
-      <article class="restaurant-card">
+
+      <!-- PIKNIK ET -->
+
+      <article
+        class="restaurant-card"
+        tabindex="0"
+
+        data-name="Piknik Et Lokantası"
+        data-category="ET RESTORANI"
+        data-description="Et yemekleri üzerine hizmet veren Kadirli restoranlarından biri."
+        data-rating="★ 4.1"
+        data-address="Söğütlüdere, 549. Sokak, Kadirli, Osmaniye"
+        data-phone="Telefon bilgisi daha sonra eklenecek."
+        data-hours="Çalışma saatlerini işletmeden doğrulayın."
+        data-image=""
+        data-emoji="🥩"
+      >
 
         <div class="card-image">
           <div class="placeholder-image">🥩</div>
@@ -1063,20 +1344,18 @@
         <div class="card-content">
 
           <small>ET RESTORANI</small>
-
           <h3>Piknik Et Lokantası</h3>
 
-          <p>
-            Et yemekleri üzerine hizmet veren
-            Kadirli restoranlarından biri.
-          </p>
+          <p>Et yemekleri.</p>
 
-          <div class="rating">
-            ★ 4.1
-          </div>
+          <div class="rating">★ 4.1</div>
 
           <div class="details">
-            Söğütlüdere • 549. Sokak
+            Söğütlüdere
+          </div>
+
+          <div class="restaurant-hint">
+            Detayları gör →
           </div>
 
         </div>
@@ -1084,7 +1363,23 @@
       </article>
 
 
-      <article class="restaurant-card">
+
+      <!-- PINDA -->
+
+      <article
+        class="restaurant-card"
+        tabindex="0"
+
+        data-name="Pinda Espresso Bar"
+        data-category="ESPRESSO BAR"
+        data-description="Kahve ve espresso seçenekleriyle hizmet veren modern kafelerden biri."
+        data-rating="★ 4.4"
+        data-address="Cemal Paşa, Adalet Cd., Kadirli, Osmaniye"
+        data-phone="Telefon bilgisi daha sonra eklenecek."
+        data-hours="Çalışma saatlerini işletmeden doğrulayın."
+        data-image=""
+        data-emoji="☕"
+      >
 
         <div class="card-image">
           <div class="placeholder-image">☕</div>
@@ -1093,20 +1388,18 @@
         <div class="card-content">
 
           <small>ESPRESSO BAR</small>
-
           <h3>Pinda Espresso Bar</h3>
 
-          <p>
-            Kahve ve espresso seçenekleriyle
-            hizmet veren modern kafelerden biri.
-          </p>
+          <p>Kahve ve espresso.</p>
 
-          <div class="rating">
-            ★ 4.4
-          </div>
+          <div class="rating">★ 4.4</div>
 
           <div class="details">
-            Cemal Paşa • Adalet Cd.
+            Cemal Paşa
+          </div>
+
+          <div class="restaurant-hint">
+            Detayları gör →
           </div>
 
         </div>
@@ -1114,7 +1407,23 @@
       </article>
 
 
-      <article class="restaurant-card">
+
+      <!-- KARMA -->
+
+      <article
+        class="restaurant-card"
+        tabindex="0"
+
+        data-name="Karma Coffee"
+        data-category="COFFEE"
+        data-description="Kahve ve sosyal ortamıyla Kadirli'deki yeni nesil kahve mekanlarından biri."
+        data-rating="★ 4.6"
+        data-address="Cemalpaşa, 1667. Sokak, Kadirli, Osmaniye"
+        data-phone="Telefon bilgisi daha sonra eklenecek."
+        data-hours="Çalışma saatlerini işletmeden doğrulayın."
+        data-image=""
+        data-emoji="☕"
+      >
 
         <div class="card-image">
           <div class="placeholder-image">☕</div>
@@ -1123,20 +1432,18 @@
         <div class="card-content">
 
           <small>COFFEE</small>
-
           <h3>Karma Coffee</h3>
 
-          <p>
-            Kahve ve sosyal ortamıyla Kadirli'deki
-            yeni nesil kahve mekanlarından biri.
-          </p>
+          <p>Yeni nesil kahve mekanı.</p>
 
-          <div class="rating">
-            ★ 4.6
-          </div>
+          <div class="rating">★ 4.6</div>
 
           <div class="details">
-            Cemalpaşa • 1667. Sokak
+            Cemalpaşa
+          </div>
+
+          <div class="restaurant-hint">
+            Detayları gör →
           </div>
 
         </div>
@@ -1150,6 +1457,293 @@
 
 </section>
 
+
+
+<!-- EIN MODAL FÜR ALLE RESTAURANTS -->
+
+<div
+  class="restaurant-modal"
+  id="restaurantModal"
+  aria-hidden="true"
+>
+
+  <div class="modal-box">
+
+    <button
+      class="modal-close"
+      id="modalClose"
+      type="button"
+      aria-label="Kapat"
+    >
+      ×
+    </button>
+
+
+    <div id="modalMedia"></div>
+
+
+    <div class="modal-content">
+
+      <div
+        class="modal-category"
+        id="modalCategory"
+      ></div>
+
+      <h2 id="modalName"></h2>
+
+      <p
+        class="modal-description"
+        id="modalDescription"
+      ></p>
+
+
+      <div class="modal-info-grid">
+
+        <div class="modal-info">
+          <strong>⭐ Değerlendirme</strong>
+          <span id="modalRating"></span>
+        </div>
+
+
+        <div class="modal-info">
+          <strong>📍 Adres</strong>
+          <span id="modalAddress"></span>
+        </div>
+
+
+        <div class="modal-info">
+          <strong>☎ Telefon</strong>
+          <span id="modalPhone"></span>
+        </div>
+
+
+        <div class="modal-info">
+          <strong>🕒 Çalışma Saatleri</strong>
+          <span id="modalHours"></span>
+        </div>
+
+      </div>
+
+
+      <div class="modal-actions">
+
+        <a
+          href="#"
+          target="_blank"
+          rel="noopener"
+          class="modal-action"
+          id="modalRoute"
+        >
+          📍 Yol Tarifi
+        </a>
+
+
+        <a
+          href="#"
+          class="modal-action secondary"
+          id="modalCall"
+        >
+          ☎ Ara
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<script>
+
+  const restaurantCards =
+    document.querySelectorAll(".restaurant-card");
+
+  const modal =
+    document.getElementById("restaurantModal");
+
+  const modalClose =
+    document.getElementById("modalClose");
+
+
+  function openRestaurant(card) {
+
+    const name = card.dataset.name;
+    const category = card.dataset.category;
+    const description = card.dataset.description;
+    const rating = card.dataset.rating;
+    const address = card.dataset.address;
+    const phone = card.dataset.phone;
+    const hours = card.dataset.hours;
+    const image = card.dataset.image;
+    const emoji = card.dataset.emoji;
+
+
+    document.getElementById("modalName").textContent =
+      name;
+
+    document.getElementById("modalCategory").textContent =
+      category;
+
+    document.getElementById("modalDescription").textContent =
+      description;
+
+    document.getElementById("modalRating").textContent =
+      rating;
+
+    document.getElementById("modalAddress").textContent =
+      address;
+
+    document.getElementById("modalPhone").textContent =
+      phone;
+
+    document.getElementById("modalHours").textContent =
+      hours;
+
+
+    const media =
+      document.getElementById("modalMedia");
+
+
+    if (image) {
+
+      media.innerHTML =
+        `<img
+          class="modal-image"
+          src="${image}"
+          alt="${name}"
+        >`;
+
+    } else {
+
+      media.innerHTML =
+        `<div class="modal-placeholder">
+          ${emoji}
+        </div>`;
+
+    }
+
+
+    const routeQuery =
+      encodeURIComponent(name + ", " + address);
+
+
+    document.getElementById("modalRoute").href =
+      "https://www.google.com/maps/search/?api=1&query=" +
+      routeQuery;
+
+
+    const callButton =
+      document.getElementById("modalCall");
+
+
+    if (phone.startsWith("0")) {
+
+      const cleanPhone =
+        phone.replace(/\s/g, "");
+
+      callButton.href =
+        "tel:" + cleanPhone;
+
+      callButton.style.display =
+        "inline-block";
+
+    } else {
+
+      callButton.style.display =
+        "none";
+
+    }
+
+
+    modal.classList.add("open");
+
+    modal.setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+  }
+
+
+  function closeRestaurant() {
+
+    modal.classList.remove("open");
+
+    modal.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+  }
+
+
+  restaurantCards.forEach(card => {
+
+    card.addEventListener(
+      "click",
+      () => openRestaurant(card)
+    );
+
+
+    card.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key === "Enter" ||
+          event.key === " "
+        ) {
+
+          event.preventDefault();
+
+          openRestaurant(card);
+
+        }
+
+      }
+    );
+
+  });
+
+
+  modalClose.addEventListener(
+    "click",
+    closeRestaurant
+  );
+
+
+  modal.addEventListener(
+    "click",
+    event => {
+
+      if (event.target === modal) {
+        closeRestaurant();
+      }
+
+    }
+  );
+
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key === "Escape" &&
+        modal.classList.contains("open")
+      ) {
+
+        closeRestaurant();
+
+      }
+
+    }
+  );
+
+</script>
 
 <section id="isletmeler">
 
