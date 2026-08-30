@@ -9,7 +9,7 @@
 
   <meta
     name="description"
-    content="Kadirli'de gezilecek yerler, restoranlar, kafeler, etkinlikler ve yerel işletmeler."
+    content="Kadirli'de gezilecek yerler, restoranlar, kafeler ve yerel işletmeler."
   >
 
   <style>
@@ -28,6 +28,10 @@
       background: #f6f7f5;
       color: #1f2933;
       line-height: 1.6;
+    }
+
+    body.modal-open {
+      overflow: hidden;
     }
 
     a {
@@ -86,7 +90,6 @@
       max-width: 1150px;
       margin: 0 auto;
       padding: 15px 20px;
-
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -127,19 +130,16 @@
 
     .hero {
       min-height: 620px;
-
       display: flex;
       align-items: center;
       justify-content: center;
-
       padding: 100px 20px;
-
       text-align: center;
       color: white;
 
       background:
         linear-gradient(
-          rgba(13, 45, 28, 0.68),
+          rgba(13, 45, 28, 0.62),
           rgba(13, 45, 28, 0.80)
         ),
         url("images/kadirli-merkez.jpg");
@@ -185,6 +185,11 @@
       padding: 14px 23px;
       border-radius: 9px;
       font-weight: 700;
+      transition: 0.2s;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
     }
 
     .button-primary {
@@ -207,7 +212,6 @@
     .about-image {
       border-radius: 22px;
       overflow: hidden;
-      min-height: 420px;
     }
 
     .about-image img {
@@ -362,6 +366,12 @@
     .restaurant-card {
       background: #21392c;
       border: 1px solid #31503e;
+      cursor: pointer;
+    }
+
+    .restaurant-card:focus {
+      outline: 3px solid #f2be62;
+      outline-offset: 3px;
     }
 
     .restaurant-card .card-content p {
@@ -375,14 +385,150 @@
     .rating {
       color: #f2be62;
       font-weight: bold;
-      margin-top: 12px;
       font-size: 14px;
+      margin-top: 12px;
     }
 
     .details {
       margin-top: 12px;
       font-size: 13px;
       color: #bac8c0;
+    }
+
+    .restaurant-hint {
+      margin-top: 14px;
+      color: #f2be62;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .restaurant-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 5000;
+      background: rgba(8, 15, 11, 0.76);
+      padding: 30px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .restaurant-modal.open {
+      display: flex;
+    }
+
+    .modal-box {
+      position: relative;
+      width: 100%;
+      max-width: 760px;
+      max-height: 88vh;
+      overflow-y: auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+    }
+
+    .modal-image {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .modal-placeholder {
+      width: 100%;
+      height: 230px;
+      background: #21392c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+    }
+
+    .modal-content {
+      padding: 28px 30px 30px;
+      color: #1f2933;
+    }
+
+    .modal-category {
+      color: #1f7a4d;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+    }
+
+    .modal-content h2 {
+      font-size: 28px;
+      line-height: 1.2;
+      margin: 6px 0 10px;
+    }
+
+    .modal-description {
+      color: #69736e;
+      font-size: 14px;
+      margin-bottom: 22px;
+    }
+
+    .modal-info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .modal-info {
+      background: #f4f6f4;
+      border: 1px solid #e7ebe8;
+      border-radius: 11px;
+      padding: 14px 15px;
+      font-size: 14px;
+    }
+
+    .modal-info strong {
+      display: block;
+      color: #1f7a4d;
+      margin-bottom: 4px;
+      font-size: 13px;
+    }
+
+    .modal-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .modal-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 11px 18px;
+      border-radius: 9px;
+      background: #1f7a4d;
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .modal-action.secondary {
+      background: #e9efeb;
+      color: #1f7a4d;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 10;
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.72);
+      color: white;
+      font-size: 23px;
+      cursor: pointer;
     }
 
     .business-grid {
@@ -454,13 +600,10 @@
     .cta-box {
       max-width: 1150px;
       margin: auto;
-
       background: #1f7a4d;
       color: white;
-
       padding: 50px 40px;
       border-radius: 22px;
-
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -493,7 +636,6 @@
     .footer-grid {
       max-width: 1150px;
       margin: auto;
-
       display: grid;
       grid-template-columns: 2fr 1fr 1fr;
       gap: 50px;
@@ -554,6 +696,41 @@
       }
     }
 
+    @media (max-width: 650px) {
+      .restaurant-modal {
+        padding: 15px;
+      }
+
+      .modal-box {
+        max-height: 92vh;
+      }
+
+      .modal-image,
+      .modal-placeholder {
+        height: 190px;
+      }
+
+      .modal-content {
+        padding: 22px;
+      }
+
+      .modal-content h2 {
+        font-size: 24px;
+      }
+
+      .modal-info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-actions {
+        flex-direction: column;
+      }
+
+      .modal-action {
+        width: 100%;
+      }
+    }
+
     @media (max-width: 500px) {
       section {
         padding: 60px 16px;
@@ -568,7 +745,6 @@
         font-size: 30px;
       }
     }
-
   </style>
 </head>
 
@@ -605,8 +781,9 @@
     <h1>Kadirli'yi Keşfet</h1>
 
     <p>
-      Tarihi yerler, yöresel lezzetler, kafeler,
-      restoranlar ve şehir yaşamı tek bir yerde.
+      Tarihi yerler, yöresel lezzetler,
+      kafeler, restoranlar ve şehir yaşamı
+      tek bir yerde.
     </p>
 
     <div class="hero-buttons">
@@ -653,13 +830,15 @@
 
         <p>
           Kadirli, Osmaniye'nin önemli ilçelerinden biridir.
-          İlçe; tarihi yapıları, Çukurova kültürü, yöresel
-          yemekleri ve çevresindeki doğal alanlarla öne çıkar.
+          İlçe; tarihi yapıları, Çukurova kültürü,
+          yöresel yemekleri ve çevresindeki doğal
+          alanlarla öne çıkar.
         </p>
 
         <p>
-          Güzelim Kadirli projesinin amacı, ziyaretçilerin ve
-          şehirde yaşayanların ihtiyaç duyduğu yerel bilgileri
+          Güzelim Kadirli projesinin amacı,
+          ziyaretçilerin ve şehirde yaşayanların
+          ihtiyaç duyduğu yerel bilgileri
           tek bir platformda toplamaktır.
         </p>
 
@@ -696,12 +875,18 @@
   <div class="container">
 
     <div class="section-title">
+
       <span>Keşfet</span>
-      <h2>Kadirli'de Ne Yapılır?</h2>
+
+      <h2>
+        Kadirli'de Ne Yapılır?
+      </h2>
+
       <p>
-        Tarihten yeme içmeye kadar şehirde aradığın
-        şeylere hızlıca ulaş.
+        Tarihten yeme içmeye kadar şehirde
+        aradığın şeylere hızlıca ulaş.
       </p>
+
     </div>
 
     <div class="category-grid">
@@ -709,25 +894,19 @@
       <div class="category-card">
         <div class="category-icon">🏛️</div>
         <h3>Gezilecek Yerler</h3>
-        <p>
-          Tarihi yapılar, müzeler ve doğal güzellikler.
-        </p>
+        <p>Tarihi yapılar, müzeler ve doğal güzellikler.</p>
       </div>
 
       <div class="category-card">
         <div class="category-icon">🍽️</div>
         <h3>Yeme & İçme</h3>
-        <p>
-          Kebap, lahmacun, kahvaltı, restoranlar und kafeler.
-        </p>
+        <p>Kebap, lahmacun, kahvaltı, restoranlar ve kafeler.</p>
       </div>
 
       <div class="category-card">
         <div class="category-icon">🏪</div>
         <h3>Yerel İşletmeler</h3>
-        <p>
-          Kadirli'deki hizmetleri ve işletmeleri keşfet.
-        </p>
+        <p>Kadirli'deki hizmetleri ve işletmeleri keşfet.</p>
       </div>
 
     </div>
@@ -742,11 +921,18 @@
   <div class="container">
 
     <div class="section-title">
+
       <span>Gezilecek Yerler</span>
-      <h2>Kadirli ve Çevresinde Görülmesi Gerekenler</h2>
+
+      <h2>
+        Kadirli ve Çevresinde Görülmesi Gerekenler
+      </h2>
+
       <p>
-        Bölgenin önemli tarihi ve kültürel noktalarından bazıları.
+        Bölgenin önemli tarihi ve kültürel
+        noktalarından bazıları.
       </p>
+
     </div>
 
     <div class="place-grid">
@@ -754,18 +940,25 @@
       <article class="place-card">
 
         <div class="card-image">
+
           <img
             src="images/ala-cami.jpeg"
-            alt="Kadirli Ala Cami"
+            alt="Kadirli Ala Camii"
           >
+
         </div>
 
         <div class="card-content">
+
           <small>TARİH</small>
-          <h3>Ala Cami</h3>
+
+          <h3>Ala Camii</h3>
+
           <p>
-            Kadirli'nin en dikkat çekici tarihi yapılarından biri.
+            Kadirli'nin en dikkat çekici
+            tarihi yapılarından biri.
           </p>
+
         </div>
 
       </article>
@@ -774,19 +967,26 @@
       <article class="place-card">
 
         <div class="card-image">
+
           <img
             src="images/kadirli-merkez.jpg"
             alt="Kadirli şehir merkezi"
           >
+
         </div>
 
         <div class="card-content">
+
           <small>ŞEHİR YAŞAMI</small>
+
           <h3>Kadirli Şehir Merkezi</h3>
+
           <p>
-            Çarşı, kafeler, restoranlar ve yerel işletmelerle
-            Kadirli'nin günlük yaşamını keşfet.
+            Çarşı, kafeler, restoranlar
+            ve yerel işletmelerle Kadirli'nin
+            günlük yaşamını keşfet.
           </p>
+
         </div>
 
       </article>
@@ -795,19 +995,25 @@
       <article class="place-card">
 
         <div class="card-image">
+
           <img
             src="images/karatepe-aslantas.jpg"
             alt="Karatepe Aslantaş"
           >
+
         </div>
 
         <div class="card-content">
+
           <small>TARİH & DOĞA</small>
+
           <h3>Karatepe-Aslantaş</h3>
+
           <p>
-            Kadirli çevresindeki en önemli tarihi ve doğal
-            bölgelerden biri.
+            Kadirli çevresindeki önemli
+            tarihi ve doğal alanlardan biri.
           </p>
+
         </div>
 
       </article>
@@ -819,190 +1025,32 @@
 </section>
 
 
-<style>
-  .restaurant-card {
-    cursor: pointer;
-  }
-
-  .restaurant-card:focus {
-    outline: 3px solid #f2be62;
-    outline-offset: 3px;
-  }
-
-  .restaurant-hint {
-    margin-top: 15px;
-    color: #f2be62;
-    font-size: 13px;
-    font-weight: bold;
-  }
-
-  .restaurant-modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 5000;
-    background: rgba(0, 0, 0, 0.72);
-    padding: 25px;
-
-    align-items: center;
-    justify-content: center;
-  }
-
-  .restaurant-modal.open {
-    display: flex;
-  }
-
-  .modal-box {
-    position: relative;
-    background: white;
-    width: 100%;
-    max-width: 850px;
-    max-height: 90vh;
-    overflow-y: auto;
-    border-radius: 22px;
-  }
-
-  .modal-image {
-    width: 100%;
-    height: 330px;
-    object-fit: cover;
-    background: #21392c;
-  }
-
-  .modal-placeholder {
-    width: 100%;
-    height: 330px;
-    background: #21392c;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 100px;
-  }
-
-  .modal-content {
-    padding: 35px;
-    color: #1f2933;
-  }
-
-  .modal-category {
-    color: #1f7a4d;
-    font-weight: bold;
-    letter-spacing: 1px;
-    font-size: 13px;
-  }
-
-  .modal-content h2 {
-    font-size: 32px;
-    margin: 8px 0 15px;
-  }
-
-  .modal-description {
-    color: #5f6c65;
-    margin-bottom: 25px;
-  }
-
-  .modal-info-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    margin-bottom: 28px;
-  }
-
-  .modal-info {
-    background: #f4f6f4;
-    border-radius: 12px;
-    padding: 17px;
-  }
-
-  .modal-info strong {
-    display: block;
-    color: #1f7a4d;
-    margin-bottom: 4px;
-  }
-
-  .modal-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  .modal-action {
-    display: inline-block;
-    padding: 13px 20px;
-    border-radius: 9px;
-    background: #1f7a4d;
-    color: white;
-    font-weight: bold;
-  }
-
-  .modal-action.secondary {
-    background: #e9efeb;
-    color: #1f7a4d;
-  }
-
-  .modal-close {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    z-index: 2;
-
-    width: 44px;
-    height: 44px;
-    border: none;
-    border-radius: 50%;
-
-    background: rgba(0,0,0,0.75);
-    color: white;
-
-    font-size: 25px;
-    cursor: pointer;
-  }
-
-  @media (max-width: 650px) {
-    .modal-info-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .modal-image,
-    .modal-placeholder {
-      height: 230px;
-    }
-
-    .modal-content {
-      padding: 25px;
-    }
-
-    .modal-content h2 {
-      font-size: 26px;
-    }
-  }
-</style>
-
-
 <section class="restaurant-section" id="yeme">
 
   <div class="container">
 
     <div class="section-title">
+
       <span>Yeme & İçme</span>
 
-      <h2>Kadirli'de Restoranlar ve Kafeler</h2>
+      <h2>
+        Kadirli'de Restoranlar ve Kafeler
+      </h2>
 
       <p>
-        Bir mekana tıklayarak adres, telefon ve detayları görüntüleyebilirsin.
+        Bir mekana tıklayarak
+        adres, telefon ve detayları görüntüleyebilirsin.
       </p>
+
     </div>
 
 
     <div class="restaurant-grid">
 
 
-      <!-- KABURGACI SEFA -->
-
       <article
         class="restaurant-card"
         tabindex="0"
-
         data-name="Kaburgacı Sefa"
         data-category="KABURGA & KEBAP"
         data-description="Kadirli'de kaburga, kebap ve geleneksel et yemekleriyle öne çıkan yerel restoran."
@@ -1015,10 +1063,12 @@
       >
 
         <div class="card-image">
+
           <img
             src="images/kaburgaci-sefa.jpeg"
             alt="Kaburgacı Sefa"
           >
+
         </div>
 
         <div class="card-content">
@@ -1027,9 +1077,7 @@
 
           <h3>Kaburgacı Sefa</h3>
 
-          <p>
-            Kaburga, kebap ve geleneksel et yemekleri.
-          </p>
+          <p>Kaburga, kebap ve geleneksel et yemekleri.</p>
 
           <div class="rating">★ 4.8</div>
 
@@ -1047,13 +1095,9 @@
       </article>
 
 
-
-      <!-- YILDIZIN BAHCESI -->
-
       <article
         class="restaurant-card"
         tabindex="0"
-
         data-name="Yıldız'ın Bahçesi Restoran"
         data-category="KEBAP & KAHVALTI"
         data-description="Bahçe ortamında kahvaltı ve yemek seçenekleri sunan Kadirli'deki yerel restoranlardan biri."
@@ -1066,10 +1110,12 @@
       >
 
         <div class="card-image">
+
           <img
             src="images/yildiz-bahcesi.jpeg"
             alt="Yıldız'ın Bahçesi Restoran"
           >
+
         </div>
 
         <div class="card-content">
@@ -1078,15 +1124,11 @@
 
           <h3>Yıldız'ın Bahçesi Restoran</h3>
 
-          <p>
-            Bahçe ortamında kahvaltı ve yemek.
-          </p>
+          <p>Bahçe ortamında kahvaltı ve yemek.</p>
 
           <div class="rating">★ 4.5</div>
 
-          <div class="details">
-            Tufanpaşa
-          </div>
+          <div class="details">Tufanpaşa</div>
 
           <div class="restaurant-hint">
             Detayları gör →
@@ -1097,13 +1139,9 @@
       </article>
 
 
-
-      <!-- PEMBE KOSK -->
-
       <article
         class="restaurant-card"
         tabindex="0"
-
         data-name="Pembe Köşk Cafe & Restaurant"
         data-category="CAFE & RESTAURANT"
         data-description="Kahvaltı, yemek ve kafe seçeneklerini bir arada sunan Kadirli mekanlarından biri."
@@ -1116,10 +1154,12 @@
       >
 
         <div class="card-image">
+
           <img
             src="images/pembe-kosk.jpeg"
             alt="Pembe Köşk Cafe & Restaurant"
           >
+
         </div>
 
         <div class="card-content">
@@ -1128,15 +1168,11 @@
 
           <h3>Pembe Köşk Cafe & Restaurant</h3>
 
-          <p>
-            Kahvaltı, yemek ve kafe seçenekleri.
-          </p>
+          <p>Kahvaltı, yemek ve kafe seçenekleri.</p>
 
           <div class="rating">★ 4.3</div>
 
-          <div class="details">
-            Pazar
-          </div>
+          <div class="details">Pazar</div>
 
           <div class="restaurant-hint">
             Detayları gör →
@@ -1147,13 +1183,9 @@
       </article>
 
 
-
-      <!-- AKTURKLER -->
-
       <article
         class="restaurant-card"
         tabindex="0"
-
         data-name="Aktürkler Lokantası"
         data-category="LOKANTA"
         data-description="Kadirli'de hizmet veren yerel lokantalardan biri."
@@ -1172,6 +1204,7 @@
         <div class="card-content">
 
           <small>LOKANTA</small>
+
           <h3>Aktürkler Lokantası</h3>
 
           <p>Yerel lokanta.</p>
@@ -1189,13 +1222,9 @@
       </article>
 
 
-
-      <!-- KADIRLI LAHMACUN -->
-
       <article
         class="restaurant-card"
         tabindex="0"
-
         data-name="Kadirli Lahmacun Restaurant"
         data-category="LAHMACUN"
         data-description="Lahmacun ve yöresel yemek seçenekleriyle hizmet veren Kadirli restoranı."
@@ -1214,6 +1243,7 @@
         <div class="card-content">
 
           <small>LAHMACUN</small>
+
           <h3>Kadirli Lahmacun Restaurant</h3>
 
           <p>Lahmacun ve yöresel yemekler.</p>
@@ -1231,13 +1261,9 @@
       </article>
 
 
-
-      <!-- DUMAN -->
-
       <article
         class="restaurant-card"
         tabindex="0"
-
         data-name="Duman Kebap Salonu"
         data-category="KEBAP"
         data-description="Kadirli'de kebap üzerine hizmet veren yerel mekanlardan biri."
@@ -1256,191 +1282,14 @@
         <div class="card-content">
 
           <small>KEBAP</small>
+
           <h3>Duman Kebap Salonu</h3>
 
-          <p>Kebap restoranı.</p>
+          <p>Kadirli'de kebap.</p>
 
           <div class="rating">★ 4.8</div>
 
-          <div class="details">
-            Kamil Kara Blv.
-          </div>
-
-          <div class="restaurant-hint">
-            Detayları gör →
-          </div>
-
-        </div>
-
-      </article>
-
-
-
-      <!-- AKDO -->
-
-      <article
-        class="restaurant-card"
-        tabindex="0"
-
-        data-name="Akdo Kahve"
-        data-category="CAFE"
-        data-description="Kahve ve oturma alanıyla Kadirli'deki yerel kafelerden biri."
-        data-rating="★ 4.2"
-        data-address="Savrun, 18. Sokak, Kadirli, Osmaniye"
-        data-phone="Telefon bilgisi daha sonra eklenecek."
-        data-hours="Çalışma saatlerini işletmeden doğrulayın."
-        data-image=""
-        data-emoji="☕"
-      >
-
-        <div class="card-image">
-          <div class="placeholder-image">☕</div>
-        </div>
-
-        <div class="card-content">
-
-          <small>CAFE</small>
-          <h3>Akdo Kahve</h3>
-
-          <p>Kahve ve oturma alanı.</p>
-
-          <div class="rating">★ 4.2</div>
-
-          <div class="details">
-            Savrun
-          </div>
-
-          <div class="restaurant-hint">
-            Detayları gör →
-          </div>
-
-        </div>
-
-      </article>
-
-
-
-      <!-- PIKNIK ET -->
-
-      <article
-        class="restaurant-card"
-        tabindex="0"
-
-        data-name="Piknik Et Lokantası"
-        data-category="ET RESTORANI"
-        data-description="Et yemekleri üzerine hizmet veren Kadirli restoranlarından biri."
-        data-rating="★ 4.1"
-        data-address="Söğütlüdere, 549. Sokak, Kadirli, Osmaniye"
-        data-phone="Telefon bilgisi daha sonra eklenecek."
-        data-hours="Çalışma saatlerini işletmeden doğrulayın."
-        data-image=""
-        data-emoji="🥩"
-      >
-
-        <div class="card-image">
-          <div class="placeholder-image">🥩</div>
-        </div>
-
-        <div class="card-content">
-
-          <small>ET RESTORANI</small>
-          <h3>Piknik Et Lokantası</h3>
-
-          <p>Et yemekleri.</p>
-
-          <div class="rating">★ 4.1</div>
-
-          <div class="details">
-            Söğütlüdere
-          </div>
-
-          <div class="restaurant-hint">
-            Detayları gör →
-          </div>
-
-        </div>
-
-      </article>
-
-
-
-      <!-- PINDA -->
-
-      <article
-        class="restaurant-card"
-        tabindex="0"
-
-        data-name="Pinda Espresso Bar"
-        data-category="ESPRESSO BAR"
-        data-description="Kahve ve espresso seçenekleriyle hizmet veren modern kafelerden biri."
-        data-rating="★ 4.4"
-        data-address="Cemal Paşa, Adalet Cd., Kadirli, Osmaniye"
-        data-phone="Telefon bilgisi daha sonra eklenecek."
-        data-hours="Çalışma saatlerini işletmeden doğrulayın."
-        data-image=""
-        data-emoji="☕"
-      >
-
-        <div class="card-image">
-          <div class="placeholder-image">☕</div>
-        </div>
-
-        <div class="card-content">
-
-          <small>ESPRESSO BAR</small>
-          <h3>Pinda Espresso Bar</h3>
-
-          <p>Kahve ve espresso.</p>
-
-          <div class="rating">★ 4.4</div>
-
-          <div class="details">
-            Cemal Paşa
-          </div>
-
-          <div class="restaurant-hint">
-            Detayları gör →
-          </div>
-
-        </div>
-
-      </article>
-
-
-
-      <!-- KARMA -->
-
-      <article
-        class="restaurant-card"
-        tabindex="0"
-
-        data-name="Karma Coffee"
-        data-category="COFFEE"
-        data-description="Kahve ve sosyal ortamıyla Kadirli'deki yeni nesil kahve mekanlarından biri."
-        data-rating="★ 4.6"
-        data-address="Cemalpaşa, 1667. Sokak, Kadirli, Osmaniye"
-        data-phone="Telefon bilgisi daha sonra eklenecek."
-        data-hours="Çalışma saatlerini işletmeden doğrulayın."
-        data-image=""
-        data-emoji="☕"
-      >
-
-        <div class="card-image">
-          <div class="placeholder-image">☕</div>
-        </div>
-
-        <div class="card-content">
-
-          <small>COFFEE</small>
-          <h3>Karma Coffee</h3>
-
-          <p>Yeni nesil kahve mekanı.</p>
-
-          <div class="rating">★ 4.6</div>
-
-          <div class="details">
-            Cemalpaşa
-          </div>
+          <div class="details">Kamil Kara Blv.</div>
 
           <div class="restaurant-hint">
             Detayları gör →
@@ -1458,16 +1307,17 @@
 </section>
 
 
-
-<!-- EIN MODAL FÜR ALLE RESTAURANTS -->
-
 <div
   class="restaurant-modal"
   id="restaurantModal"
   aria-hidden="true"
 >
 
-  <div class="modal-box">
+  <div
+    class="modal-box"
+    role="dialog"
+    aria-modal="true"
+  >
 
     <button
       class="modal-close"
@@ -1478,9 +1328,7 @@
       ×
     </button>
 
-
     <div id="modalMedia"></div>
-
 
     <div class="modal-content">
 
@@ -1496,7 +1344,6 @@
         id="modalDescription"
       ></p>
 
-
       <div class="modal-info-grid">
 
         <div class="modal-info">
@@ -1504,18 +1351,15 @@
           <span id="modalRating"></span>
         </div>
 
-
         <div class="modal-info">
           <strong>📍 Adres</strong>
           <span id="modalAddress"></span>
         </div>
 
-
         <div class="modal-info">
           <strong>☎ Telefon</strong>
           <span id="modalPhone"></span>
         </div>
-
 
         <div class="modal-info">
           <strong>🕒 Çalışma Saatleri</strong>
@@ -1523,7 +1367,6 @@
         </div>
 
       </div>
-
 
       <div class="modal-actions">
 
@@ -1536,7 +1379,6 @@
         >
           📍 Yol Tarifi
         </a>
-
 
         <a
           href="#"
@@ -1555,206 +1397,20 @@
 </div>
 
 
-
-<script>
-
-  const restaurantCards =
-    document.querySelectorAll(".restaurant-card");
-
-  const modal =
-    document.getElementById("restaurantModal");
-
-  const modalClose =
-    document.getElementById("modalClose");
-
-
-  function openRestaurant(card) {
-
-    const name = card.dataset.name;
-    const category = card.dataset.category;
-    const description = card.dataset.description;
-    const rating = card.dataset.rating;
-    const address = card.dataset.address;
-    const phone = card.dataset.phone;
-    const hours = card.dataset.hours;
-    const image = card.dataset.image;
-    const emoji = card.dataset.emoji;
-
-
-    document.getElementById("modalName").textContent =
-      name;
-
-    document.getElementById("modalCategory").textContent =
-      category;
-
-    document.getElementById("modalDescription").textContent =
-      description;
-
-    document.getElementById("modalRating").textContent =
-      rating;
-
-    document.getElementById("modalAddress").textContent =
-      address;
-
-    document.getElementById("modalPhone").textContent =
-      phone;
-
-    document.getElementById("modalHours").textContent =
-      hours;
-
-
-    const media =
-      document.getElementById("modalMedia");
-
-
-    if (image) {
-
-      media.innerHTML =
-        `<img
-          class="modal-image"
-          src="${image}"
-          alt="${name}"
-        >`;
-
-    } else {
-
-      media.innerHTML =
-        `<div class="modal-placeholder">
-          ${emoji}
-        </div>`;
-
-    }
-
-
-    const routeQuery =
-      encodeURIComponent(name + ", " + address);
-
-
-    document.getElementById("modalRoute").href =
-      "https://www.google.com/maps/search/?api=1&query=" +
-      routeQuery;
-
-
-    const callButton =
-      document.getElementById("modalCall");
-
-
-    if (phone.startsWith("0")) {
-
-      const cleanPhone =
-        phone.replace(/\s/g, "");
-
-      callButton.href =
-        "tel:" + cleanPhone;
-
-      callButton.style.display =
-        "inline-block";
-
-    } else {
-
-      callButton.style.display =
-        "none";
-
-    }
-
-
-    modal.classList.add("open");
-
-    modal.setAttribute(
-      "aria-hidden",
-      "false"
-    );
-
-  }
-
-
-  function closeRestaurant() {
-
-    modal.classList.remove("open");
-
-    modal.setAttribute(
-      "aria-hidden",
-      "true"
-    );
-
-  }
-
-
-  restaurantCards.forEach(card => {
-
-    card.addEventListener(
-      "click",
-      () => openRestaurant(card)
-    );
-
-
-    card.addEventListener(
-      "keydown",
-      event => {
-
-        if (
-          event.key === "Enter" ||
-          event.key === " "
-        ) {
-
-          event.preventDefault();
-
-          openRestaurant(card);
-
-        }
-
-      }
-    );
-
-  });
-
-
-  modalClose.addEventListener(
-    "click",
-    closeRestaurant
-  );
-
-
-  modal.addEventListener(
-    "click",
-    event => {
-
-      if (event.target === modal) {
-        closeRestaurant();
-      }
-
-    }
-  );
-
-
-  document.addEventListener(
-    "keydown",
-    event => {
-
-      if (
-        event.key === "Escape" &&
-        modal.classList.contains("open")
-      ) {
-
-        closeRestaurant();
-
-      }
-
-    }
-  );
-
-</script>
-
 <section id="isletmeler">
 
   <div class="container">
 
     <div class="section-title">
+
       <span>Yerel Rehber</span>
+
       <h2>İşletme Kategorileri</h2>
+
       <p>
         Kadirli'deki işletmeleri kategori kategori bul.
       </p>
+
     </div>
 
     <div class="business-grid">
@@ -1853,18 +1509,24 @@
   <div class="container">
 
     <div class="section-title">
+
       <span>Konum</span>
+
       <h2>Kadirli Haritası</h2>
+
       <p>
         Şehir merkezini ve çevresini incele.
       </p>
+
     </div>
 
     <div class="map-container">
 
       <iframe
         src="https://www.openstreetmap.org/export/embed.html?bbox=36.04%2C37.31%2C36.15%2C37.43&layer=mapnik&marker=37.373%2C36.096"
-        loading="lazy">
+        loading="lazy"
+        title="Kadirli Haritası"
+      >
       </iframe>
 
     </div>
@@ -1879,17 +1541,22 @@
   <div class="cta-box">
 
     <div>
-      <h2>Kadirli'de bir işletmen mi var?</h2>
+
+      <h2>
+        Kadirli'de bir işletmen mi var?
+      </h2>
 
       <p>
         İşletmeni Güzelim Kadirli'ye eklemek
         veya yanlış bilgiyi bildirmek için bize ulaş.
       </p>
+
     </div>
 
     <a
       class="cta-button"
-      href="mailto:info@guzelimkadirli.com">
+      href="mailto:info@guzelimkadirli.com"
+    >
       Bize Ulaş
     </a>
 
@@ -1903,14 +1570,18 @@
   <div class="footer-grid">
 
     <div>
+
       <h3>Güzelim Kadirli</h3>
 
       <p>
-        Kadirli için yerel şehir, mekan ve işletme rehberi.
+        Kadirli için yerel şehir,
+        mekan ve işletme rehberi.
       </p>
+
     </div>
 
     <div>
+
       <h3>Keşfet</h3>
 
       <ul>
@@ -1918,9 +1589,11 @@
         <li><a href="#yeme">Yeme & İçme</a></li>
         <li><a href="#isletmeler">İşletmeler</a></li>
       </ul>
+
     </div>
 
     <div>
+
       <h3>Bilgi</h3>
 
       <ul>
@@ -1928,6 +1601,7 @@
         <li><a href="#harita">Harita</a></li>
         <li><a href="#iletisim">İletişim</a></li>
       </ul>
+
     </div>
 
   </div>
@@ -1941,8 +1615,228 @@
 
 
 <script>
+
   document.getElementById("year").textContent =
     new Date().getFullYear();
+
+
+  const restaurantCards =
+    document.querySelectorAll(".restaurant-card");
+
+  const modal =
+    document.getElementById("restaurantModal");
+
+  const modalClose =
+    document.getElementById("modalClose");
+
+  const modalMedia =
+    document.getElementById("modalMedia");
+
+  const modalName =
+    document.getElementById("modalName");
+
+  const modalCategory =
+    document.getElementById("modalCategory");
+
+  const modalDescription =
+    document.getElementById("modalDescription");
+
+  const modalRating =
+    document.getElementById("modalRating");
+
+  const modalAddress =
+    document.getElementById("modalAddress");
+
+  const modalPhone =
+    document.getElementById("modalPhone");
+
+  const modalHours =
+    document.getElementById("modalHours");
+
+  const modalRoute =
+    document.getElementById("modalRoute");
+
+  const modalCall =
+    document.getElementById("modalCall");
+
+
+  let lastOpenedCard = null;
+
+
+  function openRestaurant(card) {
+
+    lastOpenedCard = card;
+
+    const name = card.dataset.name;
+    const category = card.dataset.category;
+    const description = card.dataset.description;
+    const rating = card.dataset.rating;
+    const address = card.dataset.address;
+    const phone = card.dataset.phone;
+    const hours = card.dataset.hours;
+    const image = card.dataset.image;
+    const emoji = card.dataset.emoji;
+
+
+    modalName.textContent = name;
+    modalCategory.textContent = category;
+    modalDescription.textContent = description;
+    modalRating.textContent = rating;
+    modalAddress.textContent = address;
+    modalPhone.textContent = phone;
+    modalHours.textContent = hours;
+
+
+    if (image) {
+
+      modalMedia.innerHTML = `
+        <img
+          class="modal-image"
+          src="${image}"
+          alt="${name}"
+        >
+      `;
+
+    } else {
+
+      modalMedia.innerHTML = `
+        <div class="modal-placeholder">
+          ${emoji}
+        </div>
+      `;
+
+    }
+
+
+    const routeQuery =
+      encodeURIComponent(
+        name + ", " + address
+      );
+
+
+    modalRoute.href =
+      "https://www.google.com/maps/search/?api=1&query=" +
+      routeQuery;
+
+
+    if (phone.startsWith("0")) {
+
+      const cleanPhone =
+        phone.replace(/\s/g, "");
+
+      modalCall.href =
+        "tel:" + cleanPhone;
+
+      modalCall.style.display =
+        "inline-flex";
+
+    } else {
+
+      modalCall.style.display =
+        "none";
+
+    }
+
+
+    modal.classList.add("open");
+
+    modal.setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+    document.body.classList.add(
+      "modal-open"
+    );
+
+    modalClose.focus();
+
+  }
+
+
+  function closeRestaurant() {
+
+    modal.classList.remove("open");
+
+    modal.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+    document.body.classList.remove(
+      "modal-open"
+    );
+
+    if (lastOpenedCard) {
+      lastOpenedCard.focus();
+    }
+
+  }
+
+
+  restaurantCards.forEach(card => {
+
+    card.addEventListener(
+      "click",
+      () => openRestaurant(card)
+    );
+
+
+    card.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key === "Enter" ||
+          event.key === " "
+        ) {
+
+          event.preventDefault();
+
+          openRestaurant(card);
+
+        }
+
+      }
+    );
+
+  });
+
+
+  modalClose.addEventListener(
+    "click",
+    closeRestaurant
+  );
+
+
+  modal.addEventListener(
+    "click",
+    event => {
+
+      if (event.target === modal) {
+        closeRestaurant();
+      }
+
+    }
+  );
+
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key === "Escape" &&
+        modal.classList.contains("open")
+      ) {
+
+        closeRestaurant();
+
+      }
+
+    }
+  );
+
 </script>
 
 </body>
