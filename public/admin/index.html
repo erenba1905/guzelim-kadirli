@@ -2,7 +2,6 @@
 <html lang="tr">
 
 <head>
-
   <meta charset="UTF-8">
 
   <meta
@@ -10,33 +9,21 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>
-    Güzelim Kadirli Admin
-  </title>
-
+  <title>Güzelim Kadirli Admin</title>
 
   <style>
-
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-
     body {
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
+      font-family: Arial, Helvetica, sans-serif;
       background: #f5f7f5;
-
       color: #1f2933;
-
       line-height: 1.5;
     }
-
 
     button,
     input,
@@ -45,648 +32,414 @@
       font: inherit;
     }
 
-
     button {
       cursor: pointer;
     }
 
-
     .login {
       max-width: 450px;
-
       margin: 80px auto;
-
       padding: 28px;
-
       background: white;
-
-      border:
-        1px solid #e0e6e1;
-
+      border: 1px solid #e0e6e1;
       border-radius: 18px;
     }
-
 
     .login h2 {
       margin-bottom: 8px;
     }
 
-
     .login p {
       margin-bottom: 20px;
-
       color: #68736d;
     }
 
-
     .login input {
       width: 100%;
-
       min-height: 46px;
-
       padding: 10px 12px;
-
       margin-bottom: 12px;
-
-      border:
-        1px solid #d8dfda;
-
+      border: 1px solid #d8dfda;
       border-radius: 9px;
     }
-
 
     .login button {
       width: 100%;
-
       min-height: 46px;
-
       border: 0;
-
       border-radius: 9px;
-
       background: #1f7a4d;
-
       color: white;
-
       font-weight: bold;
     }
-
 
     .login-error {
       margin-top: 10px;
-
       color: #a22;
-
       font-size: 14px;
     }
 
-
     header {
       background: #173122;
-
       color: white;
-
       padding: 18px 24px;
     }
 
-
     .header-inner {
       max-width: 1150px;
-
       margin: auto;
-
       display: flex;
-
       justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
 
+    .header-actions {
+      display: flex;
+      gap: 15px;
       align-items: center;
     }
 
-
     header a {
       color: white;
-
       text-decoration: none;
     }
 
+    .logout {
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 8px;
+      background: transparent;
+      color: white;
+      padding: 8px 12px;
+    }
 
     main {
       max-width: 1150px;
-
       margin: 35px auto;
-
-      padding:
-        0
-        20px
-        60px;
+      padding: 0 20px 60px;
     }
-
 
     .tabs {
       display: flex;
-
       flex-wrap: wrap;
-
       gap: 10px;
-
       margin-bottom: 22px;
     }
 
-
     .tab {
       padding: 10px 17px;
-
-      border:
-        1px solid #d7ded8;
-
+      border: 1px solid #d7ded8;
       border-radius: 9px;
-
       background: white;
-
       font-weight: bold;
     }
 
-
     .tab.active {
       background: #1f7a4d;
-
       color: white;
-
       border-color: #1f7a4d;
     }
-
 
     .panel {
       display: none;
     }
 
-
     .panel.active {
       display: block;
     }
 
-
     .box {
       padding: 24px;
-
       margin-bottom: 22px;
-
       background: white;
-
-      border:
-        1px solid #e1e6e2;
-
+      border: 1px solid #e1e6e2;
       border-radius: 16px;
     }
 
-
     .box-head {
       display: flex;
-
       justify-content: space-between;
-
       align-items: center;
-
       gap: 15px;
-
       flex-wrap: wrap;
-
       margin-bottom: 20px;
     }
-
 
     .box-head p {
       color: #68736d;
     }
 
-
     .primary {
       padding: 10px 15px;
-
       border: 0;
-
       border-radius: 9px;
-
       background: #1f7a4d;
-
       color: white;
-
       font-weight: bold;
     }
-
 
     .secondary {
       padding: 10px 15px;
-
-      border:
-        1px solid #d8dfda;
-
+      border: 1px solid #d8dfda;
       border-radius: 9px;
-
       background: white;
-
       font-weight: bold;
     }
-
 
     .danger {
       padding: 9px 13px;
-
       border: 0;
-
       border-radius: 8px;
-
       background: #b84444;
-
       color: white;
-
       font-weight: bold;
     }
-
 
     .warning {
       padding: 9px 13px;
-
       border: 0;
-
       border-radius: 8px;
-
       background: #d59b31;
-
       color: white;
-
       font-weight: bold;
     }
-
 
     .edit {
       padding: 9px 13px;
-
       border: 0;
-
       border-radius: 8px;
-
       background: #e5eee8;
-
       color: #1f7a4d;
-
       font-weight: bold;
     }
-
 
     .list {
       display: grid;
-
       gap: 15px;
     }
-
 
     .item {
       padding: 19px;
-
-      border:
-        1px solid #e1e6e2;
-
+      border: 1px solid #e1e6e2;
       border-radius: 13px;
-
       background: #fafcfb;
     }
 
-
     .item-top {
       display: flex;
-
       justify-content: space-between;
-
       align-items: flex-start;
-
       gap: 15px;
-
       flex-wrap: wrap;
-
       margin-bottom: 13px;
     }
 
-
     .item-name {
       font-size: 20px;
-
       font-weight: bold;
     }
-
 
     .status {
       padding: 5px 9px;
-
       border-radius: 20px;
-
       font-size: 12px;
-
       font-weight: bold;
     }
 
-
     .pending {
       background: #fff1c9;
-
       color: #755600;
     }
 
-
     .approved {
       background: #def3e6;
-
       color: #176338;
     }
-
 
     .rejected {
       background: #f9dddd;
-
       color: #962e2e;
     }
 
-
     .active-status {
       background: #def3e6;
-
       color: #176338;
     }
 
-
     .inactive-status {
       background: #e8ece9;
-
       color: #626c66;
     }
 
-
     .info-grid {
       display: grid;
-
-      grid-template-columns:
-        repeat(
-          2,
-          1fr
-        );
-
+      grid-template-columns: repeat(2, 1fr);
       gap: 9px;
-
       margin-bottom: 14px;
     }
-
 
     .info {
       padding: 11px;
-
       background: white;
-
-      border:
-        1px solid #e5e9e6;
-
+      border: 1px solid #e5e9e6;
       border-radius: 9px;
-
       font-size: 14px;
     }
 
-
     .info strong {
       display: block;
-
       color: #1f7a4d;
-
       font-size: 12px;
     }
 
-
     .message {
       margin-bottom: 14px;
-
       padding: 11px;
-
       background: white;
-
-      border:
-        1px solid #e5e9e6;
-
+      border: 1px solid #e5e9e6;
       border-radius: 9px;
-
       white-space: pre-wrap;
     }
 
-
     .actions {
       display: flex;
-
       flex-wrap: wrap;
-
       gap: 8px;
     }
-
 
     .loading,
     .empty,
     .error {
       padding: 25px;
-
       border-radius: 10px;
-
       text-align: center;
     }
-
 
     .loading,
     .empty {
       background: #f0f3f1;
-
       color: #66716b;
     }
 
-
     .error {
       background: #fff0f0;
-
       color: #922;
     }
 
-
-    /* MODAL */
-
-
     .modal {
       display: none;
-
       position: fixed;
-
       inset: 0;
-
       z-index: 1000;
-
       align-items: center;
-
       justify-content: center;
-
       padding: 20px;
-
-      background:
-        rgba(
-          10,
-          18,
-          13,
-          0.76
-        );
+      background: rgba(10,18,13,0.76);
     }
-
 
     .modal.open {
       display: flex;
     }
 
-
     .modal-box {
       position: relative;
-
       width: 100%;
-
       max-width: 750px;
-
       max-height: 92vh;
-
       overflow-y: auto;
-
       padding: 25px;
-
       background: white;
-
       border-radius: 18px;
     }
 
-
     .modal-close {
       position: absolute;
-
       top: 13px;
-
       right: 13px;
-
       width: 37px;
-
       height: 37px;
-
       border: 0;
-
       border-radius: 50%;
-
       background: #1f2933;
-
       color: white;
-
       font-size: 20px;
     }
-
 
     .modal h2 {
       margin-bottom: 20px;
     }
 
-
     .form-grid {
       display: grid;
-
-      grid-template-columns:
-        1fr
-        1fr;
-
+      grid-template-columns: 1fr 1fr;
       gap: 13px;
     }
 
-
     .form-group.full {
-      grid-column:
-        1 / -1;
+      grid-column: 1 / -1;
     }
-
 
     label {
       display: block;
-
       margin-bottom: 5px;
-
       font-size: 13px;
-
       font-weight: bold;
     }
-
 
     input,
     textarea,
     select {
       width: 100%;
-
       min-height: 44px;
-
       padding: 10px;
-
-      border:
-        1px solid #dce3de;
-
+      border: 1px solid #dce3de;
       border-radius: 8px;
     }
 
-
     textarea {
       min-height: 100px;
-
       resize: vertical;
     }
 
-
     .checkbox {
       display: flex;
-
       align-items: center;
-
       gap: 8px;
     }
 
-
     .checkbox input {
       width: auto;
-
       min-height: auto;
     }
 
-
     .form-actions {
       display: flex;
-
       gap: 9px;
-
       margin-top: 18px;
     }
 
-
-    @media (
-      max-width: 650px
-    ) {
-
+    @media (max-width: 650px) {
       .header-inner {
         flex-direction: column;
-
         align-items: flex-start;
-
-        gap: 5px;
       }
-
 
       .info-grid,
       .form-grid {
         grid-template-columns: 1fr;
       }
 
-
       .form-group.full {
         grid-column: auto;
       }
-
     }
-
   </style>
-
 </head>
-
 
 <body>
 
-
-<div
-  id="loginView"
-  class="login"
->
-
-  <h2>
-    Admin Girişi
-  </h2>
+<div id="loginView" class="login">
+  <h2>Admin Girişi</h2>
 
   <p>
     Yönetim paneline giriş yap.
@@ -696,6 +449,7 @@
     id="password"
     type="password"
     placeholder="Admin şifresi"
+    autocomplete="current-password"
   >
 
   <button
@@ -709,7 +463,6 @@
     id="loginError"
     class="login-error"
   ></div>
-
 </div>
 
 
@@ -719,19 +472,29 @@
 >
 
 <header>
-
   <div class="header-inner">
 
     <h2>
       Güzelim Kadirli Admin
     </h2>
 
-    <a href="/">
-      ← Siteye dön
-    </a>
+    <div class="header-actions">
+
+      <a href="/">
+        ← Siteye dön
+      </a>
+
+      <button
+        id="logoutButton"
+        class="logout"
+        type="button"
+      >
+        Çıkış
+      </button>
+
+    </div>
 
   </div>
-
 </header>
 
 
@@ -742,6 +505,7 @@
     <button
       class="tab active"
       data-tab="requests"
+      type="button"
     >
       Başvurular
     </button>
@@ -749,6 +513,7 @@
     <button
       class="tab"
       data-tab="restaurants"
+      type="button"
     >
       Restoranlar
     </button>
@@ -756,14 +521,13 @@
     <button
       class="tab"
       data-tab="places"
+      type="button"
     >
       Gezilecek Yerler
     </button>
 
   </div>
 
-
-  <!-- REQUESTS -->
 
   <section
     id="requests"
@@ -780,14 +544,14 @@
           </h2>
 
           <p>
-            Onaylanan restoran ve kafeler
-            otomatik siteye eklenir.
+            Başvuruları yönet.
           </p>
         </div>
 
         <button
           id="refreshRequests"
           class="secondary"
+          type="button"
         >
           Yenile
         </button>
@@ -800,8 +564,6 @@
 
   </section>
 
-
-  <!-- RESTAURANTS -->
 
   <section
     id="restaurants"
@@ -822,12 +584,12 @@
           </p>
         </div>
 
-
         <div class="actions">
 
           <button
             id="refreshRestaurants"
             class="secondary"
+            type="button"
           >
             Yenile
           </button>
@@ -835,6 +597,7 @@
           <button
             id="newRestaurant"
             class="primary"
+            type="button"
           >
             + Yeni Restoran
           </button>
@@ -843,15 +606,12 @@
 
       </div>
 
-
       <div id="restaurantList"></div>
 
     </div>
 
   </section>
 
-
-  <!-- PLACES -->
 
   <section
     id="places"
@@ -868,17 +628,16 @@
           </h2>
 
           <p>
-            Ala Camii, Karatepe-Aslantaş
-            gibi yerleri buradan yönet.
+            Gezilecek yerleri yönet.
           </p>
         </div>
-
 
         <div class="actions">
 
           <button
             id="refreshPlaces"
             class="secondary"
+            type="button"
           >
             Yenile
           </button>
@@ -886,6 +645,7 @@
           <button
             id="newPlace"
             class="primary"
+            type="button"
           >
             + Yeni Yer
           </button>
@@ -893,7 +653,6 @@
         </div>
 
       </div>
-
 
       <div id="placeList"></div>
 
@@ -905,8 +664,6 @@
 
 </div>
 
-
-<!-- GENERIC EDIT MODAL -->
 
 <div
   id="editModal"
@@ -959,17 +716,10 @@
 
 
 <script>
-
-let password = "";
-
 let restaurants = [];
-
 let places = [];
-
 let editType = "";
-
 let editId = null;
-
 
 const loginView =
   document.getElementById("loginView");
@@ -1007,69 +757,161 @@ async function adminFetch(
   url,
   options = {}
 ) {
-
-  return fetch(
-    url,
-    {
-      ...options,
-
-      headers: {
-        ...(options.headers || {}),
-
-        "X-Admin-Password":
-          password
+  const response =
+    await fetch(
+      url,
+      {
+        ...options,
+        credentials: "same-origin",
+        headers: {
+          ...(options.headers || {})
+        }
       }
-    }
-  );
+    );
 
+  if (
+    response.status === 401
+  ) {
+    showLogin();
+  }
+
+  return response;
 }
 
 
-/* LOGIN */
+function showLogin() {
+  adminView.style.display =
+    "none";
+
+  loginView.style.display =
+    "block";
+}
 
 
-async function login() {
-
-  password =
-    document
-      .getElementById("password")
-      .value
-      .trim();
-
-
-  const response =
-    await adminFetch(
-      "/api/admin/requests"
-    );
-
-
-  if (!response.ok) {
-
-    password = "";
-
-    document
-      .getElementById("loginError")
-      .textContent =
-        "Şifre yanlış.";
-
-    return;
-
-  }
-
-
+function showAdmin() {
   loginView.style.display =
     "none";
 
   adminView.style.display =
     "block";
+}
 
 
-  await Promise.all([
-    loadRequests(),
-    loadRestaurants(),
-    loadPlaces()
-  ]);
+async function checkSession() {
+  try {
+    const response =
+      await fetch(
+        "/api/admin/session",
+        {
+          credentials:
+            "same-origin"
+        }
+      );
 
+    const data =
+      await response.json();
+
+    if (
+      data.authenticated
+    ) {
+      showAdmin();
+
+      await Promise.all([
+        loadRequests(),
+        loadRestaurants(),
+        loadPlaces()
+      ]);
+
+    } else {
+      showLogin();
+    }
+
+  } catch {
+    showLogin();
+  }
+}
+
+
+async function login() {
+  const password =
+    document
+      .getElementById("password")
+      .value;
+
+  const loginError =
+    document
+      .getElementById("loginError");
+
+  loginError.textContent = "";
+
+  if (!password) {
+    loginError.textContent =
+      "Şifre girmen gerekiyor.";
+    return;
+  }
+
+  try {
+    const response =
+      await fetch(
+        "/api/admin/login",
+        {
+          method: "POST",
+
+          credentials:
+            "same-origin",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+              password
+            })
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.error ||
+        "Giriş başarısız."
+      );
+    }
+
+    document
+      .getElementById("password")
+      .value = "";
+
+    showAdmin();
+
+    await Promise.all([
+      loadRequests(),
+      loadRestaurants(),
+      loadPlaces()
+    ]);
+
+  } catch (error) {
+    loginError.textContent =
+      error.message;
+  }
+}
+
+
+async function logout() {
+  await fetch(
+    "/api/admin/logout",
+    {
+      method: "POST",
+      credentials:
+        "same-origin"
+    }
+  );
+
+  showLogin();
 }
 
 
@@ -1082,22 +924,25 @@ document
 
 
 document
+  .getElementById("logoutButton")
+  .addEventListener(
+    "click",
+    logout
+  );
+
+
+document
   .getElementById("password")
   .addEventListener(
     "keydown",
     event => {
-
       if (
         event.key === "Enter"
       ) {
         login();
       }
-
     }
   );
-
-
-/* TABS */
 
 
 document
@@ -1116,7 +961,6 @@ document
             )
           );
 
-
         document
           .querySelectorAll(".panel")
           .forEach(item =>
@@ -1125,11 +969,9 @@ document
             )
           );
 
-
         button.classList.add(
           "active"
         );
-
 
         document
           .getElementById(
@@ -1138,95 +980,68 @@ document
           .classList.add(
             "active"
           );
-
       }
     );
 
   });
 
 
-/* REQUESTS */
-
-
 async function loadRequests() {
-
   requestList.innerHTML =
     '<div class="loading">Yükleniyor...</div>';
-
 
   const response =
     await adminFetch(
       "/api/admin/requests"
     );
 
+  if (!response.ok) {
+    return;
+  }
 
   const data =
     await response.json();
 
-
-  if (!response.ok) {
-
-    requestList.innerHTML =
-      '<div class="error">Başvurular yüklenemedi.</div>';
-
-    return;
-
-  }
-
-
   const requests =
     data.requests || [];
 
-
   if (!requests.length) {
-
     requestList.innerHTML =
       '<div class="empty">Henüz başvuru yok.</div>';
-
     return;
-
   }
-
 
   const wrapper =
     document.createElement("div");
 
-
   wrapper.className =
     "list";
 
-
   requests.forEach(item => {
-
     const card =
-      document.createElement("article");
-
+      document.createElement(
+        "article"
+      );
 
     card.className =
       "item";
 
-
     card.innerHTML = `
-
       <div class="item-top">
 
         <div>
-
           <div class="item-name">
             ${escapeHtml(item.business_name)}
           </div>
 
           ${escapeHtml(item.category)}
-
         </div>
-
 
         <span class="status ${escapeHtml(item.status)}">
           ${escapeHtml(item.status)}
         </span>
 
       </div>
-
 
       <div class="info-grid">
 
@@ -1242,54 +1057,48 @@ async function loadRequests() {
 
       </div>
 
-
       <div class="message">
         ${escapeHtml(item.message || "Mesaj yok")}
       </div>
 
-
       <div class="actions">
 
         ${
-          item.status !== "approved"
-
-          ? `
-            <button
-              class="primary"
-              data-approve="${item.id}"
-            >
-              ✓ Onayla
-            </button>
-          `
-
-          : ""
+          item.status !==
+          "approved"
+            ? `
+              <button
+                class="primary"
+                data-approve="${item.id}"
+                type="button"
+              >
+                ✓ Onayla
+              </button>
+            `
+            : ""
         }
-
 
         <button
           class="warning"
           data-reject="${item.id}"
+          type="button"
         >
           ✕ Reddet
         </button>
 
-
         <button
           class="danger"
           data-request-delete="${item.id}"
+          type="button"
         >
           Sil
         </button>
 
       </div>
-
     `;
 
-
     wrapper.appendChild(card);
-
   });
-
 
   requestList.innerHTML = "";
 
@@ -1297,13 +1106,11 @@ async function loadRequests() {
     wrapper
   );
 
-
   requestList
     .querySelectorAll(
       "[data-approve]"
     )
     .forEach(button => {
-
       button.addEventListener(
         "click",
         () =>
@@ -1311,16 +1118,13 @@ async function loadRequests() {
             button.dataset.approve
           )
       );
-
     });
-
 
   requestList
     .querySelectorAll(
       "[data-reject]"
     )
     .forEach(button => {
-
       button.addEventListener(
         "click",
         () =>
@@ -1328,16 +1132,13 @@ async function loadRequests() {
             button.dataset.reject
           )
       );
-
     });
-
 
   requestList
     .querySelectorAll(
       "[data-request-delete]"
     )
     .forEach(button => {
-
       button.addEventListener(
         "click",
         () =>
@@ -1345,14 +1146,11 @@ async function loadRequests() {
             button.dataset.requestDelete
           )
       );
-
     });
-
 }
 
 
 async function approveRequest(id) {
-
   const response =
     await adminFetch(
       `/api/admin/requests/${id}/approve`,
@@ -1361,50 +1159,25 @@ async function approveRequest(id) {
       }
     );
 
-
   const data =
     await response.json();
 
-
   if (!response.ok) {
-
     alert(
       data.error ||
       "Onaylama başarısız."
     );
-
     return;
-
   }
-
-
-  if (
-    data.restaurant_created
-  ) {
-
-    alert(
-      "Başvuru onaylandı ve restoran siteye eklendi."
-    );
-
-  } else {
-
-    alert(
-      "Başvuru onaylandı."
-    );
-
-  }
-
 
   await Promise.all([
     loadRequests(),
     loadRestaurants()
   ]);
-
 }
 
 
 async function rejectRequest(id) {
-
   await adminFetch(
     `/api/admin/requests/${id}`,
     {
@@ -1422,14 +1195,11 @@ async function rejectRequest(id) {
     }
   );
 
-
   loadRequests();
-
 }
 
 
 async function deleteRequest(id) {
-
   if (
     !confirm(
       "Başvuru silinsin mi?"
@@ -1438,7 +1208,6 @@ async function deleteRequest(id) {
     return;
   }
 
-
   await adminFetch(
     `/api/admin/requests/${id}`,
     {
@@ -1446,84 +1215,65 @@ async function deleteRequest(id) {
     }
   );
 
-
   loadRequests();
-
 }
 
 
-/* RESTAURANTS */
-
-
 async function loadRestaurants() {
-
   restaurantList.innerHTML =
     '<div class="loading">Yükleniyor...</div>';
-
 
   const response =
     await adminFetch(
       "/api/admin/restaurants"
     );
 
+  if (!response.ok) {
+    return;
+  }
 
   const data =
     await response.json();
 
-
   restaurants =
     data.restaurants || [];
 
-
   renderRestaurants();
-
 }
 
 
 function renderRestaurants() {
-
   if (!restaurants.length) {
-
     restaurantList.innerHTML =
       '<div class="empty">Restoran yok.</div>';
-
     return;
-
   }
-
 
   const wrapper =
     document.createElement("div");
 
-
   wrapper.className =
     "list";
 
-
   restaurants.forEach(item => {
-
     const card =
-      document.createElement("article");
-
+      document.createElement(
+        "article"
+      );
 
     card.className =
       "item";
 
-
     card.innerHTML = `
-
       <div class="item-top">
 
         <div>
-
           <div class="item-name">
             ${escapeHtml(item.name)}
           </div>
 
           ${escapeHtml(item.category)}
-
         </div>
-
 
         <span
           class="status ${
@@ -1540,7 +1290,6 @@ function renderRestaurants() {
         </span>
 
       </div>
-
 
       <div class="info-grid">
 
@@ -1556,38 +1305,33 @@ function renderRestaurants() {
 
       </div>
 
-
       <div class="message">
         ${escapeHtml(item.address || "Adres yok")}
       </div>
-
 
       <div class="actions">
 
         <button
           class="edit"
           data-edit-restaurant="${item.id}"
+          type="button"
         >
           Düzenle
         </button>
 
-
         <button
           class="danger"
           data-delete-restaurant="${item.id}"
+          type="button"
         >
           Sil
         </button>
 
       </div>
-
     `;
 
-
     wrapper.appendChild(card);
-
   });
-
 
   restaurantList.innerHTML = "";
 
@@ -1595,13 +1339,11 @@ function renderRestaurants() {
     wrapper
   );
 
-
   restaurantList
     .querySelectorAll(
       "[data-edit-restaurant]"
     )
     .forEach(button => {
-
       button.addEventListener(
         "click",
         () =>
@@ -1611,16 +1353,13 @@ function renderRestaurants() {
             )
           )
       );
-
     });
-
 
   restaurantList
     .querySelectorAll(
       "[data-delete-restaurant]"
     )
     .forEach(button => {
-
       button.addEventListener(
         "click",
         () =>
@@ -1628,84 +1367,65 @@ function renderRestaurants() {
             button.dataset.deleteRestaurant
           )
       );
-
     });
-
 }
 
 
-/* PLACES */
-
-
 async function loadPlaces() {
-
   placeList.innerHTML =
     '<div class="loading">Yükleniyor...</div>';
-
 
   const response =
     await adminFetch(
       "/api/admin/places"
     );
 
+  if (!response.ok) {
+    return;
+  }
 
   const data =
     await response.json();
 
-
   places =
     data.places || [];
 
-
   renderPlaces();
-
 }
 
 
 function renderPlaces() {
-
   if (!places.length) {
-
     placeList.innerHTML =
       '<div class="empty">Yer yok.</div>';
-
     return;
-
   }
-
 
   const wrapper =
     document.createElement("div");
 
-
   wrapper.className =
     "list";
 
-
   places.forEach(item => {
-
     const card =
-      document.createElement("article");
-
+      document.createElement(
+        "article"
+      );
 
     card.className =
       "item";
 
-
     card.innerHTML = `
-
       <div class="item-top">
 
         <div>
-
           <div class="item-name">
             ${escapeHtml(item.name)}
           </div>
 
           ${escapeHtml(item.category)}
-
         </div>
-
 
         <span
           class="status ${
@@ -1723,38 +1443,33 @@ function renderPlaces() {
 
       </div>
 
-
       <div class="message">
         ${escapeHtml(item.address || "-")}
       </div>
-
 
       <div class="actions">
 
         <button
           class="edit"
           data-edit-place="${item.id}"
+          type="button"
         >
           Düzenle
         </button>
 
-
         <button
           class="danger"
           data-delete-place="${item.id}"
+          type="button"
         >
           Sil
         </button>
 
       </div>
-
     `;
 
-
     wrapper.appendChild(card);
-
   });
-
 
   placeList.innerHTML = "";
 
@@ -1762,13 +1477,11 @@ function renderPlaces() {
     wrapper
   );
 
-
   placeList
     .querySelectorAll(
       "[data-edit-place]"
     )
     .forEach(button => {
-
       button.addEventListener(
         "click",
         () =>
@@ -1778,16 +1491,13 @@ function renderPlaces() {
             )
           )
       );
-
     });
-
 
   placeList
     .querySelectorAll(
       "[data-delete-place]"
     )
     .forEach(button => {
-
       button.addEventListener(
         "click",
         () =>
@@ -1795,30 +1505,17 @@ function renderPlaces() {
             button.dataset.deletePlace
           )
       );
-
     });
-
 }
 
 
-/* GENERIC MODAL */
-
-
 function openModal() {
-
-  modal.classList.add(
-    "open"
-  );
-
+  modal.classList.add("open");
 }
 
 
 function closeModal() {
-
-  modal.classList.remove(
-    "open"
-  );
-
+  modal.classList.remove("open");
 }
 
 
@@ -1838,17 +1535,11 @@ document
   );
 
 
-/* RESTAURANT FORM */
-
-
-function openRestaurantForm(id = null) {
-
-  editType =
-    "restaurant";
-
-  editId =
-    id;
-
+function openRestaurantForm(
+  id = null
+) {
+  editType = "restaurant";
+  editId = id;
 
   const item =
     restaurants.find(
@@ -1857,7 +1548,6 @@ function openRestaurantForm(id = null) {
         Number(id)
     ) || {};
 
-
   document
     .getElementById("modalTitle")
     .textContent =
@@ -1865,9 +1555,7 @@ function openRestaurantForm(id = null) {
         ? "Restoran Düzenle"
         : "Yeni Restoran";
 
-
   formFields.innerHTML = `
-
     <div class="form-group">
       <label>Ad *</label>
 
@@ -1877,7 +1565,6 @@ function openRestaurantForm(id = null) {
         required
       >
     </div>
-
 
     <div class="form-group">
       <label>Kategori *</label>
@@ -1889,32 +1576,16 @@ function openRestaurantForm(id = null) {
       >
     </div>
 
-
     <div class="form-group">
       <label>Filtre *</label>
 
       <select id="fFilter">
-
-        <option value="kebap">
-          Kebap
-        </option>
-
-        <option value="lokanta">
-          Lokanta
-        </option>
-
-        <option value="lahmacun">
-          Lahmacun
-        </option>
-
-        <option value="cafe">
-          Cafe
-        </option>
-
+        <option value="kebap">Kebap</option>
+        <option value="lokanta">Lokanta</option>
+        <option value="lahmacun">Lahmacun</option>
+        <option value="cafe">Cafe</option>
       </select>
-
     </div>
-
 
     <div class="form-group">
       <label>Puan</label>
@@ -1929,13 +1600,11 @@ function openRestaurantForm(id = null) {
       >
     </div>
 
-
     <div class="form-group full">
       <label>Açıklama</label>
 
       <textarea id="fDescription">${escapeHtml(item.description || "")}</textarea>
     </div>
-
 
     <div class="form-group full">
       <label>Adres</label>
@@ -1946,7 +1615,6 @@ function openRestaurantForm(id = null) {
       >
     </div>
 
-
     <div class="form-group">
       <label>Telefon</label>
 
@@ -1955,7 +1623,6 @@ function openRestaurantForm(id = null) {
         value="${escapeHtml(item.phone || "")}"
       >
     </div>
-
 
     <div class="form-group">
       <label>Çalışma Saatleri</label>
@@ -1966,7 +1633,6 @@ function openRestaurantForm(id = null) {
       >
     </div>
 
-
     <div class="form-group">
       <label>Görsel</label>
 
@@ -1975,7 +1641,6 @@ function openRestaurantForm(id = null) {
         value="${escapeHtml(item.image || "")}"
       >
     </div>
-
 
     <div class="form-group">
       <label>Emoji</label>
@@ -1986,7 +1651,6 @@ function openRestaurantForm(id = null) {
       >
     </div>
 
-
     <div class="form-group full">
 
       <label class="checkbox">
@@ -1995,7 +1659,6 @@ function openRestaurantForm(id = null) {
           type="checkbox"
           ${item.featured ? "checked" : ""}
         >
-
         Öne çıkar
       </label>
 
@@ -2007,37 +1670,27 @@ function openRestaurantForm(id = null) {
           type="checkbox"
           ${item.active === 0 ? "" : "checked"}
         >
-
         Aktif
       </label>
 
     </div>
-
   `;
-
 
   document
     .getElementById("fFilter")
     .value =
-      item.filter || "kebap";
-
+      item.filter ||
+      "kebap";
 
   openModal();
-
 }
 
 
-/* PLACE FORM */
-
-
-function openPlaceForm(id = null) {
-
-  editType =
-    "place";
-
-  editId =
-    id;
-
+function openPlaceForm(
+  id = null
+) {
+  editType = "place";
+  editId = id;
 
   const item =
     places.find(
@@ -2046,7 +1699,6 @@ function openPlaceForm(id = null) {
         Number(id)
     ) || {};
 
-
   document
     .getElementById("modalTitle")
     .textContent =
@@ -2054,9 +1706,7 @@ function openPlaceForm(id = null) {
         ? "Yer Düzenle"
         : "Yeni Yer";
 
-
   formFields.innerHTML = `
-
     <div class="form-group">
       <label>Ad *</label>
 
@@ -2066,7 +1716,6 @@ function openPlaceForm(id = null) {
         required
       >
     </div>
-
 
     <div class="form-group">
       <label>Kategori *</label>
@@ -2078,13 +1727,11 @@ function openPlaceForm(id = null) {
       >
     </div>
 
-
     <div class="form-group full">
       <label>Açıklama</label>
 
       <textarea id="fDescription">${escapeHtml(item.description || "")}</textarea>
     </div>
-
 
     <div class="form-group full">
       <label>Adres</label>
@@ -2095,7 +1742,6 @@ function openPlaceForm(id = null) {
       >
     </div>
 
-
     <div class="form-group">
       <label>Görsel</label>
 
@@ -2104,7 +1750,6 @@ function openPlaceForm(id = null) {
         value="${escapeHtml(item.image || "")}"
       >
     </div>
-
 
     <div class="form-group">
       <label>Emoji</label>
@@ -2115,32 +1760,22 @@ function openPlaceForm(id = null) {
       >
     </div>
 
-
     <div class="form-group full">
 
       <label class="checkbox">
-
         <input
           id="fActive"
           type="checkbox"
           ${item.active === 0 ? "" : "checked"}
         >
-
         Aktif
-
       </label>
 
     </div>
-
   `;
 
-
   openModal();
-
 }
-
-
-/* SAVE */
 
 
 document
@@ -2148,17 +1783,13 @@ document
   .addEventListener(
     "submit",
     async event => {
-
       event.preventDefault();
-
 
       if (
         editType ===
         "restaurant"
       ) {
-
         const payload = {
-
           name:
             document.getElementById("fName").value,
 
@@ -2196,50 +1827,41 @@ document
 
           active:
             document.getElementById("fActive").checked
-
         };
 
+        const response =
+          await adminFetch(
+            editId
+              ? `/api/admin/restaurants/${editId}`
+              : "/api/admin/restaurants",
+            {
+              method:
+                editId
+                  ? "PATCH"
+                  : "POST",
 
-        await adminFetch(
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
 
-          editId
+              body:
+                JSON.stringify(payload)
+            }
+          );
 
-            ? `/api/admin/restaurants/${editId}`
-
-            : "/api/admin/restaurants",
-
-          {
-            method:
-              editId
-                ? "PATCH"
-                : "POST",
-
-            headers: {
-              "Content-Type":
-                "application/json"
-            },
-
-            body:
-              JSON.stringify(
-                payload
-              )
-          }
-
-        );
-
+        if (!response.ok) {
+          return;
+        }
 
         await loadRestaurants();
-
       }
-
 
       if (
         editType ===
         "place"
       ) {
-
         const payload = {
-
           name:
             document.getElementById("fName").value,
 
@@ -2260,54 +1882,44 @@ document
 
           active:
             document.getElementById("fActive").checked
-
         };
 
+        const response =
+          await adminFetch(
+            editId
+              ? `/api/admin/places/${editId}`
+              : "/api/admin/places",
+            {
+              method:
+                editId
+                  ? "PATCH"
+                  : "POST",
 
-        await adminFetch(
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
 
-          editId
+              body:
+                JSON.stringify(payload)
+            }
+          );
 
-            ? `/api/admin/places/${editId}`
-
-            : "/api/admin/places",
-
-          {
-            method:
-              editId
-                ? "PATCH"
-                : "POST",
-
-            headers: {
-              "Content-Type":
-                "application/json"
-            },
-
-            body:
-              JSON.stringify(
-                payload
-              )
-          }
-
-        );
-
+        if (!response.ok) {
+          return;
+        }
 
         await loadPlaces();
-
       }
 
-
       closeModal();
-
     }
   );
 
 
-/* DELETE RESTAURANT */
-
-
-async function deleteRestaurant(id) {
-
+async function deleteRestaurant(
+  id
+) {
   if (
     !confirm(
       "Restoran silinsin mi?"
@@ -2316,7 +1928,6 @@ async function deleteRestaurant(id) {
     return;
   }
 
-
   await adminFetch(
     `/api/admin/restaurants/${id}`,
     {
@@ -2324,17 +1935,13 @@ async function deleteRestaurant(id) {
     }
   );
 
-
   loadRestaurants();
-
 }
 
 
-/* DELETE PLACE */
-
-
-async function deletePlace(id) {
-
+async function deletePlace(
+  id
+) {
   if (
     !confirm(
       "Yer silinsin mi?"
@@ -2343,7 +1950,6 @@ async function deletePlace(id) {
     return;
   }
 
-
   await adminFetch(
     `/api/admin/places/${id}`,
     {
@@ -2351,13 +1957,8 @@ async function deletePlace(id) {
     }
   );
 
-
   loadPlaces();
-
 }
-
-
-/* BUTTONS */
 
 
 document
@@ -2402,9 +2003,8 @@ document
   );
 
 
+checkSession();
 </script>
 
-
 </body>
-
 </html>
