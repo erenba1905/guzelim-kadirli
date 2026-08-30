@@ -9,10 +9,22 @@
 
   <meta
     name="description"
-    content="Kadirli'de gezilecek yerler, restoranlar, kafeler ve yerel işletmeler."
+    content="Kadirli'de gezilecek yerler, restoranlar, kafeler, işletmeler ve önemli bilgiler."
   >
 
   <style>
+    :root {
+      --green: #1f7a4d;
+      --green-dark: #172a20;
+      --green-card: #21392c;
+      --gold: #d89a32;
+      --bg: #f6f7f5;
+      --soft: #edf2ee;
+      --text: #1f2933;
+      --muted: #68736d;
+      --border: #e3e8e4;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -25,8 +37,8 @@
 
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background: #f6f7f5;
-      color: #1f2933;
+      background: var(--bg);
+      color: var(--text);
       line-height: 1.6;
     }
 
@@ -35,115 +47,143 @@
     }
 
     a {
-      text-decoration: none;
       color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
     }
 
     img {
-      width: 100%;
       display: block;
+      width: 100%;
     }
 
     section {
-      padding: 80px 20px;
+      padding: 78px 20px;
+      scroll-margin-top: 75px;
     }
 
     .container {
+      width: 100%;
       max-width: 1150px;
       margin: 0 auto;
     }
 
     .section-title {
+      max-width: 760px;
+      margin: 0 auto 42px;
       text-align: center;
-      margin-bottom: 45px;
     }
 
-    .section-title span {
-      color: #1f7a4d;
-      font-weight: 700;
+    .eyebrow {
+      display: block;
+      color: var(--green);
       font-size: 13px;
-      letter-spacing: 2px;
+      font-weight: 800;
+      letter-spacing: 1.8px;
       text-transform: uppercase;
     }
 
     .section-title h2 {
-      font-size: 38px;
-      margin-top: 8px;
+      margin-top: 7px;
+      font-size: clamp(30px, 4vw, 40px);
+      line-height: 1.15;
       color: #17211b;
     }
 
     .section-title p {
-      color: #67736c;
-      max-width: 650px;
-      margin: 12px auto 0;
+      margin-top: 12px;
+      color: var(--muted);
     }
+
+    /* NAV */
 
     nav {
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(255,255,255,0.96);
-      border-bottom: 1px solid #e4e9e5;
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
     }
 
     .nav-container {
       max-width: 1150px;
-      margin: 0 auto;
-      padding: 15px 20px;
+      margin: auto;
+      padding: 14px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 20px;
     }
 
     .logo {
-      font-size: 24px;
-      font-weight: 800;
-      color: #1f7a4d;
+      font-size: 23px;
+      font-weight: 850;
+      color: var(--green);
+      white-space: nowrap;
     }
 
     .logo span {
-      color: #d89a32;
+      color: var(--gold);
     }
 
     .nav-links {
-      list-style: none;
       display: flex;
-      gap: 24px;
       align-items: center;
+      gap: 22px;
+      list-style: none;
     }
 
     .nav-links a {
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .nav-links a:hover {
-      color: #1f7a4d;
+      color: var(--green);
     }
 
     .nav-button {
-      background: #1f7a4d;
-      color: white;
-      padding: 10px 17px;
-      border-radius: 8px;
+      padding: 10px 16px;
+      border-radius: 9px;
+      background: var(--green);
+      color: white !important;
     }
 
+    .menu-toggle {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: white;
+      color: var(--text);
+      font-size: 23px;
+    }
+
+    /* HERO */
+
     .hero {
-      min-height: 620px;
+      min-height: 610px;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 100px 20px;
       text-align: center;
       color: white;
-
       background:
-        linear-gradient(
-          rgba(13, 45, 28, 0.62),
-          rgba(13, 45, 28, 0.80)
-        ),
+        linear-gradient(rgba(12, 42, 27, 0.58), rgba(12, 42, 27, 0.82)),
         url("images/kadirli-merkez.jpg");
-
       background-size: cover;
       background-position: center;
     }
@@ -154,38 +194,42 @@
 
     .hero-badge {
       display: inline-block;
-      border: 1px solid rgba(255,255,255,0.5);
-      background: rgba(255,255,255,0.1);
-      padding: 8px 15px;
-      border-radius: 30px;
       margin-bottom: 20px;
+      padding: 8px 15px;
+      border: 1px solid rgba(255,255,255,.5);
+      border-radius: 50px;
+      background: rgba(255,255,255,.10);
     }
 
     .hero h1 {
-      font-size: clamp(48px, 8vw, 84px);
+      font-size: clamp(48px, 8vw, 82px);
       line-height: 1;
       margin-bottom: 20px;
     }
 
     .hero p {
-      font-size: 20px;
-      max-width: 720px;
+      max-width: 700px;
       margin: 0 auto 30px;
       color: #edf5ef;
+      font-size: 20px;
     }
 
-    .hero-buttons {
+    .hero-actions {
       display: flex;
       justify-content: center;
-      gap: 14px;
       flex-wrap: wrap;
+      gap: 12px;
     }
 
     .button {
-      padding: 14px 23px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 12px 22px;
       border-radius: 9px;
-      font-weight: 700;
-      transition: 0.2s;
+      font-weight: 800;
+      transition: .2s;
     }
 
     .button:hover {
@@ -194,7 +238,7 @@
 
     .button-primary {
       background: white;
-      color: #1f7a4d;
+      color: var(--green);
     }
 
     .button-secondary {
@@ -202,16 +246,18 @@
       color: white;
     }
 
+    /* ABOUT */
+
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 45px;
+      gap: 48px;
       align-items: center;
     }
 
     .about-image {
-      border-radius: 22px;
       overflow: hidden;
+      border-radius: 22px;
     }
 
     .about-image img {
@@ -220,62 +266,67 @@
     }
 
     .about-content h2 {
+      margin: 8px 0 18px;
       font-size: 38px;
-      margin: 10px 0 20px;
+      line-height: 1.2;
     }
 
     .about-content p {
-      color: #68736d;
-      margin-bottom: 16px;
+      margin-bottom: 15px;
+      color: var(--muted);
     }
 
     .facts {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
-      margin-top: 25px;
+      margin-top: 24px;
     }
 
     .fact {
-      background: white;
-      border: 1px solid #e5e9e6;
+      padding: 17px;
+      border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 18px;
+      background: white;
       text-align: center;
     }
 
     .fact strong {
       display: block;
-      color: #1f7a4d;
+      color: var(--green);
       font-size: 20px;
     }
 
+    /* CATEGORIES */
+
     .categories {
-      background: #edf2ee;
+      background: var(--soft);
     }
 
     .category-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      gap: 22px;
     }
 
     .category-card {
-      background: white;
+      width: 100%;
       padding: 30px;
+      border: 1px solid var(--border);
       border-radius: 18px;
-      border: 1px solid #e4e8e5;
-      transition: 0.2s;
+      background: white;
+      text-align: left;
+      transition: .2s;
     }
 
     .category-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 16px 35px rgba(0,0,0,0.07);
+      box-shadow: 0 16px 35px rgba(0,0,0,.07);
     }
 
     .category-icon {
+      margin-bottom: 15px;
       font-size: 34px;
-      margin-bottom: 16px;
     }
 
     .category-card h3 {
@@ -284,29 +335,29 @@
     }
 
     .category-card p {
-      color: #68736d;
+      color: var(--muted);
     }
 
-    .place-grid,
-    .restaurant-grid {
+    /* PLACES */
+
+    .place-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
+      gap: 24px;
     }
 
-    .place-card,
-    .restaurant-card {
+    .place-card {
       overflow: hidden;
+      border: 1px solid var(--border);
       border-radius: 18px;
       background: white;
-      border: 1px solid #e5e9e6;
-      transition: 0.2s;
+      cursor: pointer;
+      transition: .2s;
     }
 
-    .place-card:hover,
-    .restaurant-card:hover {
+    .place-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 16px 35px rgba(0,0,0,0.07);
+      box-shadow: 0 16px 35px rgba(0,0,0,.07);
     }
 
     .card-image {
@@ -321,37 +372,38 @@
       object-fit: cover;
     }
 
-    .placeholder-image {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 80px;
-      background: #314c3b;
-    }
-
-    .card-content {
+    .card-body {
       padding: 23px;
     }
 
-    .card-content small {
-      color: #1f7a4d;
-      font-weight: 700;
+    .card-body small {
+      color: var(--green);
+      font-weight: 800;
       letter-spacing: 1px;
     }
 
-    .card-content h3 {
-      margin: 8px 0;
+    .card-body h3 {
+      margin: 7px 0;
       font-size: 21px;
     }
 
-    .card-content p {
-      color: #68736d;
+    .card-body p {
+      color: var(--muted);
       font-size: 14px;
     }
 
+    .detail-link {
+      display: inline-block;
+      margin-top: 13px;
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    /* RESTAURANTS */
+
     .restaurant-section {
-      background: #172a20;
+      background: var(--green-dark);
       color: white;
     }
 
@@ -360,160 +412,399 @@
     }
 
     .restaurant-section .section-title p {
-      color: #c7d4cc;
+      color: #c8d4cc;
+    }
+
+    .restaurant-tools {
+      margin-bottom: 28px;
+    }
+
+    .restaurant-search {
+      width: 100%;
+      min-height: 50px;
+      padding: 0 17px;
+      border: 1px solid #3b5546;
+      border-radius: 12px;
+      outline: none;
+      background: white;
+      color: var(--text);
+      font-size: 16px;
+    }
+
+    .restaurant-search:focus {
+      border-color: var(--gold);
+    }
+
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 13px;
+    }
+
+    .filter-btn {
+      min-height: 40px;
+      padding: 8px 15px;
+      border: 1px solid #496252;
+      border-radius: 50px;
+      background: transparent;
+      color: #d8e4dc;
+      font-weight: 700;
+    }
+
+    .filter-btn.active {
+      border-color: white;
+      background: white;
+      color: var(--green);
+    }
+
+    .restaurant-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
     }
 
     .restaurant-card {
-      background: #21392c;
+      overflow: hidden;
       border: 1px solid #31503e;
+      border-radius: 18px;
+      background: var(--green-card);
       cursor: pointer;
+      transition: .2s;
     }
 
-    .restaurant-card:focus {
-      outline: 3px solid #f2be62;
-      outline-offset: 3px;
+    .restaurant-card:hover {
+      transform: translateY(-5px);
+      border-color: #587361;
     }
 
-    .restaurant-card .card-content p {
-      color: #c7d3cc;
-    }
-
-    .restaurant-card .card-content h3 {
+    .restaurant-card .card-body h3 {
       color: white;
     }
 
+    .restaurant-card .card-body p {
+      color: #c6d1ca;
+    }
+
+    .restaurant-card .card-body small {
+      color: #7fc69e;
+    }
+
     .rating {
+      margin-top: 11px;
       color: #f2be62;
-      font-weight: bold;
       font-size: 14px;
-      margin-top: 12px;
+      font-weight: 800;
     }
 
     .details {
-      margin-top: 12px;
+      margin-top: 10px;
+      color: #b9c7be;
       font-size: 13px;
-      color: #bac8c0;
     }
 
-    .restaurant-hint {
-      margin-top: 14px;
+    .restaurant-card .detail-link {
       color: #f2be62;
+    }
+
+    .placeholder-image {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #314c3b;
+      font-size: 72px;
+    }
+
+    .empty-state {
+      display: none;
+      padding: 35px;
+      border: 1px dashed #55705f;
+      border-radius: 14px;
+      text-align: center;
+      color: #cad7cf;
+    }
+
+    /* BUSINESS */
+
+    .business-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .business {
+      padding: 24px 15px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: white;
+      text-align: center;
+    }
+
+    .business div {
+      margin-bottom: 8px;
+      font-size: 34px;
+    }
+
+    /* IMPORTANT */
+
+    .important {
+      background: var(--soft);
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .info-card {
+      padding: 25px;
+      border: 1px solid transparent;
+      border-radius: 14px;
+      background: white;
+      text-align: center;
+      transition: .2s;
+    }
+
+    .info-card:hover {
+      border-color: #cbd8cf;
+      transform: translateY(-3px);
+    }
+
+    .info-card span {
+      font-size: 34px;
+    }
+
+    .info-card h3 {
+      margin: 8px 0 4px;
+    }
+
+    .info-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* MAP */
+
+    .map-container {
+      height: 420px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* CTA / FORM */
+
+    .cta {
+      padding-top: 40px;
+    }
+
+    .cta-box {
+      max-width: 1150px;
+      margin: auto;
+      padding: 48px;
+      border-radius: 24px;
+      background: var(--green);
+      color: white;
+    }
+
+    .cta-head {
+      max-width: 700px;
+      margin-bottom: 28px;
+    }
+
+    .cta-head h2 {
+      font-size: 32px;
+    }
+
+    .cta-head p {
+      margin-top: 7px;
+      color: #dcece2;
+    }
+
+    .business-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-group {
+      min-width: 0;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .business-form label {
+      display: block;
+      margin-bottom: 5px;
       font-size: 13px;
       font-weight: 700;
     }
 
-    .restaurant-modal {
+    .business-form input,
+    .business-form select,
+    .business-form textarea {
+      width: 100%;
+      min-height: 48px;
+      padding: 11px 13px;
+      border: 0;
+      border-radius: 9px;
+      background: white;
+      color: var(--text);
+      font-size: 16px;
+    }
+
+    .business-form textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      min-height: 48px;
+      padding: 11px 20px;
+      border: 0;
+      border-radius: 9px;
+      background: white;
+      color: var(--green);
+      font-weight: 800;
+    }
+
+    .form-note {
+      margin-top: 12px;
+      color: #dcece2;
+      font-size: 12px;
+    }
+
+    /* MODAL */
+
+    .modal {
       display: none;
       position: fixed;
       inset: 0;
       z-index: 5000;
-      background: rgba(8, 15, 11, 0.76);
-      padding: 30px;
       align-items: center;
       justify-content: center;
+      padding: 24px;
+      background: rgba(8, 15, 11, .78);
     }
 
-    .restaurant-modal.open {
+    .modal.open {
       display: flex;
     }
 
-    .modal-box {
+    .modal-shell {
       position: relative;
       width: 100%;
-      max-width: 760px;
+      max-width: 900px;
       max-height: 88vh;
-      overflow-y: auto;
-      background: white;
+      overflow: auto;
       border-radius: 20px;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+      background: white;
+      box-shadow: 0 30px 80px rgba(0,0,0,.35);
     }
 
-    .modal-image {
+    .modal-layout {
+      display: grid;
+      grid-template-columns: minmax(280px, 42%) 1fr;
+      min-height: 420px;
+    }
+
+    .modal-media {
+      min-height: 100%;
+      background: #dfe6e1;
+    }
+
+    .modal-media img {
       width: 100%;
-      height: 230px;
+      height: 100%;
+      min-height: 420px;
       object-fit: cover;
-      object-position: center;
-      display: block;
     }
 
     .modal-placeholder {
-      width: 100%;
-      height: 230px;
-      background: #21392c;
+      min-height: 420px;
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 80px;
+      background: #21392c;
+      font-size: 90px;
     }
 
     .modal-content {
-      padding: 28px 30px 30px;
-      color: #1f2933;
-    }
-
-    .modal-category {
-      color: #1f7a4d;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 1.2px;
+      padding: 34px;
     }
 
     .modal-content h2 {
-      font-size: 28px;
-      line-height: 1.2;
       margin: 6px 0 10px;
+      font-size: 29px;
+      line-height: 1.15;
     }
 
     .modal-description {
-      color: #69736e;
+      margin-bottom: 20px;
+      color: var(--muted);
       font-size: 14px;
-      margin-bottom: 22px;
     }
 
-    .modal-info-grid {
+    .modal-info-list {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      margin-bottom: 20px;
+      gap: 9px;
     }
 
     .modal-info {
-      background: #f4f6f4;
-      border: 1px solid #e7ebe8;
-      border-radius: 11px;
-      padding: 14px 15px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #f5f7f5;
       font-size: 14px;
     }
 
     .modal-info strong {
       display: block;
-      color: #1f7a4d;
-      margin-bottom: 4px;
-      font-size: 13px;
+      margin-bottom: 2px;
+      color: var(--green);
+      font-size: 12px;
     }
 
     .modal-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 9px;
+      margin-top: 20px;
     }
 
     .modal-action {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 44px;
-      padding: 11px 18px;
+      min-height: 43px;
+      padding: 10px 16px;
       border-radius: 9px;
-      background: #1f7a4d;
+      background: var(--green);
       color: white;
       font-size: 14px;
-      font-weight: 700;
+      font-weight: 800;
     }
 
     .modal-action.secondary {
-      background: #e9efeb;
-      color: #1f7a4d;
+      background: #e8eeea;
+      color: var(--green);
+    }
+
+    .data-note {
+      margin-top: 13px;
+      color: #7b8680;
+      font-size: 11px;
     }
 
     .modal-close {
@@ -523,114 +814,19 @@
       z-index: 10;
       width: 40px;
       height: 40px;
-      border: none;
-      border-radius: 50%;
-      background: rgba(0,0,0,0.72);
-      color: white;
-      font-size: 23px;
-      cursor: pointer;
-    }
-
-    .business-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-    }
-
-    .business {
-      padding: 25px 15px;
-      text-align: center;
-      background: white;
-      border: 1px solid #e5e9e6;
-      border-radius: 14px;
-    }
-
-    .business div {
-      font-size: 35px;
-      margin-bottom: 8px;
-    }
-
-    .important {
-      background: #edf2ee;
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-    }
-
-    .info-card {
-      background: white;
-      border-radius: 14px;
-      padding: 25px;
-      text-align: center;
-    }
-
-    .info-card span {
-      font-size: 34px;
-    }
-
-    .info-card h3 {
-      margin-top: 9px;
-    }
-
-    .info-card p {
-      color: #68736d;
-      font-size: 14px;
-    }
-
-    .map-container {
-      height: 430px;
-      border-radius: 20px;
-      overflow: hidden;
-      border: 1px solid #e0e4e1;
-    }
-
-    .map-container iframe {
-      width: 100%;
-      height: 100%;
       border: 0;
-    }
-
-    .cta {
-      padding: 70px 20px;
-    }
-
-    .cta-box {
-      max-width: 1150px;
-      margin: auto;
-      background: #1f7a4d;
+      border-radius: 50%;
+      background: rgba(0,0,0,.72);
       color: white;
-      padding: 50px 40px;
-      border-radius: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 25px;
+      font-size: 22px;
     }
 
-    .cta-box h2 {
-      font-size: 30px;
-    }
-
-    .cta-box p {
-      color: #dbece2;
-    }
-
-    .cta-button {
-      background: white;
-      color: #1f7a4d;
-      padding: 14px 22px;
-      border-radius: 9px;
-      font-weight: bold;
-      white-space: nowrap;
-    }
+    /* FOOTER */
 
     footer {
+      padding: 50px 20px 25px;
       background: #111b15;
       color: white;
-      padding: 50px 20px 25px;
     }
 
     .footer-grid {
@@ -638,7 +834,11 @@
       margin: auto;
       display: grid;
       grid-template-columns: 2fr 1fr 1fr;
-      gap: 50px;
+      gap: 45px;
+    }
+
+    footer h3 {
+      margin-bottom: 10px;
     }
 
     footer p,
@@ -652,29 +852,58 @@
     }
 
     footer li {
-      margin-bottom: 8px;
+      margin-bottom: 7px;
     }
 
     .copyright {
       max-width: 1150px;
       margin: 30px auto 0;
       padding-top: 20px;
-      text-align: center;
       border-top: 1px solid #29362f;
       color: #85938a;
       font-size: 13px;
+      text-align: center;
     }
 
-    @media (max-width: 850px) {
+    /* RESPONSIVE */
+
+    @media (max-width: 900px) {
       .nav-links {
         display: none;
+        position: absolute;
+        top: 73px;
+        left: 15px;
+        right: 15px;
+        padding: 18px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: white;
+        box-shadow: 0 15px 40px rgba(0,0,0,.10);
+        flex-direction: column;
+        align-items: stretch;
       }
 
-      .about-grid,
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        display: block;
+        padding: 8px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
       .category-grid,
       .place-grid,
       .restaurant-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .business-grid,
@@ -682,44 +911,58 @@
         grid-template-columns: repeat(2, 1fr);
       }
 
-      .facts {
+      .modal-layout {
         grid-template-columns: 1fr;
       }
 
-      .footer-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .cta-box {
-        flex-direction: column;
-        text-align: center;
+      .modal-media img,
+      .modal-placeholder {
+        min-height: 240px;
+        height: 240px;
       }
     }
 
-    @media (max-width: 650px) {
-      .restaurant-modal {
-        padding: 15px;
+    @media (max-width: 620px) {
+      section {
+        padding: 60px 16px;
       }
 
-      .modal-box {
-        max-height: 92vh;
+      .hero {
+        min-height: 520px;
       }
 
-      .modal-image,
-      .modal-placeholder {
-        height: 190px;
+      .hero p {
+        font-size: 17px;
+      }
+
+      .facts,
+      .category-grid,
+      .place-grid,
+      .restaurant-grid,
+      .business-grid,
+      .info-grid,
+      .business-form {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+
+      .cta-box {
+        padding: 30px 20px;
+      }
+
+      .modal {
+        padding: 12px;
+      }
+
+      .modal-shell {
+        max-height: 94vh;
       }
 
       .modal-content {
-        padding: 22px;
-      }
-
-      .modal-content h2 {
-        font-size: 24px;
-      }
-
-      .modal-info-grid {
-        grid-template-columns: 1fr;
+        padding: 24px 20px;
       }
 
       .modal-actions {
@@ -729,20 +972,9 @@
       .modal-action {
         width: 100%;
       }
-    }
 
-    @media (max-width: 500px) {
-      section {
-        padding: 60px 16px;
-      }
-
-      .business-grid,
-      .info-grid {
+      .footer-grid {
         grid-template-columns: 1fr;
-      }
-
-      .section-title h2 {
-        font-size: 30px;
       }
     }
   </style>
@@ -750,1094 +982,1467 @@
 
 <body>
 
-<nav>
-  <div class="nav-container">
+  <!-- NAV -->
 
-    <a class="logo" href="#">
-      Güzelim <span>Kadirli</span>
-    </a>
+  <nav>
+    <div class="nav-container">
 
-    <ul class="nav-links">
-      <li><a href="#hakkinda">Kadirli</a></li>
-      <li><a href="#gezilecek">Gezilecek Yerler</a></li>
-      <li><a href="#yeme">Yeme & İçme</a></li>
-      <li><a href="#isletmeler">İşletmeler</a></li>
-      <li><a href="#harita">Harita</a></li>
-      <li><a class="nav-button" href="#iletisim">Bize Ulaş</a></li>
-    </ul>
-
-  </div>
-</nav>
-
-
-<header class="hero">
-
-  <div class="hero-content">
-
-    <div class="hero-badge">
-      📍 Kadirli • Osmaniye
-    </div>
-
-    <h1>Kadirli'yi Keşfet</h1>
-
-    <p>
-      Tarihi yerler, yöresel lezzetler,
-      kafeler, restoranlar ve şehir yaşamı
-      tek bir yerde.
-    </p>
-
-    <div class="hero-buttons">
-
-      <a href="#gezilecek" class="button button-primary">
-        Gezilecek Yerleri Gör
+      <a href="#" class="logo">
+        Güzelim <span>Kadirli</span>
       </a>
 
-      <a href="#yeme" class="button button-secondary">
-        Nerede Yemek Yenir?
-      </a>
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        type="button"
+        aria-label="Menüyü aç"
+      >
+        ☰
+      </button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#hakkinda">Kadirli</a></li>
+        <li><a href="#gezilecek">Gezilecek Yerler</a></li>
+        <li><a href="#yeme">Yeme & İçme</a></li>
+        <li><a href="#isletmeler">İşletmeler</a></li>
+        <li><a href="#harita">Harita</a></li>
+        <li><a href="#iletisim" class="nav-button">İşletmeni Ekle</a></li>
+      </ul>
 
     </div>
-
-  </div>
-
-</header>
+  </nav>
 
 
-<section id="hakkinda">
+  <!-- HERO -->
 
-  <div class="container">
+  <header class="hero">
 
-    <div class="about-grid">
+    <div class="hero-content">
 
-      <div class="about-image">
-
-        <img
-          src="images/kadirli-merkez.jpg"
-          alt="Kadirli şehir merkezi"
-        >
-
+      <div class="hero-badge">
+        📍 Kadirli • Osmaniye
       </div>
 
-      <div class="about-content">
-
-        <span style="color:#1f7a4d;font-weight:bold;">
-          KADİRLİ HAKKINDA
-        </span>
-
-        <h2>
-          Tarih, doğa ve yerel yaşam
-        </h2>
-
-        <p>
-          Kadirli, Osmaniye'nin önemli ilçelerinden biridir.
-          İlçe; tarihi yapıları, Çukurova kültürü,
-          yöresel yemekleri ve çevresindeki doğal
-          alanlarla öne çıkar.
-        </p>
-
-        <p>
-          Güzelim Kadirli projesinin amacı,
-          ziyaretçilerin ve şehirde yaşayanların
-          ihtiyaç duyduğu yerel bilgileri
-          tek bir platformda toplamaktır.
-        </p>
-
-        <div class="facts">
-
-          <div class="fact">
-            <strong>Osmaniye</strong>
-            İl
-          </div>
-
-          <div class="fact">
-            <strong>Akdeniz</strong>
-            Bölge
-          </div>
-
-          <div class="fact">
-            <strong>Kadirli</strong>
-            Yerel Rehber
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<section class="categories">
-
-  <div class="container">
-
-    <div class="section-title">
-
-      <span>Keşfet</span>
-
-      <h2>
-        Kadirli'de Ne Yapılır?
-      </h2>
+      <h1>Kadirli'yi Keşfet</h1>
 
       <p>
-        Tarihten yeme içmeye kadar şehirde
-        aradığın şeylere hızlıca ulaş.
+        Tarihi yerler, yöresel lezzetler,
+        restoranlar ve yerel yaşam tek bir yerde.
       </p>
 
-    </div>
+      <div class="hero-actions">
 
-    <div class="category-grid">
+        <a href="#gezilecek" class="button button-primary">
+          Gezilecek Yerler
+        </a>
 
-      <div class="category-card">
-        <div class="category-icon">🏛️</div>
-        <h3>Gezilecek Yerler</h3>
-        <p>Tarihi yapılar, müzeler ve doğal güzellikler.</p>
-      </div>
+        <a href="#yeme" class="button button-secondary">
+          Nerede Yemek Yenir?
+        </a>
 
-      <div class="category-card">
-        <div class="category-icon">🍽️</div>
-        <h3>Yeme & İçme</h3>
-        <p>Kebap, lahmacun, kahvaltı, restoranlar ve kafeler.</p>
-      </div>
-
-      <div class="category-card">
-        <div class="category-icon">🏪</div>
-        <h3>Yerel İşletmeler</h3>
-        <p>Kadirli'deki hizmetleri ve işletmeleri keşfet.</p>
       </div>
 
     </div>
 
-  </div>
-
-</section>
+  </header>
 
 
-<section id="gezilecek">
+  <!-- ABOUT -->
 
-  <div class="container">
+  <section id="hakkinda">
 
-    <div class="section-title">
+    <div class="container">
 
-      <span>Gezilecek Yerler</span>
+      <div class="about-grid">
 
-      <h2>
-        Kadirli ve Çevresinde Görülmesi Gerekenler
-      </h2>
-
-      <p>
-        Bölgenin önemli tarihi ve kültürel
-        noktalarından bazıları.
-      </p>
-
-    </div>
-
-    <div class="place-grid">
-
-      <article class="place-card">
-
-        <div class="card-image">
-
-          <img
-            src="images/ala-cami.jpeg"
-            alt="Kadirli Ala Camii"
-          >
-
-        </div>
-
-        <div class="card-content">
-
-          <small>TARİH</small>
-
-          <h3>Ala Camii</h3>
-
-          <p>
-            Kadirli'nin en dikkat çekici
-            tarihi yapılarından biri.
-          </p>
-
-        </div>
-
-      </article>
-
-
-      <article class="place-card">
-
-        <div class="card-image">
-
+        <div class="about-image">
           <img
             src="images/kadirli-merkez.jpg"
             alt="Kadirli şehir merkezi"
           >
-
         </div>
 
-        <div class="card-content">
+        <div class="about-content">
 
-          <small>ŞEHİR YAŞAMI</small>
+          <span class="eyebrow">
+            Kadirli Hakkında
+          </span>
 
-          <h3>Kadirli Şehir Merkezi</h3>
+          <h2>
+            Tarih, doğa ve yerel yaşam
+          </h2>
 
           <p>
-            Çarşı, kafeler, restoranlar
-            ve yerel işletmelerle Kadirli'nin
-            günlük yaşamını keşfet.
+            Kadirli, Osmaniye'nin önemli ilçelerinden biridir.
+            Tarihi yapıları, Çukurova kültürü, yöresel yemekleri
+            ve çevresindeki doğal alanlarla öne çıkar.
           </p>
-
-        </div>
-
-      </article>
-
-
-      <article class="place-card">
-
-        <div class="card-image">
-
-          <img
-            src="images/karatepe-aslantas.jpg"
-            alt="Karatepe Aslantaş"
-          >
-
-        </div>
-
-        <div class="card-content">
-
-          <small>TARİH & DOĞA</small>
-
-          <h3>Karatepe-Aslantaş</h3>
 
           <p>
-            Kadirli çevresindeki önemli
-            tarihi ve doğal alanlardan biri.
+            Güzelim Kadirli'nin amacı, şehirde yaşayanlar
+            ve ziyaretçiler için faydalı yerel bilgileri
+            tek bir platformda toplamaktır.
           </p>
 
+          <div class="facts">
+
+            <div class="fact">
+              <strong>Osmaniye</strong>
+              İl
+            </div>
+
+            <div class="fact">
+              <strong>Akdeniz</strong>
+              Bölge
+            </div>
+
+            <div class="fact">
+              <strong>Kadirli</strong>
+              Yerel Rehber
+            </div>
+
+          </div>
+
         </div>
 
-      </article>
+      </div>
 
     </div>
 
-  </div>
-
-</section>
+  </section>
 
 
-<section class="restaurant-section" id="yeme">
+  <!-- CATEGORIES -->
 
-  <div class="container">
+  <section class="categories">
 
-    <div class="section-title">
+    <div class="container">
 
-      <span>Yeme & İçme</span>
+      <div class="section-title">
+        <span class="eyebrow">Keşfet</span>
+        <h2>Kadirli'de Ne Yapılır?</h2>
+        <p>
+          İlgilendiğin bölüme doğrudan geç.
+        </p>
+      </div>
 
-      <h2>
-        Kadirli'de Restoranlar ve Kafeler
-      </h2>
+      <div class="category-grid">
 
-      <p>
-        Bir mekana tıklayarak
-        adres, telefon ve detayları görüntüleyebilirsin.
-      </p>
+        <button
+          class="category-card"
+          type="button"
+          data-target="gezilecek"
+        >
+          <div class="category-icon">🏛️</div>
+          <h3>Gezilecek Yerler</h3>
+          <p>Tarih, kültür ve doğa.</p>
+        </button>
+
+        <button
+          class="category-card"
+          type="button"
+          data-target="yeme"
+        >
+          <div class="category-icon">🍽️</div>
+          <h3>Yeme & İçme</h3>
+          <p>Kebap, lokanta, lahmacun ve daha fazlası.</p>
+        </button>
+
+        <button
+          class="category-card"
+          type="button"
+          data-target="isletmeler"
+        >
+          <div class="category-icon">🏪</div>
+          <h3>Yerel İşletmeler</h3>
+          <p>Kadirli'deki hizmet kategorileri.</p>
+        </button>
+
+      </div>
 
     </div>
 
+  </section>
 
-    <div class="restaurant-grid">
 
+  <!-- PLACES -->
 
-      <article
-        class="restaurant-card"
-        tabindex="0"
-        data-name="Kaburgacı Sefa"
-        data-category="KABURGA & KEBAP"
-        data-description="Kadirli'de kaburga, kebap ve geleneksel et yemekleriyle öne çıkan yerel restoran."
-        data-rating="★ 4.8"
-        data-address="Pazar Mahallesi, Değirmen Cd. 58. Sokak, Kadirli, Osmaniye"
-        data-phone="0535 947 29 46"
-        data-hours="Çalışma saatlerini işletmeden doğrulayın."
-        data-image="images/kaburgaci-sefa.jpeg"
-        data-emoji="🥩"
-      >
+  <section id="gezilecek">
 
-        <div class="card-image">
+    <div class="container">
 
-          <img
-            src="images/kaburgaci-sefa.jpeg"
-            alt="Kaburgacı Sefa"
-          >
+      <div class="section-title">
+        <span class="eyebrow">Gezilecek Yerler</span>
+        <h2>Kadirli ve Çevresinde Görülmesi Gerekenler</h2>
+        <p>
+          Bir yere tıklayarak daha fazla bilgi ve
+          yol tarifi alabilirsin.
+        </p>
+      </div>
 
-        </div>
-
-        <div class="card-content">
-
-          <small>KABURGA & KEBAP</small>
-
-          <h3>Kaburgacı Sefa</h3>
-
-          <p>Kaburga, kebap ve geleneksel et yemekleri.</p>
-
-          <div class="rating">★ 4.8</div>
-
-          <div class="details">
-            Pazar Mahallesi<br>
-            ☎ 0535 947 29 46
-          </div>
-
-          <div class="restaurant-hint">
-            Detayları gör →
-          </div>
-
-        </div>
-
-      </article>
-
-
-      <article
-        class="restaurant-card"
-        tabindex="0"
-        data-name="Yıldız'ın Bahçesi Restoran"
-        data-category="KEBAP & KAHVALTI"
-        data-description="Bahçe ortamında kahvaltı ve yemek seçenekleri sunan Kadirli'deki yerel restoranlardan biri."
-        data-rating="★ 4.5"
-        data-address="Tufanpaşa, Abdulvahap Kocaman Cd. No:87, Kadirli, Osmaniye"
-        data-phone="Telefon bilgisi daha sonra eklenecek."
-        data-hours="Çalışma saatlerini işletmeden doğrulayın."
-        data-image="images/yildiz-bahcesi.jpeg"
-        data-emoji="🍽️"
-      >
-
-        <div class="card-image">
-
-          <img
-            src="images/yildiz-bahcesi.jpeg"
-            alt="Yıldız'ın Bahçesi Restoran"
-          >
-
-        </div>
-
-        <div class="card-content">
-
-          <small>KEBAP & KAHVALTI</small>
-
-          <h3>Yıldız'ın Bahçesi Restoran</h3>
-
-          <p>Bahçe ortamında kahvaltı ve yemek.</p>
-
-          <div class="rating">★ 4.5</div>
-
-          <div class="details">Tufanpaşa</div>
-
-          <div class="restaurant-hint">
-            Detayları gör →
-          </div>
-
-        </div>
-
-      </article>
-
-
-      <article
-        class="restaurant-card"
-        tabindex="0"
-        data-name="Pembe Köşk Cafe & Restaurant"
-        data-category="CAFE & RESTAURANT"
-        data-description="Kahvaltı, yemek ve kafe seçeneklerini bir arada sunan Kadirli mekanlarından biri."
-        data-rating="★ 4.3"
-        data-address="Pazar, Mehmet Can Cd. No:44, Kadirli, Osmaniye"
-        data-phone="Telefon bilgisi daha sonra eklenecek."
-        data-hours="Çalışma saatlerini işletmeden doğrulayın."
-        data-image="images/pembe-kosk.jpeg"
-        data-emoji="☕"
-      >
-
-        <div class="card-image">
-
-          <img
-            src="images/pembe-kosk.jpeg"
-            alt="Pembe Köşk Cafe & Restaurant"
-          >
-
-        </div>
-
-        <div class="card-content">
-
-          <small>CAFE & RESTAURANT</small>
-
-          <h3>Pembe Köşk Cafe & Restaurant</h3>
-
-          <p>Kahvaltı, yemek ve kafe seçenekleri.</p>
-
-          <div class="rating">★ 4.3</div>
-
-          <div class="details">Pazar</div>
-
-          <div class="restaurant-hint">
-            Detayları gör →
-          </div>
-
-        </div>
-
-      </article>
-
-
-      <article
-        class="restaurant-card"
-        tabindex="0"
-        data-name="Aktürkler Lokantası"
-        data-category="LOKANTA"
-        data-description="Kadirli'de hizmet veren yerel lokantalardan biri."
-        data-rating="★ 4.3"
-        data-address="Savrun, Mehmet Orhun Döğüşçü Cd. No:5, Kadirli, Osmaniye"
-        data-phone="Telefon bilgisi daha sonra eklenecek."
-        data-hours="Çalışma saatlerini işletmeden doğrulayın."
-        data-image=""
-        data-emoji="🍲"
-      >
-
-        <div class="card-image">
-          <div class="placeholder-image">🍲</div>
-        </div>
-
-        <div class="card-content">
-
-          <small>LOKANTA</small>
-
-          <h3>Aktürkler Lokantası</h3>
-
-          <p>Yerel lokanta.</p>
-
-          <div class="rating">★ 4.3</div>
-
-          <div class="details">Savrun</div>
-
-          <div class="restaurant-hint">
-            Detayları gör →
-          </div>
-
-        </div>
-
-      </article>
-
-
-      <article
-        class="restaurant-card"
-        tabindex="0"
-        data-name="Kadirli Lahmacun Restaurant"
-        data-category="LAHMACUN"
-        data-description="Lahmacun ve yöresel yemek seçenekleriyle hizmet veren Kadirli restoranı."
-        data-rating="★ 4.6"
-        data-address="7 Mart, Sütçü İmam Cd., Kadirli, Osmaniye"
-        data-phone="Telefon bilgisi daha sonra eklenecek."
-        data-hours="Çalışma saatlerini işletmeden doğrulayın."
-        data-image=""
-        data-emoji="🍕"
-      >
-
-        <div class="card-image">
-          <div class="placeholder-image">🍕</div>
-        </div>
-
-        <div class="card-content">
-
-          <small>LAHMACUN</small>
-
-          <h3>Kadirli Lahmacun Restaurant</h3>
-
-          <p>Lahmacun ve yöresel yemekler.</p>
-
-          <div class="rating">★ 4.6</div>
-
-          <div class="details">7 Mart</div>
-
-          <div class="restaurant-hint">
-            Detayları gör →
-          </div>
-
-        </div>
-
-      </article>
-
-
-      <article
-        class="restaurant-card"
-        tabindex="0"
-        data-name="Duman Kebap Salonu"
-        data-category="KEBAP"
-        data-description="Kadirli'de kebap üzerine hizmet veren yerel mekanlardan biri."
-        data-rating="★ 4.8"
-        data-address="Kamil Kara Blv. No:396, Kadirli, Osmaniye"
-        data-phone="Telefon bilgisi daha sonra eklenecek."
-        data-hours="Çalışma saatlerini işletmeden doğrulayın."
-        data-image=""
-        data-emoji="🔥"
-      >
-
-        <div class="card-image">
-          <div class="placeholder-image">🔥</div>
-        </div>
-
-        <div class="card-content">
-
-          <small>KEBAP</small>
-
-          <h3>Duman Kebap Salonu</h3>
-
-          <p>Kadirli'de kebap.</p>
-
-          <div class="rating">★ 4.8</div>
-
-          <div class="details">Kamil Kara Blv.</div>
-
-          <div class="restaurant-hint">
-            Detayları gör →
-          </div>
-
-        </div>
-
-      </article>
-
+      <div class="place-grid" id="placeGrid"></div>
 
     </div>
 
-  </div>
-
-</section>
+  </section>
 
 
-<div
-  class="restaurant-modal"
-  id="restaurantModal"
-  aria-hidden="true"
->
+  <!-- RESTAURANTS -->
+
+  <section class="restaurant-section" id="yeme">
+
+    <div class="container">
+
+      <div class="section-title">
+        <span class="eyebrow">Yeme & İçme</span>
+        <h2>Kadirli'de Restoranlar</h2>
+        <p>
+          Mekan ara, kategoriye göre filtrele
+          ve detayları görüntüle.
+        </p>
+      </div>
+
+      <div class="restaurant-tools">
+
+        <input
+          id="restaurantSearch"
+          class="restaurant-search"
+          type="search"
+          placeholder="Restoran ara..."
+          aria-label="Restoran ara"
+        >
+
+        <div class="filter-row">
+          <button class="filter-btn active" type="button" data-filter="all">
+            Tümü
+          </button>
+          <button class="filter-btn" type="button" data-filter="kebap">
+            Kebap
+          </button>
+          <button class="filter-btn" type="button" data-filter="lokanta">
+            Lokanta
+          </button>
+          <button class="filter-btn" type="button" data-filter="lahmacun">
+            Lahmacun
+          </button>
+          <button class="filter-btn" type="button" data-filter="cafe">
+            Cafe
+          </button>
+        </div>
+
+      </div>
+
+      <div class="restaurant-grid" id="restaurantGrid"></div>
+
+      <div class="empty-state" id="restaurantEmpty">
+        Bu aramaya uygun mekan bulunamadı.
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- BUSINESSES -->
+
+  <section id="isletmeler">
+
+    <div class="container">
+
+      <div class="section-title">
+        <span class="eyebrow">Yerel Rehber</span>
+        <h2>İşletme Kategorileri</h2>
+        <p>
+          İlerleyen aşamada bu kategorileri gerçek
+          işletme listelerine bağlayacağız.
+        </p>
+      </div>
+
+      <div class="business-grid">
+
+        <div class="business">
+          <div>🍴</div>
+          <h3>Restoranlar</h3>
+        </div>
+
+        <div class="business">
+          <div>☕</div>
+          <h3>Kafeler</h3>
+        </div>
+
+        <div class="business">
+          <div>🔧</div>
+          <h3>Servis & Tamir</h3>
+        </div>
+
+        <div class="business">
+          <div>💇</div>
+          <h3>Kuaför</h3>
+        </div>
+
+        <div class="business">
+          <div>🏠</div>
+          <h3>Emlak</h3>
+        </div>
+
+        <div class="business">
+          <div>🛒</div>
+          <h3>Mağazalar</h3>
+        </div>
+
+        <div class="business">
+          <div>👷</div>
+          <h3>Ustalar</h3>
+        </div>
+
+        <div class="business">
+          <div>➕</div>
+          <h3>Diğer</h3>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- IMPORTANT -->
+
+  <section class="important">
+
+    <div class="container">
+
+      <div class="section-title">
+        <span class="eyebrow">Hızlı Bilgi</span>
+        <h2>Önemli Noktalar</h2>
+        <p>
+          İhtiyacın olan yeri hızlıca haritada ara.
+        </p>
+      </div>
+
+      <div class="info-grid">
+
+        <a
+          class="info-card"
+          href="https://www.google.com/maps/search/?api=1&query=Kadirli+hastane"
+          target="_blank"
+          rel="noopener"
+        >
+          <span>🏥</span>
+          <h3>Hastane</h3>
+          <p>Yakındaki hastaneleri gör</p>
+        </a>
+
+        <a
+          class="info-card"
+          href="https://www.google.com/maps/search/?api=1&query=Kadirli+eczane"
+          target="_blank"
+          rel="noopener"
+        >
+          <span>💊</span>
+          <h3>Eczaneler</h3>
+          <p>Yakındaki eczaneleri gör</p>
+        </a>
+
+        <a
+          class="info-card"
+          href="https://www.google.com/maps/search/?api=1&query=Kadirli+polis"
+          target="_blank"
+          rel="noopener"
+        >
+          <span>🚓</span>
+          <h3>Polis</h3>
+          <p>Polis noktalarını gör</p>
+        </a>
+
+        <a
+          class="info-card"
+          href="https://www.google.com/maps/search/?api=1&query=Kadirli+otogar"
+          target="_blank"
+          rel="noopener"
+        >
+          <span>🚌</span>
+          <h3>Ulaşım</h3>
+          <p>Otogar ve ulaşım noktaları</p>
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- MAP -->
+
+  <section id="harita">
+
+    <div class="container">
+
+      <div class="section-title">
+        <span class="eyebrow">Konum</span>
+        <h2>Kadirli Haritası</h2>
+        <p>Şehir merkezini ve çevresini incele.</p>
+      </div>
+
+      <div class="map-container">
+        <iframe
+          src="https://www.openstreetmap.org/export/embed.html?bbox=36.04%2C37.31%2C36.15%2C37.43&layer=mapnik&marker=37.373%2C36.096"
+          loading="lazy"
+          title="Kadirli Haritası"
+        ></iframe>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- BUSINESS FORM -->
+
+  <section class="cta" id="iletisim">
+
+    <div class="cta-box">
+
+      <div class="cta-head">
+        <h2>İşletmeni Güzelim Kadirli'ye Ekle</h2>
+        <p>
+          İşletme bilgilerini gönder. Şimdilik form,
+          hazırlanan bilgileri e-posta uygulamana aktarır.
+        </p>
+      </div>
+
+      <form class="business-form" id="businessForm">
+
+        <div class="form-group">
+          <label for="businessName">İşletme adı</label>
+          <input id="businessName" required>
+        </div>
+
+        <div class="form-group">
+          <label for="businessCategory">Kategori</label>
+          <select id="businessCategory" required>
+            <option value="">Seçiniz</option>
+            <option>Restoran</option>
+            <option>Cafe</option>
+            <option>Kuaför</option>
+            <option>Servis & Tamir</option>
+            <option>Emlak</option>
+            <option>Mağaza</option>
+            <option>Diğer</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="businessPhone">Telefon</label>
+          <input
+            id="businessPhone"
+            type="tel"
+            placeholder="05..."
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="businessAddress">Adres</label>
+          <input id="businessAddress">
+        </div>
+
+        <div class="form-group full">
+          <label for="businessMessage">Ek bilgi</label>
+          <textarea
+            id="businessMessage"
+            placeholder="Açıklama, çalışma saatleri, sosyal medya vb."
+          ></textarea>
+        </div>
+
+        <div class="form-group full">
+          <button class="submit-btn" type="submit">
+            Başvuruyu Hazırla
+          </button>
+
+          <p class="form-note">
+            Sonraki aşamada bunu Cloudflare D1 ile
+            doğrudan veritabanına kaydedeceğiz.
+          </p>
+        </div>
+
+      </form>
+
+    </div>
+
+  </section>
+
+
+  <!-- MODAL -->
 
   <div
-    class="modal-box"
-    role="dialog"
-    aria-modal="true"
+    class="modal"
+    id="detailModal"
+    aria-hidden="true"
   >
 
-    <button
-      class="modal-close"
-      id="modalClose"
-      type="button"
-      aria-label="Kapat"
+    <div
+      class="modal-shell"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
     >
-      ×
-    </button>
 
-    <div id="modalMedia"></div>
+      <button
+        class="modal-close"
+        id="modalClose"
+        type="button"
+        aria-label="Kapat"
+      >
+        ×
+      </button>
 
-    <div class="modal-content">
+      <div class="modal-layout">
 
-      <div
-        class="modal-category"
-        id="modalCategory"
-      ></div>
+        <div class="modal-media" id="modalMedia"></div>
 
-      <h2 id="modalName"></h2>
+        <div class="modal-content">
 
-      <p
-        class="modal-description"
-        id="modalDescription"
-      ></p>
+          <span class="eyebrow" id="modalCategory"></span>
 
-      <div class="modal-info-grid">
+          <h2 id="modalTitle"></h2>
 
+          <p
+            class="modal-description"
+            id="modalDescription"
+          ></p>
+
+          <div
+            class="modal-info-list"
+            id="modalInfoList"
+          ></div>
+
+          <div class="modal-actions">
+
+            <a
+              id="modalRoute"
+              class="modal-action"
+              target="_blank"
+              rel="noopener"
+            >
+              📍 Yol Tarifi
+            </a>
+
+            <a
+              id="modalCall"
+              class="modal-action secondary"
+            >
+              ☎ Ara
+            </a>
+
+          </div>
+
+          <p class="data-note" id="modalDataNote"></p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="footer-grid">
+
+      <div>
+        <h3>Güzelim Kadirli</h3>
+        <p>
+          Kadirli için yerel şehir, mekan
+          ve işletme rehberi.
+        </p>
+      </div>
+
+      <div>
+        <h3>Keşfet</h3>
+        <ul>
+          <li><a href="#gezilecek">Gezilecek Yerler</a></li>
+          <li><a href="#yeme">Yeme & İçme</a></li>
+          <li><a href="#isletmeler">İşletmeler</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Bilgi</h3>
+        <ul>
+          <li><a href="#hakkinda">Kadirli Hakkında</a></li>
+          <li><a href="#harita">Harita</a></li>
+          <li><a href="#iletisim">İşletmeni Ekle</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="copyright">
+      © <span id="year"></span>
+      Güzelim Kadirli • Kadirli, Osmaniye
+    </div>
+
+  </footer>
+
+
+  <script>
+    /* =========================
+       DATA
+    ========================== */
+
+    const places = [
+      {
+        name: "Ala Camii",
+        category: "Tarih",
+        description:
+          "Kadirli'nin en dikkat çekici tarihi yapılarından biri. Şehrin tarihsel kimliğini keşfetmek isteyenler için önemli bir durak.",
+        image: "images/ala-cami.jpeg",
+        address: "Ala Camii, Kadirli, Osmaniye",
+        emoji: "🕌"
+      },
+
+      {
+        name: "Kadirli Şehir Merkezi",
+        category: "Şehir Yaşamı",
+        description:
+          "Çarşı, kafeler, restoranlar ve yerel işletmelerle Kadirli'nin günlük yaşamını keşfedebileceğin merkez bölge.",
+        image: "images/kadirli-merkez.jpg",
+        address: "Kadirli, Osmaniye",
+        emoji: "🏙️"
+      },
+
+      {
+        name: "Karatepe-Aslantaş",
+        category: "Tarih & Doğa",
+        description:
+          "Kadirli çevresindeki önemli tarihi ve doğal alanlardan biri. Milli park ve arkeolojik mirasıyla bölgenin öne çıkan noktalarındandır.",
+        image: "images/karatepe-aslantas.jpg",
+        address: "Karatepe Aslantaş, Osmaniye",
+        emoji: "🌿"
+      }
+    ];
+
+
+    const restaurants = [
+      {
+        name: "Kaburgacı Sefa",
+        category: "Kaburga & Kebap",
+        filter: "kebap",
+        description:
+          "Kadirli'de kaburga, kebap ve geleneksel et yemekleriyle öne çıkan yerel restoran.",
+        rating: "4.8",
+        address:
+          "Pazar, Değirmen Cd. 58. Sokak, Kadirli, Osmaniye",
+        phone: "0535 947 29 46",
+        hours: "08:30 – 22:00",
+        image: "images/kaburgaci-sefa.jpeg",
+        emoji: "🥩"
+      },
+
+      {
+        name: "Yıldız'ın Bahçesi Restoran",
+        category: "Kebap & Kahvaltı",
+        filter: "kebap",
+        description:
+          "Bahçe ortamında kahvaltı ve yemek seçenekleri sunan Kadirli'deki yerel restoranlardan biri.",
+        rating: "4.5",
+        address:
+          "Tufanpaşa, Abdulvahap Kocaman Cd. No:87, Kadirli, Osmaniye",
+        phone: "",
+        hours: "Bilgi doğrulanacak",
+        image: "images/yildiz-bahcesi.jpeg",
+        emoji: "🍽️"
+      },
+
+      {
+        name: "Pembe Köşk Cafe & Restaurant",
+        category: "Cafe & Restaurant",
+        filter: "cafe",
+        description:
+          "Kahvaltı, yemek ve kafe seçeneklerini bir arada sunan Kadirli mekanlarından biri.",
+        rating: "4.4",
+        address:
+          "Pazar, Mehmet Can Cd. No:44, Kadirli, Osmaniye",
+        phone: "0505 794 71 82",
+        hours: "09:00 – 23:00",
+        image: "images/pembe-kosk.jpeg",
+        emoji: "☕"
+      },
+
+      {
+        name: "Aktürkler Lokantası",
+        category: "Lokanta",
+        filter: "lokanta",
+        description:
+          "Geleneksel Türk mutfağı, kebap, lahmacun ve sulu yemek seçenekleriyle hizmet veren yerel lokanta.",
+        rating: "4.4",
+        address:
+          "Göğcemüftü Cad. 9, Kadirli, Osmaniye",
+        phone: "0328 718 46 91",
+        hours: "Güncel saat için işletmeyi arayın",
+        image: "",
+        emoji: "🍲"
+      },
+
+      {
+        name: "Kadirli Lahmacun Restaurant",
+        category: "Lahmacun",
+        filter: "lahmacun",
+        description:
+          "Lahmacun ve yöresel yemek seçenekleriyle hizmet veren Kadirli restoranlarından biri.",
+        rating: "4.6",
+        address:
+          "7 Mart, Sütçü İmam Cd., Kadirli, Osmaniye",
+        phone: "",
+        hours: "Bilgi doğrulanacak",
+        image: "",
+        emoji: "🍕"
+      },
+
+      {
+        name: "Duman Kebap Salonu",
+        category: "Kebap",
+        filter: "kebap",
+        description:
+          "Kadirli'de kebap üzerine hizmet veren yerel mekanlardan biri.",
+        rating: "4.8",
+        address:
+          "Kamil Kara Blv. No:396, Kadirli, Osmaniye",
+        phone: "",
+        hours: "Bilgi doğrulanacak",
+        image: "",
+        emoji: "🔥"
+      }
+    ];
+
+
+    /* =========================
+       HELPERS
+    ========================== */
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+
+    function imageOrFallback(item, className = "") {
+      if (item.image) {
+        return `
+          <img
+            class="${className}"
+            src="${escapeHtml(item.image)}"
+            alt="${escapeHtml(item.name)}"
+            onerror="
+              this.style.display='none';
+              this.nextElementSibling.style.display='flex';
+            "
+          >
+          <div
+            class="placeholder-image"
+            style="display:none;"
+          >
+            ${item.emoji || "📍"}
+          </div>
+        `;
+      }
+
+      return `
+        <div class="placeholder-image">
+          ${item.emoji || "📍"}
+        </div>
+      `;
+    }
+
+
+    /* =========================
+       PLACES
+    ========================== */
+
+    const placeGrid =
+      document.getElementById("placeGrid");
+
+
+    places.forEach((place, index) => {
+
+      const card =
+        document.createElement("article");
+
+      card.className =
+        "place-card";
+
+      card.tabIndex = 0;
+
+      card.innerHTML = `
+        <div class="card-image">
+          ${imageOrFallback(place)}
+        </div>
+
+        <div class="card-body">
+          <small>
+            ${escapeHtml(place.category)}
+          </small>
+
+          <h3>
+            ${escapeHtml(place.name)}
+          </h3>
+
+          <p>
+            ${escapeHtml(place.description)}
+          </p>
+
+          <span class="detail-link">
+            Detayları gör →
+          </span>
+        </div>
+      `;
+
+      card.addEventListener(
+        "click",
+        () => openPlace(index)
+      );
+
+      card.addEventListener(
+        "keydown",
+        event => {
+          if (
+            event.key === "Enter" ||
+            event.key === " "
+          ) {
+            event.preventDefault();
+            openPlace(index);
+          }
+        }
+      );
+
+      placeGrid.appendChild(card);
+
+    });
+
+
+    /* =========================
+       RESTAURANTS
+    ========================== */
+
+    const restaurantGrid =
+      document.getElementById("restaurantGrid");
+
+    const restaurantEmpty =
+      document.getElementById("restaurantEmpty");
+
+    const restaurantSearch =
+      document.getElementById("restaurantSearch");
+
+    let activeFilter = "all";
+
+
+    function renderRestaurants() {
+
+      const query =
+        restaurantSearch
+          .value
+          .trim()
+          .toLocaleLowerCase("tr-TR");
+
+
+      restaurantGrid.innerHTML = "";
+
+
+      const filtered =
+        restaurants.filter(restaurant => {
+
+          const filterMatch =
+            activeFilter === "all" ||
+            restaurant.filter === activeFilter;
+
+          const searchable =
+            (
+              restaurant.name +
+              " " +
+              restaurant.category +
+              " " +
+              restaurant.description
+            ).toLocaleLowerCase("tr-TR");
+
+          const searchMatch =
+            searchable.includes(query);
+
+          return filterMatch && searchMatch;
+
+        });
+
+
+      restaurantEmpty.style.display =
+        filtered.length
+          ? "none"
+          : "block";
+
+
+      filtered.forEach(restaurant => {
+
+        const originalIndex =
+          restaurants.indexOf(restaurant);
+
+        const card =
+          document.createElement("article");
+
+        card.className =
+          "restaurant-card";
+
+        card.tabIndex = 0;
+
+
+        card.innerHTML = `
+          <div class="card-image">
+            ${imageOrFallback(restaurant)}
+          </div>
+
+          <div class="card-body">
+
+            <small>
+              ${escapeHtml(restaurant.category)}
+            </small>
+
+            <h3>
+              ${escapeHtml(restaurant.name)}
+            </h3>
+
+            <p>
+              ${escapeHtml(restaurant.description)}
+            </p>
+
+            <div class="rating">
+              ★ ${escapeHtml(restaurant.rating)}
+            </div>
+
+            <div class="details">
+              ${escapeHtml(restaurant.address)}
+            </div>
+
+            <span class="detail-link">
+              Detayları gör →
+            </span>
+
+          </div>
+        `;
+
+
+        card.addEventListener(
+          "click",
+          () => openRestaurant(originalIndex)
+        );
+
+
+        card.addEventListener(
+          "keydown",
+          event => {
+
+            if (
+              event.key === "Enter" ||
+              event.key === " "
+            ) {
+
+              event.preventDefault();
+
+              openRestaurant(
+                originalIndex
+              );
+
+            }
+
+          }
+        );
+
+
+        restaurantGrid.appendChild(card);
+
+      });
+
+    }
+
+
+    restaurantSearch.addEventListener(
+      "input",
+      renderRestaurants
+    );
+
+
+    document
+      .querySelectorAll(".filter-btn")
+      .forEach(button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            activeFilter =
+              button.dataset.filter;
+
+            document
+              .querySelectorAll(".filter-btn")
+              .forEach(btn =>
+                btn.classList.remove("active")
+              );
+
+            button.classList.add("active");
+
+            renderRestaurants();
+
+          }
+        );
+
+      });
+
+
+    renderRestaurants();
+
+
+    /* =========================
+       MODAL
+    ========================== */
+
+    const modal =
+      document.getElementById("detailModal");
+
+    const modalClose =
+      document.getElementById("modalClose");
+
+    const modalMedia =
+      document.getElementById("modalMedia");
+
+    const modalCategory =
+      document.getElementById("modalCategory");
+
+    const modalTitle =
+      document.getElementById("modalTitle");
+
+    const modalDescription =
+      document.getElementById("modalDescription");
+
+    const modalInfoList =
+      document.getElementById("modalInfoList");
+
+    const modalRoute =
+      document.getElementById("modalRoute");
+
+    const modalCall =
+      document.getElementById("modalCall");
+
+    const modalDataNote =
+      document.getElementById("modalDataNote");
+
+
+    function setModalImage(item) {
+
+      if (item.image) {
+
+        modalMedia.innerHTML = `
+          <img
+            src="${escapeHtml(item.image)}"
+            alt="${escapeHtml(item.name)}"
+            onerror="
+              this.style.display='none';
+              this.nextElementSibling.style.display='flex';
+            "
+          >
+
+          <div
+            class="modal-placeholder"
+            style="display:none;"
+          >
+            ${item.emoji || "📍"}
+          </div>
+        `;
+
+      } else {
+
+        modalMedia.innerHTML = `
+          <div class="modal-placeholder">
+            ${item.emoji || "📍"}
+          </div>
+        `;
+
+      }
+
+    }
+
+
+    function openModal() {
+
+      modal.classList.add("open");
+
+      modal.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+      document.body.classList.add(
+        "modal-open"
+      );
+
+      modalClose.focus();
+
+    }
+
+
+    function openRestaurant(index) {
+
+      const item =
+        restaurants[index];
+
+
+      setModalImage(item);
+
+
+      modalCategory.textContent =
+        item.category;
+
+      modalTitle.textContent =
+        item.name;
+
+      modalDescription.textContent =
+        item.description;
+
+
+      modalInfoList.innerHTML = `
         <div class="modal-info">
           <strong>⭐ Değerlendirme</strong>
-          <span id="modalRating"></span>
+          ${escapeHtml(item.rating)}
         </div>
 
         <div class="modal-info">
           <strong>📍 Adres</strong>
-          <span id="modalAddress"></span>
+          ${escapeHtml(item.address)}
         </div>
 
         <div class="modal-info">
           <strong>☎ Telefon</strong>
-          <span id="modalPhone"></span>
+          ${item.phone
+            ? escapeHtml(item.phone)
+            : "Henüz eklenmedi"}
         </div>
 
         <div class="modal-info">
           <strong>🕒 Çalışma Saatleri</strong>
-          <span id="modalHours"></span>
-        </div>
-
-      </div>
-
-      <div class="modal-actions">
-
-        <a
-          href="#"
-          target="_blank"
-          rel="noopener"
-          class="modal-action"
-          id="modalRoute"
-        >
-          📍 Yol Tarifi
-        </a>
-
-        <a
-          href="#"
-          class="modal-action secondary"
-          id="modalCall"
-        >
-          ☎ Ara
-        </a>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<section id="isletmeler">
-
-  <div class="container">
-
-    <div class="section-title">
-
-      <span>Yerel Rehber</span>
-
-      <h2>İşletme Kategorileri</h2>
-
-      <p>
-        Kadirli'deki işletmeleri kategori kategori bul.
-      </p>
-
-    </div>
-
-    <div class="business-grid">
-
-      <div class="business">
-        <div>🍴</div>
-        <h3>Restoranlar</h3>
-      </div>
-
-      <div class="business">
-        <div>☕</div>
-        <h3>Kafeler</h3>
-      </div>
-
-      <div class="business">
-        <div>🔧</div>
-        <h3>Servis & Tamir</h3>
-      </div>
-
-      <div class="business">
-        <div>💇</div>
-        <h3>Kuaför</h3>
-      </div>
-
-      <div class="business">
-        <div>🏠</div>
-        <h3>Emlak</h3>
-      </div>
-
-      <div class="business">
-        <div>🛒</div>
-        <h3>Mağazalar</h3>
-      </div>
-
-      <div class="business">
-        <div>👷</div>
-        <h3>Ustalar</h3>
-      </div>
-
-      <div class="business">
-        <div>➕</div>
-        <h3>Tüm İşletmeler</h3>
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<section class="important">
-
-  <div class="container">
-
-    <div class="section-title">
-      <span>Hızlı Bilgi</span>
-      <h2>Önemli Noktalar</h2>
-    </div>
-
-    <div class="info-grid">
-
-      <div class="info-card">
-        <span>🏥</span>
-        <h3>Hastane</h3>
-        <p>Sağlık kuruluşları</p>
-      </div>
-
-      <div class="info-card">
-        <span>💊</span>
-        <h3>Eczaneler</h3>
-        <p>Eczane ve nöbetçi eczane bilgileri</p>
-      </div>
-
-      <div class="info-card">
-        <span>🚓</span>
-        <h3>Polis</h3>
-        <p>Acil durum ve güvenlik</p>
-      </div>
-
-      <div class="info-card">
-        <span>🚌</span>
-        <h3>Ulaşım</h3>
-        <p>Otobüs ve ulaşım bilgileri</p>
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<section id="harita">
-
-  <div class="container">
-
-    <div class="section-title">
-
-      <span>Konum</span>
-
-      <h2>Kadirli Haritası</h2>
-
-      <p>
-        Şehir merkezini ve çevresini incele.
-      </p>
-
-    </div>
-
-    <div class="map-container">
-
-      <iframe
-        src="https://www.openstreetmap.org/export/embed.html?bbox=36.04%2C37.31%2C36.15%2C37.43&layer=mapnik&marker=37.373%2C36.096"
-        loading="lazy"
-        title="Kadirli Haritası"
-      >
-      </iframe>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<section class="cta" id="iletisim">
-
-  <div class="cta-box">
-
-    <div>
-
-      <h2>
-        Kadirli'de bir işletmen mi var?
-      </h2>
-
-      <p>
-        İşletmeni Güzelim Kadirli'ye eklemek
-        veya yanlış bilgiyi bildirmek için bize ulaş.
-      </p>
-
-    </div>
-
-    <a
-      class="cta-button"
-      href="mailto:info@guzelimkadirli.com"
-    >
-      Bize Ulaş
-    </a>
-
-  </div>
-
-</section>
-
-
-<footer>
-
-  <div class="footer-grid">
-
-    <div>
-
-      <h3>Güzelim Kadirli</h3>
-
-      <p>
-        Kadirli için yerel şehir,
-        mekan ve işletme rehberi.
-      </p>
-
-    </div>
-
-    <div>
-
-      <h3>Keşfet</h3>
-
-      <ul>
-        <li><a href="#gezilecek">Gezilecek Yerler</a></li>
-        <li><a href="#yeme">Yeme & İçme</a></li>
-        <li><a href="#isletmeler">İşletmeler</a></li>
-      </ul>
-
-    </div>
-
-    <div>
-
-      <h3>Bilgi</h3>
-
-      <ul>
-        <li><a href="#hakkinda">Kadirli Hakkında</a></li>
-        <li><a href="#harita">Harita</a></li>
-        <li><a href="#iletisim">İletişim</a></li>
-      </ul>
-
-    </div>
-
-  </div>
-
-  <div class="copyright">
-    © <span id="year"></span>
-    Güzelim Kadirli • Kadirli, Osmaniye
-  </div>
-
-</footer>
-
-
-<script>
-
-  document.getElementById("year").textContent =
-    new Date().getFullYear();
-
-
-  const restaurantCards =
-    document.querySelectorAll(".restaurant-card");
-
-  const modal =
-    document.getElementById("restaurantModal");
-
-  const modalClose =
-    document.getElementById("modalClose");
-
-  const modalMedia =
-    document.getElementById("modalMedia");
-
-  const modalName =
-    document.getElementById("modalName");
-
-  const modalCategory =
-    document.getElementById("modalCategory");
-
-  const modalDescription =
-    document.getElementById("modalDescription");
-
-  const modalRating =
-    document.getElementById("modalRating");
-
-  const modalAddress =
-    document.getElementById("modalAddress");
-
-  const modalPhone =
-    document.getElementById("modalPhone");
-
-  const modalHours =
-    document.getElementById("modalHours");
-
-  const modalRoute =
-    document.getElementById("modalRoute");
-
-  const modalCall =
-    document.getElementById("modalCall");
-
-
-  let lastOpenedCard = null;
-
-
-  function openRestaurant(card) {
-
-    lastOpenedCard = card;
-
-    const name = card.dataset.name;
-    const category = card.dataset.category;
-    const description = card.dataset.description;
-    const rating = card.dataset.rating;
-    const address = card.dataset.address;
-    const phone = card.dataset.phone;
-    const hours = card.dataset.hours;
-    const image = card.dataset.image;
-    const emoji = card.dataset.emoji;
-
-
-    modalName.textContent = name;
-    modalCategory.textContent = category;
-    modalDescription.textContent = description;
-    modalRating.textContent = rating;
-    modalAddress.textContent = address;
-    modalPhone.textContent = phone;
-    modalHours.textContent = hours;
-
-
-    if (image) {
-
-      modalMedia.innerHTML = `
-        <img
-          class="modal-image"
-          src="${image}"
-          alt="${name}"
-        >
-      `;
-
-    } else {
-
-      modalMedia.innerHTML = `
-        <div class="modal-placeholder">
-          ${emoji}
+          ${escapeHtml(item.hours)}
         </div>
       `;
+
+
+      const routeQuery =
+        encodeURIComponent(
+          item.name +
+          ", " +
+          item.address
+        );
+
+
+      modalRoute.href =
+        "https://www.google.com/maps/search/?api=1&query=" +
+        routeQuery;
+
+
+      if (item.phone) {
+
+        modalCall.href =
+          "tel:" +
+          item.phone.replace(/\s/g, "");
+
+        modalCall.style.display =
+          "inline-flex";
+
+      } else {
+
+        modalCall.style.display =
+          "none";
+
+      }
+
+
+      modalDataNote.textContent =
+        "İşletme bilgileri zaman içinde değişebilir. Gitmeden önce doğrulaman önerilir.";
+
+
+      openModal();
 
     }
 
 
-    const routeQuery =
-      encodeURIComponent(
-        name + ", " + address
-      );
+    function openPlace(index) {
+
+      const item =
+        places[index];
 
 
-    modalRoute.href =
-      "https://www.google.com/maps/search/?api=1&query=" +
-      routeQuery;
+      setModalImage(item);
 
 
-    if (phone.startsWith("0")) {
+      modalCategory.textContent =
+        item.category;
 
-      const cleanPhone =
-        phone.replace(/\s/g, "");
+      modalTitle.textContent =
+        item.name;
 
-      modalCall.href =
-        "tel:" + cleanPhone;
+      modalDescription.textContent =
+        item.description;
 
-      modalCall.style.display =
-        "inline-flex";
 
-    } else {
+      modalInfoList.innerHTML = `
+        <div class="modal-info">
+          <strong>📍 Konum</strong>
+          ${escapeHtml(item.address)}
+        </div>
+      `;
+
+
+      const routeQuery =
+        encodeURIComponent(
+          item.name +
+          ", " +
+          item.address
+        );
+
+
+      modalRoute.href =
+        "https://www.google.com/maps/search/?api=1&query=" +
+        routeQuery;
+
 
       modalCall.style.display =
         "none";
 
+
+      modalDataNote.textContent =
+        "";
+
+
+      openModal();
+
     }
 
 
-    modal.classList.add("open");
+    function closeModal() {
 
-    modal.setAttribute(
-      "aria-hidden",
-      "false"
-    );
+      modal.classList.remove("open");
 
-    document.body.classList.add(
-      "modal-open"
-    );
+      modal.setAttribute(
+        "aria-hidden",
+        "true"
+      );
 
-    modalClose.focus();
+      document.body.classList.remove(
+        "modal-open"
+      );
 
-  }
-
-
-  function closeRestaurant() {
-
-    modal.classList.remove("open");
-
-    modal.setAttribute(
-      "aria-hidden",
-      "true"
-    );
-
-    document.body.classList.remove(
-      "modal-open"
-    );
-
-    if (lastOpenedCard) {
-      lastOpenedCard.focus();
     }
 
-  }
 
-
-  restaurantCards.forEach(card => {
-
-    card.addEventListener(
+    modalClose.addEventListener(
       "click",
-      () => openRestaurant(card)
+      closeModal
     );
 
 
-    card.addEventListener(
+    modal.addEventListener(
+      "click",
+      event => {
+
+        if (event.target === modal) {
+          closeModal();
+        }
+
+      }
+    );
+
+
+    document.addEventListener(
       "keydown",
       event => {
 
         if (
-          event.key === "Enter" ||
-          event.key === " "
+          event.key === "Escape" &&
+          modal.classList.contains("open")
         ) {
 
-          event.preventDefault();
-
-          openRestaurant(card);
+          closeModal();
 
         }
 
       }
     );
 
-  });
+
+    /* =========================
+       CATEGORY SCROLL
+    ========================== */
+
+    document
+      .querySelectorAll("[data-target]")
+      .forEach(button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            const target =
+              document.getElementById(
+                button.dataset.target
+              );
+
+            target.scrollIntoView({
+              behavior: "smooth"
+            });
+
+          }
+        );
+
+      });
 
 
-  modalClose.addEventListener(
-    "click",
-    closeRestaurant
-  );
+    /* =========================
+       MOBILE MENU
+    ========================== */
+
+    const menuToggle =
+      document.getElementById("menuToggle");
+
+    const navLinks =
+      document.getElementById("navLinks");
 
 
-  modal.addEventListener(
-    "click",
-    event => {
+    menuToggle.addEventListener(
+      "click",
+      () => {
 
-      if (event.target === modal) {
-        closeRestaurant();
+        navLinks.classList.toggle("open");
+
+        menuToggle.textContent =
+          navLinks.classList.contains("open")
+            ? "×"
+            : "☰";
+
       }
-
-    }
-  );
+    );
 
 
-  document.addEventListener(
-    "keydown",
-    event => {
+    navLinks
+      .querySelectorAll("a")
+      .forEach(link => {
 
-      if (
-        event.key === "Escape" &&
-        modal.classList.contains("open")
-      ) {
+        link.addEventListener(
+          "click",
+          () => {
 
-        closeRestaurant();
+            navLinks.classList.remove("open");
+
+            menuToggle.textContent =
+              "☰";
+
+          }
+        );
+
+      });
+
+
+    /* =========================
+       BUSINESS FORM
+    ========================== */
+
+    const businessForm =
+      document.getElementById("businessForm");
+
+
+    businessForm.addEventListener(
+      "submit",
+      event => {
+
+        event.preventDefault();
+
+
+        const name =
+          document
+            .getElementById("businessName")
+            .value
+            .trim();
+
+        const category =
+          document
+            .getElementById("businessCategory")
+            .value;
+
+        const phone =
+          document
+            .getElementById("businessPhone")
+            .value
+            .trim();
+
+        const address =
+          document
+            .getElementById("businessAddress")
+            .value
+            .trim();
+
+        const message =
+          document
+            .getElementById("businessMessage")
+            .value
+            .trim();
+
+
+        if (!name || !category) {
+          alert(
+            "Lütfen işletme adı ve kategori alanlarını doldur."
+          );
+          return;
+        }
+
+
+        const subject =
+          encodeURIComponent(
+            "Güzelim Kadirli - İşletme Başvurusu: " +
+            name
+          );
+
+
+        const body =
+          encodeURIComponent(
+            "İşletme adı: " + name + "\n" +
+            "Kategori: " + category + "\n" +
+            "Telefon: " + phone + "\n" +
+            "Adres: " + address + "\n\n" +
+            "Ek bilgi:\n" + message
+          );
+
+
+        window.location.href =
+          "mailto:info@guzelimkadirli.com" +
+          "?subject=" +
+          subject +
+          "&body=" +
+          body;
 
       }
+    );
 
-    }
-  );
 
-</script>
+    /* =========================
+       YEAR
+    ========================== */
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+  </script>
 
 </body>
 </html>
