@@ -21,10 +21,7 @@ function error(message, status = 400) {
 function validId(id) {
   const value = Number(id);
 
-  if (
-    !Number.isInteger(value) ||
-    value < 1
-  ) {
+  if (!Number.isInteger(value) || value < 1) {
     return null;
   }
 
@@ -49,15 +46,12 @@ function bytesToBase64Url(bytes) {
 }
 
 function base64UrlToBytes(value) {
-  const normalized =
-    value
-      .replaceAll("-", "+")
-      .replaceAll("_", "/");
+  const normalized = value
+    .replaceAll("-", "+")
+    .replaceAll("_", "/");
 
   const padding =
-    "=".repeat(
-      (4 - normalized.length % 4) % 4
-    );
+    "=".repeat((4 - normalized.length % 4) % 4);
 
   const binary =
     atob(normalized + padding);
@@ -68,10 +62,7 @@ function base64UrlToBytes(value) {
   );
 }
 
-async function hmacSign(
-  value,
-  secret
-) {
+async function hmacSign(value, secret) {
   const key =
     await crypto.subtle.importKey(
       "raw",
@@ -126,11 +117,11 @@ async function hmacVerify(
 }
 
 function getCookie(request, name) {
-  const cookieHeader =
+  const header =
     request.headers.get("Cookie") || "";
 
   const cookies =
-    cookieHeader
+    header
       .split(";")
       .map(item => item.trim());
 
@@ -157,21 +148,17 @@ function getCookie(request, name) {
 }
 
 async function createSession(env) {
-  const expiresAt =
-    Date.now() +
-    8 * 60 * 60 * 1000;
-
   const payloadObject = {
     role: "admin",
-    exp: expiresAt
+    exp:
+      Date.now() +
+      8 * 60 * 60 * 1000
   };
 
   const payload =
     bytesToBase64Url(
       textToBytes(
-        JSON.stringify(
-          payloadObject
-        )
+        JSON.stringify(payloadObject)
       )
     );
 
@@ -209,32 +196,27 @@ async function verifySession(
     return false;
   }
 
-  const [
-    payload,
-    signature
-  ] = parts;
+  const [payload, signature] =
+    parts;
 
-  const validSignature =
+  const signatureValid =
     await hmacVerify(
       payload,
       signature,
       env.SESSION_SECRET
     );
 
-  if (!validSignature) {
+  if (!signatureValid) {
     return false;
   }
 
   try {
-    const payloadBytes =
-      base64UrlToBytes(payload);
-
-    const payloadText =
-      new TextDecoder()
-        .decode(payloadBytes);
-
     const data =
-      JSON.parse(payloadText);
+      JSON.parse(
+        new TextDecoder().decode(
+          base64UrlToBytes(payload)
+        )
+      );
 
     if (
       data.role !== "admin" ||
@@ -279,26 +261,20 @@ async function passwordsMatch(
     return false;
   }
 
-  const providedHash =
-    await crypto.subtle.digest(
-      "SHA-256",
-      textToBytes(provided)
-    );
-
-  const expectedHash =
-    await crypto.subtle.digest(
-      "SHA-256",
-      textToBytes(expected)
-    );
-
   const a =
     new Uint8Array(
-      providedHash
+      await crypto.subtle.digest(
+        "SHA-256",
+        textToBytes(provided)
+      )
     );
 
   const b =
     new Uint8Array(
-      expectedHash
+      await crypto.subtle.digest(
+        "SHA-256",
+        textToBytes(expected)
+      )
     );
 
   if (a.length !== b.length) {
@@ -307,21 +283,16 @@ async function passwordsMatch(
 
   let difference = 0;
 
-  for (
-    let i = 0;
-    i < a.length;
-    i++
-  ) {
-    difference |=
-      a[i] ^ b[i];
+  for (let i = 0; i < a.length; i++) {
+    difference |= a[i] ^ b[i];
   }
 
   return difference === 0;
 }
 
-/* =====================================
-   ADMIN LOGIN
-===================================== */
+/* =========================
+   ADMIN AUTH
+========================= */
 
 async function adminLogin(
   request,
@@ -340,22 +311,14 @@ async function adminLogin(
   let body;
 
   try {
-    body =
-      await request.json();
+    body = await request.json();
   } catch {
-    return error(
-      "Geçersiz JSON."
-    );
+    return error("Geçersiz JSON.");
   }
-
-  const password =
-    String(
-      body.password || ""
-    );
 
   const valid =
     await passwordsMatch(
-      password,
+      String(body.password || ""),
       env.ADMIN_PASSWORD
     );
 
@@ -398,21 +361,171 @@ async function adminSession(
   request,
   env
 ) {
-  const valid =
-    await verifySession(
+  return json({
+    success: true,
+    authenticated:
+      await verifySession(
+        request,
+        env
+      )
+  });
+}
+
+/* =========================
+   R2 IMAGE UPLOAD
+========================= */
+
+function imageExtension(type) {
+  if (type === "image/jpeg") {
+    return "jpg";
+  }
+
+  if (type === "image/png") {
+    return "png";
+  }
+
+  if (type === "image/webp") {
+    return "webp";
+  }
+
+  return null;
+}
+
+async function uploadAdminImage(
+  request,
+  env
+) {
+  const denied =
+    await requireAdmin(
       request,
       env
     );
 
-  return json({
-    success: true,
-    authenticated: valid
-  });
+  if (denied) {
+    return denied;
+  }
+
+  if (!env.IMAGES) {
+    return error(
+      "R2 bağlantısı bulunamadı.",
+      500
+    );
+  }
+
+  let formData;
+
+  try {
+    formData =
+      await request.formData();
+  } catch {
+    return error(
+      "Dosya okunamadı."
+    );
+  }
+
+  const file =
+    formData.get("image");
+
+  if (
+    !file ||
+    typeof file === "string"
+  ) {
+    return error(
+      "Bir görsel seçmelisin."
+    );
+  }
+
+  const extension =
+    imageExtension(file.type);
+
+  if (!extension) {
+    return error(
+      "Sadece JPG, PNG veya WEBP yüklenebilir."
+    );
+  }
+
+  const maxSize =
+    5 * 1024 * 1024;
+
+  if (file.size > maxSize) {
+    return error(
+      "Görsel en fazla 5 MB olabilir."
+    );
+  }
+
+  const key =
+    `uploads/${Date.now()}-${crypto.randomUUID()}.${extension}`;
+
+  await env.IMAGES.put(
+    key,
+    file.stream(),
+    {
+      httpMetadata: {
+        contentType: file.type
+      },
+      customMetadata: {
+        uploadedBy: "admin"
+      }
+    }
+  );
+
+  return json(
+    {
+      success: true,
+      key,
+      url:
+        `/media/${key}`
+    },
+    201
+  );
 }
 
-/* =====================================
+/* =========================
+   PUBLIC R2 IMAGE
+========================= */
+
+async function getR2Image(
+  env,
+  key
+) {
+  const object =
+    await env.IMAGES.get(key);
+
+  if (!object) {
+    return new Response(
+      "Görsel bulunamadı.",
+      {
+        status: 404
+      }
+    );
+  }
+
+  const headers =
+    new Headers();
+
+  object.writeHttpMetadata(headers);
+
+  headers.set(
+    "Cache-Control",
+    "public, max-age=31536000, immutable"
+  );
+
+  headers.set(
+    "ETag",
+    object.httpEtag
+  );
+
+  return new Response(
+    object.body,
+    {
+      headers
+    }
+  );
+}
+
+/* =========================
    PUBLIC RESTAURANTS
-===================================== */
+========================= */
 
 async function getRestaurants(env) {
   const result =
@@ -444,9 +557,9 @@ async function getRestaurants(env) {
   });
 }
 
-/* =====================================
+/* =========================
    PUBLIC PLACES
-===================================== */
+========================= */
 
 async function getPlaces(env) {
   const result =
@@ -473,9 +586,9 @@ async function getPlaces(env) {
   });
 }
 
-/* =====================================
+/* =========================
    PUBLIC BUSINESS REQUEST
-===================================== */
+========================= */
 
 async function createBusinessRequest(
   request,
@@ -484,12 +597,9 @@ async function createBusinessRequest(
   let body;
 
   try {
-    body =
-      await request.json();
+    body = await request.json();
   } catch {
-    return error(
-      "Geçersiz JSON."
-    );
+    return error("Geçersiz JSON.");
   }
 
   const businessName =
@@ -594,9 +704,9 @@ async function createBusinessRequest(
   );
 }
 
-/* =====================================
+/* =========================
    ADMIN REQUESTS
-===================================== */
+========================= */
 
 async function getAdminRequests(
   request,
@@ -913,53 +1023,9 @@ async function deleteAdminRequest(
   });
 }
 
-/* =====================================
-   ADMIN RESTAURANTS
-===================================== */
-
-async function getAdminRestaurants(
-  request,
-  env
-) {
-  const denied =
-    await requireAdmin(
-      request,
-      env
-    );
-
-  if (denied) {
-    return denied;
-  }
-
-  const result =
-    await env.DB
-      .prepare(`
-        SELECT
-          id,
-          name,
-          category,
-          filter,
-          description,
-          rating,
-          address,
-          phone,
-          hours,
-          image,
-          emoji,
-          featured,
-          active,
-          created_at
-        FROM restaurants
-        ORDER BY featured DESC, id ASC
-      `)
-      .all();
-
-  return json({
-    success: true,
-    restaurants:
-      result.results || []
-  });
-}
+/* =========================
+   RESTAURANTS ADMIN
+========================= */
 
 function normalizeRestaurant(body) {
   return {
@@ -1023,9 +1089,7 @@ function normalizeRestaurant(body) {
   };
 }
 
-function validateRestaurant(
-  item
-) {
+function validateRestaurant(item) {
   if (!item.name) {
     return "Restoran adı zorunludur.";
   }
@@ -1039,9 +1103,7 @@ function validateRestaurant(
   }
 
   if (
-    Number.isNaN(
-      item.rating
-    ) ||
+    Number.isNaN(item.rating) ||
     item.rating < 0 ||
     item.rating > 5
   ) {
@@ -1049,6 +1111,36 @@ function validateRestaurant(
   }
 
   return null;
+}
+
+async function getAdminRestaurants(
+  request,
+  env
+) {
+  const denied =
+    await requireAdmin(
+      request,
+      env
+    );
+
+  if (denied) {
+    return denied;
+  }
+
+  const result =
+    await env.DB
+      .prepare(`
+        SELECT *
+        FROM restaurants
+        ORDER BY featured DESC, id ASC
+      `)
+      .all();
+
+  return json({
+    success: true,
+    restaurants:
+      result.results || []
+  });
 }
 
 async function createAdminRestaurant(
@@ -1068,12 +1160,9 @@ async function createAdminRestaurant(
   let body;
 
   try {
-    body =
-      await request.json();
+    body = await request.json();
   } catch {
-    return error(
-      "Geçersiz JSON."
-    );
+    return error("Geçersiz JSON.");
   }
 
   const item =
@@ -1083,9 +1172,7 @@ async function createAdminRestaurant(
     validateRestaurant(item);
 
   if (validationError) {
-    return error(
-      validationError
-    );
+    return error(validationError);
   }
 
   const result =
@@ -1161,12 +1248,9 @@ async function updateAdminRestaurant(
   let body;
 
   try {
-    body =
-      await request.json();
+    body = await request.json();
   } catch {
-    return error(
-      "Geçersiz JSON."
-    );
+    return error("Geçersiz JSON.");
   }
 
   const item =
@@ -1176,9 +1260,7 @@ async function updateAdminRestaurant(
     validateRestaurant(item);
 
   if (validationError) {
-    return error(
-      validationError
-    );
+    return error(validationError);
   }
 
   await env.DB
@@ -1255,54 +1337,13 @@ async function deleteAdminRestaurant(
     .run();
 
   return json({
-    success: true,
-    deleted_id:
-      numericId
+    success: true
   });
 }
 
-/* =====================================
-   ADMIN PLACES
-===================================== */
-
-async function getAdminPlaces(
-  request,
-  env
-) {
-  const denied =
-    await requireAdmin(
-      request,
-      env
-    );
-
-  if (denied) {
-    return denied;
-  }
-
-  const result =
-    await env.DB
-      .prepare(`
-        SELECT
-          id,
-          name,
-          category,
-          description,
-          address,
-          image,
-          emoji,
-          active,
-          created_at
-        FROM places
-        ORDER BY id ASC
-      `)
-      .all();
-
-  return json({
-    success: true,
-    places:
-      result.results || []
-  });
-}
+/* =========================
+   PLACES ADMIN
+========================= */
 
 function normalizePlace(body) {
   return {
@@ -1343,16 +1384,34 @@ function normalizePlace(body) {
   };
 }
 
-function validatePlace(item) {
-  if (!item.name) {
-    return "Yer adı zorunludur.";
+async function getAdminPlaces(
+  request,
+  env
+) {
+  const denied =
+    await requireAdmin(
+      request,
+      env
+    );
+
+  if (denied) {
+    return denied;
   }
 
-  if (!item.category) {
-    return "Kategori zorunludur.";
-  }
+  const result =
+    await env.DB
+      .prepare(`
+        SELECT *
+        FROM places
+        ORDER BY id ASC
+      `)
+      .all();
 
-  return null;
+  return json({
+    success: true,
+    places:
+      result.results || []
+  });
 }
 
 async function createAdminPlace(
@@ -1372,23 +1431,23 @@ async function createAdminPlace(
   let body;
 
   try {
-    body =
-      await request.json();
+    body = await request.json();
   } catch {
-    return error(
-      "Geçersiz JSON."
-    );
+    return error("Geçersiz JSON.");
   }
 
   const item =
     normalizePlace(body);
 
-  const validationError =
-    validatePlace(item);
-
-  if (validationError) {
+  if (!item.name) {
     return error(
-      validationError
+      "Yer adı zorunludur."
+    );
+  }
+
+  if (!item.category) {
+    return error(
+      "Kategori zorunludur."
     );
   }
 
@@ -1455,23 +1514,23 @@ async function updateAdminPlace(
   let body;
 
   try {
-    body =
-      await request.json();
+    body = await request.json();
   } catch {
-    return error(
-      "Geçersiz JSON."
-    );
+    return error("Geçersiz JSON.");
   }
 
   const item =
     normalizePlace(body);
 
-  const validationError =
-    validatePlace(item);
-
-  if (validationError) {
+  if (!item.name) {
     return error(
-      validationError
+      "Yer adı zorunludur."
+    );
+  }
+
+  if (!item.category) {
+    return error(
+      "Kategori zorunludur."
     );
   }
 
@@ -1539,37 +1598,57 @@ async function deleteAdminPlace(
     .run();
 
   return json({
-    success: true,
-    deleted_id:
-      numericId
+    success: true
   });
 }
 
-/* =====================================
+/* =========================
    MAIN
-===================================== */
+========================= */
 
 export default {
-  async fetch(
-    request,
-    env
-  ) {
+  async fetch(request, env) {
     const url =
-      new URL(
-        request.url
-      );
+      new URL(request.url);
 
     const pathname =
       url.pathname;
 
     try {
 
+      /* R2 PUBLIC FILES */
+
+      if (
+        request.method === "GET" &&
+        pathname.startsWith("/media/")
+      ) {
+        const key =
+          decodeURIComponent(
+            pathname.slice(
+              "/media/".length
+            )
+          );
+
+        if (!key) {
+          return new Response(
+            "Not found",
+            {
+              status: 404
+            }
+          );
+        }
+
+        return await getR2Image(
+          env,
+          key
+        );
+      }
+
       /* ADMIN AUTH */
 
       if (
         request.method === "POST" &&
-        pathname ===
-          "/api/admin/login"
+        pathname === "/api/admin/login"
       ) {
         return await adminLogin(
           request,
@@ -1579,16 +1658,14 @@ export default {
 
       if (
         request.method === "POST" &&
-        pathname ===
-          "/api/admin/logout"
+        pathname === "/api/admin/logout"
       ) {
         return await adminLogout();
       }
 
       if (
         request.method === "GET" &&
-        pathname ===
-          "/api/admin/session"
+        pathname === "/api/admin/session"
       ) {
         return await adminSession(
           request,
@@ -1596,32 +1673,35 @@ export default {
         );
       }
 
-      /* PUBLIC */
-
       if (
-        request.method === "GET" &&
-        pathname ===
-          "/api/restaurants"
+        request.method === "POST" &&
+        pathname === "/api/admin/upload"
       ) {
-        return await getRestaurants(
+        return await uploadAdminImage(
+          request,
           env
         );
       }
 
+      /* PUBLIC API */
+
       if (
         request.method === "GET" &&
-        pathname ===
-          "/api/places"
+        pathname === "/api/restaurants"
       ) {
-        return await getPlaces(
-          env
-        );
+        return await getRestaurants(env);
+      }
+
+      if (
+        request.method === "GET" &&
+        pathname === "/api/places"
+      ) {
+        return await getPlaces(env);
       }
 
       if (
         request.method === "POST" &&
-        pathname ===
-          "/api/business-request"
+        pathname === "/api/business-request"
       ) {
         return await createBusinessRequest(
           request,
@@ -1633,8 +1713,7 @@ export default {
 
       if (
         request.method === "GET" &&
-        pathname ===
-          "/api/admin/requests"
+        pathname === "/api/admin/requests"
       ) {
         return await getAdminRequests(
           request,
@@ -1689,8 +1768,7 @@ export default {
 
       if (
         request.method === "GET" &&
-        pathname ===
-          "/api/admin/restaurants"
+        pathname === "/api/admin/restaurants"
       ) {
         return await getAdminRestaurants(
           request,
@@ -1700,8 +1778,7 @@ export default {
 
       if (
         request.method === "POST" &&
-        pathname ===
-          "/api/admin/restaurants"
+        pathname === "/api/admin/restaurants"
       ) {
         return await createAdminRestaurant(
           request,
@@ -1740,8 +1817,7 @@ export default {
 
       if (
         request.method === "GET" &&
-        pathname ===
-          "/api/admin/places"
+        pathname === "/api/admin/places"
       ) {
         return await getAdminPlaces(
           request,
@@ -1751,8 +1827,7 @@ export default {
 
       if (
         request.method === "POST" &&
-        pathname ===
-          "/api/admin/places"
+        pathname === "/api/admin/places"
       ) {
         return await createAdminPlace(
           request,
@@ -1787,12 +1862,8 @@ export default {
         );
       }
 
-      /* UNKNOWN API */
-
       if (
-        pathname.startsWith(
-          "/api/"
-        )
+        pathname.startsWith("/api/")
       ) {
         return error(
           "API endpoint bulunamadı.",
