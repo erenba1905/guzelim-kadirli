@@ -1,7 +1,0 @@
-User-agent: *
-Allow: /
-
-Disallow: /admin/
-Disallow: /api/admin/
-
-Sitemap: https://guzelim-kadirli.eren-ba1905.workers.dev/sitemap.xml
