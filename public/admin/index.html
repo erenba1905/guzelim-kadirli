@@ -1,1913 +1,2410 @@
 <!DOCTYPE html>
 <html lang="tr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Güzelim Kadirli Admin</title>
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    Güzelim Kadirli Admin
+  </title>
+
 
   <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
+
     body {
-      font-family: Arial, Helvetica, sans-serif;
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
       background: #f5f7f5;
+
       color: #1f2933;
+
       line-height: 1.5;
     }
 
+
     button,
     input,
-    select,
-    textarea {
+    textarea,
+    select {
       font: inherit;
     }
+
 
     button {
       cursor: pointer;
     }
 
-    .topbar {
-      background: #173122;
-      color: white;
-      padding: 18px 24px;
-    }
 
-    .topbar-inner {
-      max-width: 1150px;
-      margin: auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-    }
+    .login {
+      max-width: 450px;
 
-    .topbar h1 {
-      font-size: 22px;
-    }
-
-    .topbar a {
-      color: white;
-      text-decoration: none;
-      font-size: 14px;
-    }
-
-    .login-box {
-      max-width: 460px;
       margin: 80px auto;
-      background: white;
-      border: 1px solid #e2e7e3;
-      border-radius: 18px;
+
       padding: 28px;
+
+      background: white;
+
+      border:
+        1px solid #e0e6e1;
+
+      border-radius: 18px;
     }
 
-    .login-box h2 {
+
+    .login h2 {
       margin-bottom: 8px;
     }
 
-    .login-box p {
-      color: #66716b;
+
+    .login p {
       margin-bottom: 20px;
+
+      color: #68736d;
     }
 
-    .login-box label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: 700;
-      font-size: 14px;
-    }
 
-    .login-box input {
+    .login input {
       width: 100%;
+
       min-height: 46px;
-      border: 1px solid #dfe5e0;
-      border-radius: 9px;
+
       padding: 10px 12px;
-      margin-bottom: 14px;
-      font-size: 16px;
+
+      margin-bottom: 12px;
+
+      border:
+        1px solid #d8dfda;
+
+      border-radius: 9px;
     }
 
-    .login-box button {
+
+    .login button {
       width: 100%;
+
       min-height: 46px;
+
       border: 0;
+
       border-radius: 9px;
+
       background: #1f7a4d;
+
       color: white;
-      font-weight: 800;
+
+      font-weight: bold;
     }
+
 
     .login-error {
-      margin-top: 12px;
+      margin-top: 10px;
+
       color: #a22;
+
       font-size: 14px;
     }
+
+
+    header {
+      background: #173122;
+
+      color: white;
+
+      padding: 18px 24px;
+    }
+
+
+    .header-inner {
+      max-width: 1150px;
+
+      margin: auto;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+    }
+
+
+    header a {
+      color: white;
+
+      text-decoration: none;
+    }
+
 
     main {
       max-width: 1150px;
-      margin: 36px auto;
-      padding: 0 20px 60px;
+
+      margin: 35px auto;
+
+      padding:
+        0
+        20px
+        60px;
     }
+
 
     .tabs {
       display: flex;
-      gap: 10px;
-      margin-bottom: 22px;
+
       flex-wrap: wrap;
+
+      gap: 10px;
+
+      margin-bottom: 22px;
     }
 
-    .tab-btn {
-      border: 1px solid #d8e0da;
+
+    .tab {
+      padding: 10px 17px;
+
+      border:
+        1px solid #d7ded8;
+
+      border-radius: 9px;
+
       background: white;
-      color: #1f2933;
-      padding: 10px 18px;
-      border-radius: 10px;
-      font-weight: 700;
+
+      font-weight: bold;
     }
 
-    .tab-btn.active {
+
+    .tab.active {
       background: #1f7a4d;
+
       color: white;
+
       border-color: #1f7a4d;
     }
 
-    .tab-panel {
+
+    .panel {
       display: none;
     }
 
-    .tab-panel.active {
+
+    .panel.active {
       display: block;
     }
 
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-bottom: 24px;
-    }
 
-    .stat {
-      background: white;
-      border: 1px solid #e2e7e3;
-      border-radius: 14px;
-      padding: 20px;
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 30px;
-      color: #1f7a4d;
-    }
-
-    .panel {
-      background: white;
-      border: 1px solid #e2e7e3;
-      border-radius: 16px;
+    .box {
       padding: 24px;
-      margin-bottom: 24px;
-    }
 
-    .panel-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
+      margin-bottom: 22px;
 
-    .panel-head h2 {
-      font-size: 24px;
-    }
-
-    .panel-head p {
-      color: #66716b;
-      margin-top: 3px;
-    }
-
-    .primary-btn,
-    .refresh-btn {
-      border: 0;
-      border-radius: 9px;
-      padding: 10px 16px;
-      background: #1f7a4d;
-      color: white;
-      font-weight: 700;
-    }
-
-    .secondary-btn {
-      border: 1px solid #d7ded9;
-      border-radius: 9px;
-      padding: 10px 16px;
       background: white;
-      color: #1f2933;
-      font-weight: 700;
+
+      border:
+        1px solid #e1e6e2;
+
+      border-radius: 16px;
     }
 
-    .danger-btn {
+
+    .box-head {
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      gap: 15px;
+
+      flex-wrap: wrap;
+
+      margin-bottom: 20px;
+    }
+
+
+    .box-head p {
+      color: #68736d;
+    }
+
+
+    .primary {
+      padding: 10px 15px;
+
       border: 0;
+
       border-radius: 9px;
-      padding: 10px 14px;
+
+      background: #1f7a4d;
+
+      color: white;
+
+      font-weight: bold;
+    }
+
+
+    .secondary {
+      padding: 10px 15px;
+
+      border:
+        1px solid #d8dfda;
+
+      border-radius: 9px;
+
+      background: white;
+
+      font-weight: bold;
+    }
+
+
+    .danger {
+      padding: 9px 13px;
+
+      border: 0;
+
+      border-radius: 8px;
+
       background: #b84444;
+
       color: white;
-      font-weight: 700;
+
+      font-weight: bold;
     }
 
-    .warning-btn {
+
+    .warning {
+      padding: 9px 13px;
+
       border: 0;
-      border-radius: 9px;
-      padding: 10px 14px;
-      background: #d49a31;
+
+      border-radius: 8px;
+
+      background: #d59b31;
+
       color: white;
-      font-weight: 700;
+
+      font-weight: bold;
     }
+
+
+    .edit {
+      padding: 9px 13px;
+
+      border: 0;
+
+      border-radius: 8px;
+
+      background: #e5eee8;
+
+      color: #1f7a4d;
+
+      font-weight: bold;
+    }
+
+
+    .list {
+      display: grid;
+
+      gap: 15px;
+    }
+
+
+    .item {
+      padding: 19px;
+
+      border:
+        1px solid #e1e6e2;
+
+      border-radius: 13px;
+
+      background: #fafcfb;
+    }
+
+
+    .item-top {
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: flex-start;
+
+      gap: 15px;
+
+      flex-wrap: wrap;
+
+      margin-bottom: 13px;
+    }
+
+
+    .item-name {
+      font-size: 20px;
+
+      font-weight: bold;
+    }
+
+
+    .status {
+      padding: 5px 9px;
+
+      border-radius: 20px;
+
+      font-size: 12px;
+
+      font-weight: bold;
+    }
+
+
+    .pending {
+      background: #fff1c9;
+
+      color: #755600;
+    }
+
+
+    .approved {
+      background: #def3e6;
+
+      color: #176338;
+    }
+
+
+    .rejected {
+      background: #f9dddd;
+
+      color: #962e2e;
+    }
+
+
+    .active-status {
+      background: #def3e6;
+
+      color: #176338;
+    }
+
+
+    .inactive-status {
+      background: #e8ece9;
+
+      color: #626c66;
+    }
+
+
+    .info-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(
+          2,
+          1fr
+        );
+
+      gap: 9px;
+
+      margin-bottom: 14px;
+    }
+
+
+    .info {
+      padding: 11px;
+
+      background: white;
+
+      border:
+        1px solid #e5e9e6;
+
+      border-radius: 9px;
+
+      font-size: 14px;
+    }
+
+
+    .info strong {
+      display: block;
+
+      color: #1f7a4d;
+
+      font-size: 12px;
+    }
+
+
+    .message {
+      margin-bottom: 14px;
+
+      padding: 11px;
+
+      background: white;
+
+      border:
+        1px solid #e5e9e6;
+
+      border-radius: 9px;
+
+      white-space: pre-wrap;
+    }
+
+
+    .actions {
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 8px;
+    }
+
 
     .loading,
     .empty,
     .error {
-      padding: 30px;
+      padding: 25px;
+
+      border-radius: 10px;
+
       text-align: center;
-      border-radius: 12px;
     }
+
 
     .loading,
     .empty {
-      background: #f1f4f2;
+      background: #f0f3f1;
+
       color: #66716b;
     }
 
+
     .error {
       background: #fff0f0;
-      color: #8b2d2d;
-      border: 1px solid #e8bcbc;
+
+      color: #922;
     }
 
-    .requests,
-    .restaurant-list {
-      display: grid;
-      gap: 16px;
-    }
 
-    .request-card,
-    .restaurant-card {
-      border: 1px solid #e2e7e3;
-      border-radius: 14px;
-      padding: 20px;
-      background: #fbfcfb;
-    }
+    /* MODAL */
 
-    .request-card.approved {
-      border-color: #b6dec5;
-      background: #f4fbf6;
-    }
-
-    .request-card.rejected {
-      border-color: #e4b7b7;
-      background: #fff7f7;
-    }
-
-    .request-top,
-    .restaurant-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      align-items: flex-start;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
-    }
-
-    .request-name,
-    .restaurant-name {
-      font-size: 20px;
-      font-weight: 800;
-    }
-
-    .status {
-      padding: 6px 10px;
-      border-radius: 30px;
-      font-size: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
-    }
-
-    .status.pending {
-      background: #fff1c9;
-      color: #7b5a00;
-    }
-
-    .status.approved {
-      background: #dff3e6;
-      color: #176338;
-    }
-
-    .status.rejected {
-      background: #f8dede;
-      color: #922b2b;
-    }
-
-    .status.active {
-      background: #dff3e6;
-      color: #176338;
-    }
-
-    .status.inactive {
-      background: #e8ece9;
-      color: #5d6761;
-    }
-
-    .request-grid,
-    .restaurant-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .info-box {
-      background: white;
-      border: 1px solid #e5e9e6;
-      border-radius: 10px;
-      padding: 12px;
-      font-size: 14px;
-    }
-
-    .info-box strong {
-      display: block;
-      margin-bottom: 3px;
-      color: #1f7a4d;
-      font-size: 12px;
-    }
-
-    .message-box {
-      margin-bottom: 16px;
-      padding: 12px;
-      border-radius: 10px;
-      background: white;
-      border: 1px solid #e5e9e6;
-      white-space: pre-wrap;
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-    }
-
-    .action-btn {
-      border: 0;
-      border-radius: 9px;
-      padding: 10px 14px;
-      font-weight: 700;
-    }
-
-    .approve-btn {
-      background: #1f7a4d;
-      color: white;
-    }
-
-    .reject-btn {
-      background: #d49a31;
-      color: white;
-    }
-
-    .delete-btn {
-      background: #b84444;
-      color: white;
-    }
-
-    .edit-btn {
-      background: #e8eeea;
-      color: #1f7a4d;
-    }
-
-    .featured-badge {
-      display: inline-block;
-      margin-left: 8px;
-      padding: 3px 8px;
-      border-radius: 20px;
-      background: #fff1c9;
-      color: #7b5a00;
-      font-size: 11px;
-      font-weight: 800;
-    }
 
     .modal {
       display: none;
+
       position: fixed;
+
       inset: 0;
+
       z-index: 1000;
-      padding: 20px;
-      background: rgba(10, 20, 14, 0.75);
+
       align-items: center;
+
       justify-content: center;
+
+      padding: 20px;
+
+      background:
+        rgba(
+          10,
+          18,
+          13,
+          0.76
+        );
     }
+
 
     .modal.open {
       display: flex;
     }
 
+
     .modal-box {
-      width: 100%;
-      max-width: 760px;
-      max-height: 92vh;
-      overflow: auto;
-      background: white;
-      border-radius: 18px;
-      padding: 24px;
       position: relative;
+
+      width: 100%;
+
+      max-width: 750px;
+
+      max-height: 92vh;
+
+      overflow-y: auto;
+
+      padding: 25px;
+
+      background: white;
+
+      border-radius: 18px;
     }
+
 
     .modal-close {
       position: absolute;
-      right: 14px;
-      top: 14px;
-      width: 36px;
-      height: 36px;
+
+      top: 13px;
+
+      right: 13px;
+
+      width: 37px;
+
+      height: 37px;
+
       border: 0;
+
       border-radius: 50%;
+
       background: #1f2933;
+
       color: white;
+
       font-size: 20px;
     }
 
-    .modal-box h2 {
-      margin-bottom: 18px;
-      padding-right: 50px;
+
+    .modal h2 {
+      margin-bottom: 20px;
     }
+
 
     .form-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
+
+      grid-template-columns:
+        1fr
+        1fr;
+
+      gap: 13px;
     }
 
-    .form-group {
-      min-width: 0;
-    }
 
     .form-group.full {
-      grid-column: 1 / -1;
+      grid-column:
+        1 / -1;
     }
 
-    .form-group label {
+
+    label {
       display: block;
-      margin-bottom: 6px;
+
+      margin-bottom: 5px;
+
       font-size: 13px;
-      font-weight: 700;
+
+      font-weight: bold;
     }
 
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
+
+    input,
+    textarea,
+    select {
       width: 100%;
+
       min-height: 44px;
-      border: 1px solid #dfe5e0;
-      border-radius: 9px;
-      padding: 10px 12px;
-      font-size: 15px;
+
+      padding: 10px;
+
+      border:
+        1px solid #dce3de;
+
+      border-radius: 8px;
     }
 
-    .form-group textarea {
+
+    textarea {
       min-height: 100px;
+
       resize: vertical;
     }
 
-    .checkbox-row {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
 
-    .checkbox-label {
+    .checkbox {
       display: flex;
+
+      align-items: center;
+
       gap: 8px;
-      align-items: center;
-      font-size: 14px;
-      font-weight: 700;
     }
 
-    .checkbox-label input {
+
+    .checkbox input {
       width: auto;
+
       min-height: auto;
     }
 
+
     .form-actions {
-      margin-top: 18px;
       display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
+
+      gap: 9px;
+
+      margin-top: 18px;
     }
 
-    .form-status {
-      margin-top: 12px;
-      font-size: 14px;
-    }
 
-    .form-status.error {
-      color: #a22;
-    }
+    @media (
+      max-width: 650px
+    ) {
 
-    .form-status.success {
-      color: #176338;
-    }
+      .header-inner {
+        flex-direction: column;
 
-    @media (max-width: 700px) {
-      .stats,
-      .request-grid,
-      .restaurant-grid,
+        align-items: flex-start;
+
+        gap: 5px;
+      }
+
+
+      .info-grid,
       .form-grid {
         grid-template-columns: 1fr;
       }
+
 
       .form-group.full {
         grid-column: auto;
       }
 
-      .topbar-inner {
-        align-items: flex-start;
-        flex-direction: column;
-      }
     }
+
   </style>
+
 </head>
+
 
 <body>
 
-  <div id="loginView" class="login-box">
-    <h2>Admin Girişi</h2>
-    <p>Yönetim paneline erişmek için admin şifresini gir.</p>
 
-    <label for="adminPassword">Şifre</label>
+<div
+  id="loginView"
+  class="login"
+>
 
-    <input
-      id="adminPassword"
-      type="password"
-      autocomplete="current-password"
+  <h2>
+    Admin Girişi
+  </h2>
+
+  <p>
+    Yönetim paneline giriş yap.
+  </p>
+
+  <input
+    id="password"
+    type="password"
+    placeholder="Admin şifresi"
+  >
+
+  <button
+    id="loginButton"
+    type="button"
+  >
+    Giriş Yap
+  </button>
+
+  <div
+    id="loginError"
+    class="login-error"
+  ></div>
+
+</div>
+
+
+<div
+  id="adminView"
+  style="display:none;"
+>
+
+<header>
+
+  <div class="header-inner">
+
+    <h2>
+      Güzelim Kadirli Admin
+    </h2>
+
+    <a href="/">
+      ← Siteye dön
+    </a>
+
+  </div>
+
+</header>
+
+
+<main>
+
+  <div class="tabs">
+
+    <button
+      class="tab active"
+      data-tab="requests"
     >
-
-    <button id="loginButton" type="button">
-      Giriş Yap
+      Başvurular
     </button>
 
-    <div id="loginError" class="login-error"></div>
-  </div>
+    <button
+      class="tab"
+      data-tab="restaurants"
+    >
+      Restoranlar
+    </button>
 
-
-  <div id="adminView" style="display:none;">
-
-    <header class="topbar">
-      <div class="topbar-inner">
-        <h1>Güzelim Kadirli Admin</h1>
-
-        <a href="/">
-          ← Siteye dön
-        </a>
-      </div>
-    </header>
-
-    <main>
-
-      <div class="tabs">
-        <button
-          class="tab-btn active"
-          data-tab="requests"
-          type="button"
-        >
-          Başvurular
-        </button>
-
-        <button
-          class="tab-btn"
-          data-tab="restaurants"
-          type="button"
-        >
-          Restoranlar
-        </button>
-      </div>
-
-
-      <section
-        id="requestsPanel"
-        class="tab-panel active"
-      >
-
-        <div class="stats">
-          <div class="stat">
-            <strong id="pendingCount">0</strong>
-            Bekleyen
-          </div>
-
-          <div class="stat">
-            <strong id="approvedCount">0</strong>
-            Onaylanan
-          </div>
-
-          <div class="stat">
-            <strong id="rejectedCount">0</strong>
-            Reddedilen
-          </div>
-        </div>
-
-
-        <section class="panel">
-          <div class="panel-head">
-
-            <div>
-              <h2>İşletme Başvuruları</h2>
-              <p>Başvuruları incele, onayla veya reddet.</p>
-            </div>
-
-            <button
-              id="refreshRequestsButton"
-              class="refresh-btn"
-              type="button"
-            >
-              Yenile
-            </button>
-
-          </div>
-
-          <div id="requestList">
-            <div class="loading">
-              Başvurular yükleniyor...
-            </div>
-          </div>
-        </section>
-
-      </section>
-
-
-      <section
-        id="restaurantsPanel"
-        class="tab-panel"
-      >
-
-        <section class="panel">
-
-          <div class="panel-head">
-
-            <div>
-              <h2>Restoran Yönetimi</h2>
-              <p>Restoran ekle, düzenle veya kaldır.</p>
-            </div>
-
-            <div class="actions">
-              <button
-                id="refreshRestaurantsButton"
-                class="secondary-btn"
-                type="button"
-              >
-                Yenile
-              </button>
-
-              <button
-                id="newRestaurantButton"
-                class="primary-btn"
-                type="button"
-              >
-                + Yeni Restoran
-              </button>
-            </div>
-
-          </div>
-
-          <div id="restaurantList">
-            <div class="loading">
-              Restoranlar yükleniyor...
-            </div>
-          </div>
-
-        </section>
-
-      </section>
-
-    </main>
+    <button
+      class="tab"
+      data-tab="places"
+    >
+      Gezilecek Yerler
+    </button>
 
   </div>
 
 
-  <div id="restaurantModal" class="modal">
+  <!-- REQUESTS -->
 
-    <div class="modal-box">
+  <section
+    id="requests"
+    class="panel active"
+  >
 
-      <button
-        id="restaurantModalClose"
-        class="modal-close"
-        type="button"
-      >
-        ×
-      </button>
+    <div class="box">
 
-      <h2 id="restaurantModalTitle">
-        Yeni Restoran
-      </h2>
+      <div class="box-head">
 
-      <form id="restaurantForm">
+        <div>
+          <h2>
+            İşletme Başvuruları
+          </h2>
 
-        <input
-          id="restaurantId"
-          type="hidden"
+          <p>
+            Onaylanan restoran ve kafeler
+            otomatik siteye eklenir.
+          </p>
+        </div>
+
+        <button
+          id="refreshRequests"
+          class="secondary"
         >
+          Yenile
+        </button>
 
-        <div class="form-grid">
+      </div>
 
-          <div class="form-group">
-            <label for="restaurantName">
-              Restoran adı *
-            </label>
-
-            <input
-              id="restaurantName"
-              required
-            >
-          </div>
-
-
-          <div class="form-group">
-            <label for="restaurantCategory">
-              Kategori *
-            </label>
-
-            <input
-              id="restaurantCategory"
-              placeholder="Kaburga & Kebap"
-              required
-            >
-          </div>
-
-
-          <div class="form-group">
-            <label for="restaurantFilter">
-              Filtre *
-            </label>
-
-            <select
-              id="restaurantFilter"
-              required
-            >
-              <option value="">
-                Seçiniz
-              </option>
-
-              <option value="kebap">
-                Kebap
-              </option>
-
-              <option value="lokanta">
-                Lokanta
-              </option>
-
-              <option value="lahmacun">
-                Lahmacun
-              </option>
-
-              <option value="cafe">
-                Cafe
-              </option>
-            </select>
-          </div>
-
-
-          <div class="form-group">
-            <label for="restaurantRating">
-              Puan
-            </label>
-
-            <input
-              id="restaurantRating"
-              type="number"
-              min="0"
-              max="5"
-              step="0.1"
-              value="0"
-            >
-          </div>
-
-
-          <div class="form-group full">
-            <label for="restaurantDescription">
-              Açıklama
-            </label>
-
-            <textarea
-              id="restaurantDescription"
-            ></textarea>
-          </div>
-
-
-          <div class="form-group full">
-            <label for="restaurantAddress">
-              Adres
-            </label>
-
-            <input
-              id="restaurantAddress"
-            >
-          </div>
-
-
-          <div class="form-group">
-            <label for="restaurantPhone">
-              Telefon
-            </label>
-
-            <input
-              id="restaurantPhone"
-            >
-          </div>
-
-
-          <div class="form-group">
-            <label for="restaurantHours">
-              Çalışma saatleri
-            </label>
-
-            <input
-              id="restaurantHours"
-              placeholder="09:00 – 23:00"
-            >
-          </div>
-
-
-          <div class="form-group">
-            <label for="restaurantImage">
-              Görsel yolu
-            </label>
-
-            <input
-              id="restaurantImage"
-              placeholder="images/restoran.jpg"
-            >
-          </div>
-
-
-          <div class="form-group">
-            <label for="restaurantEmoji">
-              Emoji
-            </label>
-
-            <input
-              id="restaurantEmoji"
-              value="🍽️"
-            >
-          </div>
-
-
-          <div class="form-group full">
-            <div class="checkbox-row">
-
-              <label class="checkbox-label">
-                <input
-                  id="restaurantFeatured"
-                  type="checkbox"
-                >
-                Öne çıkar
-              </label>
-
-              <label class="checkbox-label">
-                <input
-                  id="restaurantActive"
-                  type="checkbox"
-                  checked
-                >
-                Aktif
-              </label>
-
-            </div>
-          </div>
-
-        </div>
-
-
-        <div class="form-actions">
-
-          <button
-            id="saveRestaurantButton"
-            class="primary-btn"
-            type="submit"
-          >
-            Kaydet
-          </button>
-
-          <button
-            id="cancelRestaurantButton"
-            class="secondary-btn"
-            type="button"
-          >
-            İptal
-          </button>
-
-        </div>
-
-        <div
-          id="restaurantFormStatus"
-          class="form-status"
-        ></div>
-
-      </form>
+      <div id="requestList"></div>
 
     </div>
 
+  </section>
+
+
+  <!-- RESTAURANTS -->
+
+  <section
+    id="restaurants"
+    class="panel"
+  >
+
+    <div class="box">
+
+      <div class="box-head">
+
+        <div>
+          <h2>
+            Restoran Yönetimi
+          </h2>
+
+          <p>
+            Restoranları yönet.
+          </p>
+        </div>
+
+
+        <div class="actions">
+
+          <button
+            id="refreshRestaurants"
+            class="secondary"
+          >
+            Yenile
+          </button>
+
+          <button
+            id="newRestaurant"
+            class="primary"
+          >
+            + Yeni Restoran
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div id="restaurantList"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- PLACES -->
+
+  <section
+    id="places"
+    class="panel"
+  >
+
+    <div class="box">
+
+      <div class="box-head">
+
+        <div>
+          <h2>
+            Gezilecek Yerler
+          </h2>
+
+          <p>
+            Ala Camii, Karatepe-Aslantaş
+            gibi yerleri buradan yönet.
+          </p>
+        </div>
+
+
+        <div class="actions">
+
+          <button
+            id="refreshPlaces"
+            class="secondary"
+          >
+            Yenile
+          </button>
+
+          <button
+            id="newPlace"
+            class="primary"
+          >
+            + Yeni Yer
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div id="placeList"></div>
+
+    </div>
+
+  </section>
+
+</main>
+
+</div>
+
+
+<!-- GENERIC EDIT MODAL -->
+
+<div
+  id="editModal"
+  class="modal"
+>
+
+  <div class="modal-box">
+
+    <button
+      id="modalClose"
+      class="modal-close"
+      type="button"
+    >
+      ×
+    </button>
+
+    <h2 id="modalTitle"></h2>
+
+    <form id="editForm">
+
+      <div
+        id="formFields"
+        class="form-grid"
+      ></div>
+
+      <div class="form-actions">
+
+        <button
+          class="primary"
+          type="submit"
+        >
+          Kaydet
+        </button>
+
+        <button
+          id="cancelEdit"
+          class="secondary"
+          type="button"
+        >
+          İptal
+        </button>
+
+      </div>
+
+    </form>
+
   </div>
 
-
-  <script>
-    const loginView =
-      document.getElementById("loginView");
-
-    const adminView =
-      document.getElementById("adminView");
-
-    const passwordInput =
-      document.getElementById("adminPassword");
-
-    const loginButton =
-      document.getElementById("loginButton");
-
-    const loginError =
-      document.getElementById("loginError");
-
-    const requestList =
-      document.getElementById("requestList");
-
-    const restaurantList =
-      document.getElementById("restaurantList");
-
-    const restaurantModal =
-      document.getElementById("restaurantModal");
-
-    const restaurantForm =
-      document.getElementById("restaurantForm");
-
-    const restaurantFormStatus =
-      document.getElementById("restaurantFormStatus");
-
-    let adminPassword = "";
-    let restaurants = [];
+</div>
 
 
-    function escapeHtml(value) {
-      return String(value ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-    }
+<script>
+
+let password = "";
+
+let restaurants = [];
+
+let places = [];
+
+let editType = "";
+
+let editId = null;
 
 
-    async function adminFetch(
-      url,
-      options = {}
-    ) {
-      const headers = {
+const loginView =
+  document.getElementById("loginView");
+
+const adminView =
+  document.getElementById("adminView");
+
+const requestList =
+  document.getElementById("requestList");
+
+const restaurantList =
+  document.getElementById("restaurantList");
+
+const placeList =
+  document.getElementById("placeList");
+
+const modal =
+  document.getElementById("editModal");
+
+const formFields =
+  document.getElementById("formFields");
+
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+
+async function adminFetch(
+  url,
+  options = {}
+) {
+
+  return fetch(
+    url,
+    {
+      ...options,
+
+      headers: {
         ...(options.headers || {}),
+
         "X-Admin-Password":
-          adminPassword
-      };
-
-      return fetch(url, {
-        ...options,
-        headers
-      });
-    }
-
-
-    async function login() {
-      loginError.textContent = "";
-
-      const value =
-        passwordInput.value.trim();
-
-      if (!value) {
-        loginError.textContent =
-          "Şifre girmen gerekiyor.";
-        return;
-      }
-
-      adminPassword = value;
-
-      try {
-        const response =
-          await adminFetch(
-            "/api/admin/requests"
-          );
-
-        if (!response.ok) {
-          throw new Error();
-        }
-
-        loginView.style.display =
-          "none";
-
-        adminView.style.display =
-          "block";
-
-        await Promise.all([
-          loadRequests(),
-          loadRestaurants()
-        ]);
-
-      } catch {
-        adminPassword = "";
-
-        loginError.textContent =
-          "Şifre yanlış veya admin API erişilemiyor.";
+          password
       }
     }
+  );
+
+}
 
 
-    async function loadRequests() {
-      requestList.innerHTML = `
-        <div class="loading">
-          Başvurular yükleniyor...
-        </div>
-      `;
+/* LOGIN */
 
-      try {
-        const response =
-          await adminFetch(
-            "/api/admin/requests"
+
+async function login() {
+
+  password =
+    document
+      .getElementById("password")
+      .value
+      .trim();
+
+
+  const response =
+    await adminFetch(
+      "/api/admin/requests"
+    );
+
+
+  if (!response.ok) {
+
+    password = "";
+
+    document
+      .getElementById("loginError")
+      .textContent =
+        "Şifre yanlış.";
+
+    return;
+
+  }
+
+
+  loginView.style.display =
+    "none";
+
+  adminView.style.display =
+    "block";
+
+
+  await Promise.all([
+    loadRequests(),
+    loadRestaurants(),
+    loadPlaces()
+  ]);
+
+}
+
+
+document
+  .getElementById("loginButton")
+  .addEventListener(
+    "click",
+    login
+  );
+
+
+document
+  .getElementById("password")
+  .addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key === "Enter"
+      ) {
+        login();
+      }
+
+    }
+  );
+
+
+/* TABS */
+
+
+document
+  .querySelectorAll(".tab")
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        document
+          .querySelectorAll(".tab")
+          .forEach(item =>
+            item.classList.remove(
+              "active"
+            )
           );
 
-        const data =
-          await response.json();
 
-        if (!response.ok) {
-          throw new Error(
-            data.error ||
-            "Başvurular alınamadı."
+        document
+          .querySelectorAll(".panel")
+          .forEach(item =>
+            item.classList.remove(
+              "active"
+            )
           );
-        }
 
-        renderRequests(
-          data.requests || []
+
+        button.classList.add(
+          "active"
         );
 
-      } catch (error) {
-        requestList.innerHTML = `
-          <div class="error">
-            ${escapeHtml(error.message)}
-          </div>
-        `;
+
+        document
+          .getElementById(
+            button.dataset.tab
+          )
+          .classList.add(
+            "active"
+          );
+
       }
-    }
+    );
+
+  });
 
 
-    function renderRequests(requests) {
-      const pending =
-        requests.filter(
-          item =>
-            item.status === "pending"
-        ).length;
+/* REQUESTS */
 
-      const approved =
-        requests.filter(
-          item =>
-            item.status === "approved"
-        ).length;
 
-      const rejected =
-        requests.filter(
-          item =>
-            item.status === "rejected"
-        ).length;
+async function loadRequests() {
 
-      document.getElementById(
-        "pendingCount"
-      ).textContent = pending;
+  requestList.innerHTML =
+    '<div class="loading">Yükleniyor...</div>';
 
-      document.getElementById(
-        "approvedCount"
-      ).textContent = approved;
 
-      document.getElementById(
-        "rejectedCount"
-      ).textContent = rejected;
+  const response =
+    await adminFetch(
+      "/api/admin/requests"
+    );
 
-      if (!requests.length) {
-        requestList.innerHTML = `
-          <div class="empty">
-            Henüz başvuru yok.
-          </div>
-        `;
-        return;
-      }
 
-      const wrapper =
-        document.createElement("div");
+  const data =
+    await response.json();
 
-      wrapper.className =
-        "requests";
 
-      requests.forEach(item => {
-        const card =
-          document.createElement("article");
+  if (!response.ok) {
 
-        card.className =
-          "request-card " +
-          escapeHtml(item.status);
+    requestList.innerHTML =
+      '<div class="error">Başvurular yüklenemedi.</div>';
 
-        card.innerHTML = `
-          <div class="request-top">
+    return;
 
-            <div>
-              <div class="request-name">
-                ${escapeHtml(item.business_name)}
-              </div>
+  }
 
-              <div>
-                ${escapeHtml(item.category)}
-              </div>
-            </div>
 
-            <span class="status ${escapeHtml(item.status)}">
-              ${escapeHtml(item.status)}
-            </span>
+  const requests =
+    data.requests || [];
 
-          </div>
 
-          <div class="request-grid">
+  if (!requests.length) {
 
-            <div class="info-box">
-              <strong>Telefon</strong>
-              ${escapeHtml(item.phone || "-")}
-            </div>
+    requestList.innerHTML =
+      '<div class="empty">Henüz başvuru yok.</div>';
 
-            <div class="info-box">
-              <strong>Adres</strong>
-              ${escapeHtml(item.address || "-")}
-            </div>
+    return;
 
-            <div class="info-box">
-              <strong>Tarih</strong>
-              ${escapeHtml(item.created_at || "-")}
-            </div>
+  }
 
-            <div class="info-box">
-              <strong>ID</strong>
-              ${escapeHtml(item.id)}
-            </div>
 
+  const wrapper =
+    document.createElement("div");
+
+
+  wrapper.className =
+    "list";
+
+
+  requests.forEach(item => {
+
+    const card =
+      document.createElement("article");
+
+
+    card.className =
+      "item";
+
+
+    card.innerHTML = `
+
+      <div class="item-top">
+
+        <div>
+
+          <div class="item-name">
+            ${escapeHtml(item.business_name)}
           </div>
 
-          <div class="message-box">
-            ${escapeHtml(item.message || "Mesaj yok.")}
-          </div>
+          ${escapeHtml(item.category)}
 
-          <div class="actions">
+        </div>
 
+
+        <span class="status ${escapeHtml(item.status)}">
+          ${escapeHtml(item.status)}
+        </span>
+
+      </div>
+
+
+      <div class="info-grid">
+
+        <div class="info">
+          <strong>Telefon</strong>
+          ${escapeHtml(item.phone || "-")}
+        </div>
+
+        <div class="info">
+          <strong>Adres</strong>
+          ${escapeHtml(item.address || "-")}
+        </div>
+
+      </div>
+
+
+      <div class="message">
+        ${escapeHtml(item.message || "Mesaj yok")}
+      </div>
+
+
+      <div class="actions">
+
+        ${
+          item.status !== "approved"
+
+          ? `
             <button
-              class="action-btn approve-btn"
-              data-request-action="approved"
-              data-id="${item.id}"
-              type="button"
+              class="primary"
+              data-approve="${item.id}"
             >
               ✓ Onayla
             </button>
+          `
 
-            <button
-              class="action-btn reject-btn"
-              data-request-action="rejected"
-              data-id="${item.id}"
-              type="button"
-            >
-              ✕ Reddet
-            </button>
+          : ""
+        }
 
-            <button
-              class="action-btn delete-btn"
-              data-request-action="delete"
-              data-id="${item.id}"
-              type="button"
-            >
-              Sil
-            </button>
 
+        <button
+          class="warning"
+          data-reject="${item.id}"
+        >
+          ✕ Reddet
+        </button>
+
+
+        <button
+          class="danger"
+          data-request-delete="${item.id}"
+        >
+          Sil
+        </button>
+
+      </div>
+
+    `;
+
+
+    wrapper.appendChild(card);
+
+  });
+
+
+  requestList.innerHTML = "";
+
+  requestList.appendChild(
+    wrapper
+  );
+
+
+  requestList
+    .querySelectorAll(
+      "[data-approve]"
+    )
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () =>
+          approveRequest(
+            button.dataset.approve
+          )
+      );
+
+    });
+
+
+  requestList
+    .querySelectorAll(
+      "[data-reject]"
+    )
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () =>
+          rejectRequest(
+            button.dataset.reject
+          )
+      );
+
+    });
+
+
+  requestList
+    .querySelectorAll(
+      "[data-request-delete]"
+    )
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () =>
+          deleteRequest(
+            button.dataset.requestDelete
+          )
+      );
+
+    });
+
+}
+
+
+async function approveRequest(id) {
+
+  const response =
+    await adminFetch(
+      `/api/admin/requests/${id}/approve`,
+      {
+        method: "POST"
+      }
+    );
+
+
+  const data =
+    await response.json();
+
+
+  if (!response.ok) {
+
+    alert(
+      data.error ||
+      "Onaylama başarısız."
+    );
+
+    return;
+
+  }
+
+
+  if (
+    data.restaurant_created
+  ) {
+
+    alert(
+      "Başvuru onaylandı ve restoran siteye eklendi."
+    );
+
+  } else {
+
+    alert(
+      "Başvuru onaylandı."
+    );
+
+  }
+
+
+  await Promise.all([
+    loadRequests(),
+    loadRestaurants()
+  ]);
+
+}
+
+
+async function rejectRequest(id) {
+
+  await adminFetch(
+    `/api/admin/requests/${id}`,
+    {
+      method: "PATCH",
+
+      headers: {
+        "Content-Type":
+          "application/json"
+      },
+
+      body:
+        JSON.stringify({
+          status: "rejected"
+        })
+    }
+  );
+
+
+  loadRequests();
+
+}
+
+
+async function deleteRequest(id) {
+
+  if (
+    !confirm(
+      "Başvuru silinsin mi?"
+    )
+  ) {
+    return;
+  }
+
+
+  await adminFetch(
+    `/api/admin/requests/${id}`,
+    {
+      method: "DELETE"
+    }
+  );
+
+
+  loadRequests();
+
+}
+
+
+/* RESTAURANTS */
+
+
+async function loadRestaurants() {
+
+  restaurantList.innerHTML =
+    '<div class="loading">Yükleniyor...</div>';
+
+
+  const response =
+    await adminFetch(
+      "/api/admin/restaurants"
+    );
+
+
+  const data =
+    await response.json();
+
+
+  restaurants =
+    data.restaurants || [];
+
+
+  renderRestaurants();
+
+}
+
+
+function renderRestaurants() {
+
+  if (!restaurants.length) {
+
+    restaurantList.innerHTML =
+      '<div class="empty">Restoran yok.</div>';
+
+    return;
+
+  }
+
+
+  const wrapper =
+    document.createElement("div");
+
+
+  wrapper.className =
+    "list";
+
+
+  restaurants.forEach(item => {
+
+    const card =
+      document.createElement("article");
+
+
+    card.className =
+      "item";
+
+
+    card.innerHTML = `
+
+      <div class="item-top">
+
+        <div>
+
+          <div class="item-name">
+            ${escapeHtml(item.name)}
           </div>
-        `;
 
-        wrapper.appendChild(card);
-      });
+          ${escapeHtml(item.category)}
 
-      requestList.innerHTML = "";
-      requestList.appendChild(wrapper);
-
-      requestList
-        .querySelectorAll(
-          "[data-request-action]"
-        )
-        .forEach(button => {
-          button.addEventListener(
-            "click",
-            () => {
-              const id =
-                button.dataset.id;
-
-              const action =
-                button.dataset.requestAction;
-
-              if (action === "delete") {
-                deleteRequest(id);
-              } else {
-                updateRequestStatus(
-                  id,
-                  action
-                );
-              }
-            }
-          );
-        });
-    }
-
-
-    async function updateRequestStatus(
-      id,
-      status
-    ) {
-      try {
-        const response =
-          await adminFetch(
-            `/api/admin/requests/${id}`,
-            {
-              method: "PATCH",
-              headers: {
-                "Content-Type":
-                  "application/json"
-              },
-              body:
-                JSON.stringify({
-                  status
-                })
-            }
-          );
-
-        const data =
-          await response.json();
-
-        if (!response.ok) {
-          throw new Error(
-            data.error ||
-            "Güncelleme başarısız."
-          );
-        }
-
-        await loadRequests();
-
-      } catch (error) {
-        alert(error.message);
-      }
-    }
-
-
-    async function deleteRequest(id) {
-      const confirmed =
-        confirm(
-          "Bu başvuruyu gerçekten silmek istiyor musun?"
-        );
-
-      if (!confirmed) {
-        return;
-      }
-
-      try {
-        const response =
-          await adminFetch(
-            `/api/admin/requests/${id}`,
-            {
-              method: "DELETE"
-            }
-          );
-
-        const data =
-          await response.json();
-
-        if (!response.ok) {
-          throw new Error(
-            data.error ||
-            "Silme başarısız."
-          );
-        }
-
-        await loadRequests();
-
-      } catch (error) {
-        alert(error.message);
-      }
-    }
-
-
-    async function loadRestaurants() {
-      restaurantList.innerHTML = `
-        <div class="loading">
-          Restoranlar yükleniyor...
         </div>
-      `;
-
-      try {
-        const response =
-          await adminFetch(
-            "/api/admin/restaurants"
-          );
-
-        const data =
-          await response.json();
-
-        if (!response.ok) {
-          throw new Error(
-            data.error ||
-            "Restoranlar alınamadı."
-          );
-        }
-
-        restaurants =
-          data.restaurants || [];
-
-        renderRestaurants();
-
-      } catch (error) {
-        restaurantList.innerHTML = `
-          <div class="error">
-            ${escapeHtml(error.message)}
-          </div>
-        `;
-      }
-    }
 
 
-    function renderRestaurants() {
-      if (!restaurants.length) {
-        restaurantList.innerHTML = `
-          <div class="empty">
-            Henüz restoran yok.
-          </div>
-        `;
-        return;
-      }
+        <span
+          class="status ${
+            item.active
+              ? "active-status"
+              : "inactive-status"
+          }"
+        >
+          ${
+            item.active
+              ? "active"
+              : "inactive"
+          }
+        </span>
 
-      const wrapper =
-        document.createElement("div");
-
-      wrapper.className =
-        "restaurant-list";
-
-      restaurants.forEach(item => {
-        const card =
-          document.createElement("article");
-
-        card.className =
-          "restaurant-card";
-
-        card.innerHTML = `
-          <div class="restaurant-top">
-
-            <div>
-              <div class="restaurant-name">
-                ${escapeHtml(item.name)}
-
-                ${
-                  item.featured
-                    ? '<span class="featured-badge">ÖNE ÇIKAN</span>'
-                    : ""
-                }
-              </div>
-
-              <div>
-                ${escapeHtml(item.category)}
-              </div>
-            </div>
-
-            <span
-              class="status ${
-                item.active
-                  ? "active"
-                  : "inactive"
-              }"
-            >
-              ${
-                item.active
-                  ? "active"
-                  : "inactive"
-              }
-            </span>
-
-          </div>
-
-          <div class="restaurant-grid">
-
-            <div class="info-box">
-              <strong>Puan</strong>
-              ${escapeHtml(item.rating)}
-            </div>
-
-            <div class="info-box">
-              <strong>Filtre</strong>
-              ${escapeHtml(item.filter)}
-            </div>
-
-            <div class="info-box">
-              <strong>Telefon</strong>
-              ${escapeHtml(item.phone || "-")}
-            </div>
-
-            <div class="info-box">
-              <strong>Çalışma Saatleri</strong>
-              ${escapeHtml(item.hours || "-")}
-            </div>
-
-          </div>
-
-          <div class="message-box">
-            ${escapeHtml(item.address || "Adres yok")}
-          </div>
-
-          <div class="actions">
-
-            <button
-              class="action-btn edit-btn"
-              data-restaurant-edit="${item.id}"
-              type="button"
-            >
-              Düzenle
-            </button>
-
-            <button
-              class="action-btn delete-btn"
-              data-restaurant-delete="${item.id}"
-              type="button"
-            >
-              Sil
-            </button>
-
-          </div>
-        `;
-
-        wrapper.appendChild(card);
-      });
-
-      restaurantList.innerHTML = "";
-      restaurantList.appendChild(wrapper);
-
-      restaurantList
-        .querySelectorAll(
-          "[data-restaurant-edit]"
-        )
-        .forEach(button => {
-          button.addEventListener(
-            "click",
-            () => {
-              openEditRestaurant(
-                Number(
-                  button.dataset.restaurantEdit
-                )
-              );
-            }
-          );
-        });
-
-      restaurantList
-        .querySelectorAll(
-          "[data-restaurant-delete]"
-        )
-        .forEach(button => {
-          button.addEventListener(
-            "click",
-            () => {
-              deleteRestaurant(
-                Number(
-                  button.dataset.restaurantDelete
-                )
-              );
-            }
-          );
-        });
-    }
+      </div>
 
 
-    function resetRestaurantForm() {
-      restaurantForm.reset();
+      <div class="info-grid">
 
-      document.getElementById(
-        "restaurantId"
-      ).value = "";
+        <div class="info">
+          <strong>Puan</strong>
+          ${escapeHtml(item.rating)}
+        </div>
 
-      document.getElementById(
-        "restaurantRating"
-      ).value = "0";
+        <div class="info">
+          <strong>Telefon</strong>
+          ${escapeHtml(item.phone || "-")}
+        </div>
 
-      document.getElementById(
-        "restaurantEmoji"
-      ).value = "🍽️";
-
-      document.getElementById(
-        "restaurantActive"
-      ).checked = true;
-
-      document.getElementById(
-        "restaurantFeatured"
-      ).checked = false;
-
-      restaurantFormStatus.textContent = "";
-      restaurantFormStatus.className =
-        "form-status";
-    }
+      </div>
 
 
-    function openNewRestaurant() {
-      resetRestaurantForm();
+      <div class="message">
+        ${escapeHtml(item.address || "Adres yok")}
+      </div>
 
-      document.getElementById(
-        "restaurantModalTitle"
-      ).textContent =
-        "Yeni Restoran";
 
-      restaurantModal.classList.add(
-        "open"
+      <div class="actions">
+
+        <button
+          class="edit"
+          data-edit-restaurant="${item.id}"
+        >
+          Düzenle
+        </button>
+
+
+        <button
+          class="danger"
+          data-delete-restaurant="${item.id}"
+        >
+          Sil
+        </button>
+
+      </div>
+
+    `;
+
+
+    wrapper.appendChild(card);
+
+  });
+
+
+  restaurantList.innerHTML = "";
+
+  restaurantList.appendChild(
+    wrapper
+  );
+
+
+  restaurantList
+    .querySelectorAll(
+      "[data-edit-restaurant]"
+    )
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () =>
+          openRestaurantForm(
+            Number(
+              button.dataset.editRestaurant
+            )
+          )
       );
-    }
+
+    });
 
 
-    function openEditRestaurant(id) {
-      const item =
-        restaurants.find(
-          restaurant =>
-            Number(restaurant.id) ===
-            Number(id)
-        );
+  restaurantList
+    .querySelectorAll(
+      "[data-delete-restaurant]"
+    )
+    .forEach(button => {
 
-      if (!item) {
-        return;
-      }
-
-      resetRestaurantForm();
-
-      document.getElementById(
-        "restaurantModalTitle"
-      ).textContent =
-        "Restoran Düzenle";
-
-      document.getElementById(
-        "restaurantId"
-      ).value = item.id;
-
-      document.getElementById(
-        "restaurantName"
-      ).value = item.name || "";
-
-      document.getElementById(
-        "restaurantCategory"
-      ).value = item.category || "";
-
-      document.getElementById(
-        "restaurantFilter"
-      ).value = item.filter || "";
-
-      document.getElementById(
-        "restaurantRating"
-      ).value = item.rating ?? 0;
-
-      document.getElementById(
-        "restaurantDescription"
-      ).value = item.description || "";
-
-      document.getElementById(
-        "restaurantAddress"
-      ).value = item.address || "";
-
-      document.getElementById(
-        "restaurantPhone"
-      ).value = item.phone || "";
-
-      document.getElementById(
-        "restaurantHours"
-      ).value = item.hours || "";
-
-      document.getElementById(
-        "restaurantImage"
-      ).value = item.image || "";
-
-      document.getElementById(
-        "restaurantEmoji"
-      ).value = item.emoji || "🍽️";
-
-      document.getElementById(
-        "restaurantFeatured"
-      ).checked =
-        Boolean(item.featured);
-
-      document.getElementById(
-        "restaurantActive"
-      ).checked =
-        Boolean(item.active);
-
-      restaurantModal.classList.add(
-        "open"
+      button.addEventListener(
+        "click",
+        () =>
+          deleteRestaurant(
+            button.dataset.deleteRestaurant
+          )
       );
-    }
+
+    });
+
+}
 
 
-    function closeRestaurantModal() {
-      restaurantModal.classList.remove(
-        "open"
+/* PLACES */
+
+
+async function loadPlaces() {
+
+  placeList.innerHTML =
+    '<div class="loading">Yükleniyor...</div>';
+
+
+  const response =
+    await adminFetch(
+      "/api/admin/places"
+    );
+
+
+  const data =
+    await response.json();
+
+
+  places =
+    data.places || [];
+
+
+  renderPlaces();
+
+}
+
+
+function renderPlaces() {
+
+  if (!places.length) {
+
+    placeList.innerHTML =
+      '<div class="empty">Yer yok.</div>';
+
+    return;
+
+  }
+
+
+  const wrapper =
+    document.createElement("div");
+
+
+  wrapper.className =
+    "list";
+
+
+  places.forEach(item => {
+
+    const card =
+      document.createElement("article");
+
+
+    card.className =
+      "item";
+
+
+    card.innerHTML = `
+
+      <div class="item-top">
+
+        <div>
+
+          <div class="item-name">
+            ${escapeHtml(item.name)}
+          </div>
+
+          ${escapeHtml(item.category)}
+
+        </div>
+
+
+        <span
+          class="status ${
+            item.active
+              ? "active-status"
+              : "inactive-status"
+          }"
+        >
+          ${
+            item.active
+              ? "active"
+              : "inactive"
+          }
+        </span>
+
+      </div>
+
+
+      <div class="message">
+        ${escapeHtml(item.address || "-")}
+      </div>
+
+
+      <div class="actions">
+
+        <button
+          class="edit"
+          data-edit-place="${item.id}"
+        >
+          Düzenle
+        </button>
+
+
+        <button
+          class="danger"
+          data-delete-place="${item.id}"
+        >
+          Sil
+        </button>
+
+      </div>
+
+    `;
+
+
+    wrapper.appendChild(card);
+
+  });
+
+
+  placeList.innerHTML = "";
+
+  placeList.appendChild(
+    wrapper
+  );
+
+
+  placeList
+    .querySelectorAll(
+      "[data-edit-place]"
+    )
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () =>
+          openPlaceForm(
+            Number(
+              button.dataset.editPlace
+            )
+          )
       );
-    }
+
+    });
 
 
-    restaurantForm.addEventListener(
-      "submit",
-      async event => {
-        event.preventDefault();
+  placeList
+    .querySelectorAll(
+      "[data-delete-place]"
+    )
+    .forEach(button => {
 
-        restaurantFormStatus.textContent = "";
-        restaurantFormStatus.className =
-          "form-status";
+      button.addEventListener(
+        "click",
+        () =>
+          deletePlace(
+            button.dataset.deletePlace
+          )
+      );
 
-        const id =
-          document.getElementById(
-            "restaurantId"
-          ).value;
+    });
+
+}
+
+
+/* GENERIC MODAL */
+
+
+function openModal() {
+
+  modal.classList.add(
+    "open"
+  );
+
+}
+
+
+function closeModal() {
+
+  modal.classList.remove(
+    "open"
+  );
+
+}
+
+
+document
+  .getElementById("modalClose")
+  .addEventListener(
+    "click",
+    closeModal
+  );
+
+
+document
+  .getElementById("cancelEdit")
+  .addEventListener(
+    "click",
+    closeModal
+  );
+
+
+/* RESTAURANT FORM */
+
+
+function openRestaurantForm(id = null) {
+
+  editType =
+    "restaurant";
+
+  editId =
+    id;
+
+
+  const item =
+    restaurants.find(
+      x =>
+        Number(x.id) ===
+        Number(id)
+    ) || {};
+
+
+  document
+    .getElementById("modalTitle")
+    .textContent =
+      id
+        ? "Restoran Düzenle"
+        : "Yeni Restoran";
+
+
+  formFields.innerHTML = `
+
+    <div class="form-group">
+      <label>Ad *</label>
+
+      <input
+        id="fName"
+        value="${escapeHtml(item.name || "")}"
+        required
+      >
+    </div>
+
+
+    <div class="form-group">
+      <label>Kategori *</label>
+
+      <input
+        id="fCategory"
+        value="${escapeHtml(item.category || "")}"
+        required
+      >
+    </div>
+
+
+    <div class="form-group">
+      <label>Filtre *</label>
+
+      <select id="fFilter">
+
+        <option value="kebap">
+          Kebap
+        </option>
+
+        <option value="lokanta">
+          Lokanta
+        </option>
+
+        <option value="lahmacun">
+          Lahmacun
+        </option>
+
+        <option value="cafe">
+          Cafe
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="form-group">
+      <label>Puan</label>
+
+      <input
+        id="fRating"
+        type="number"
+        min="0"
+        max="5"
+        step="0.1"
+        value="${escapeHtml(item.rating ?? 0)}"
+      >
+    </div>
+
+
+    <div class="form-group full">
+      <label>Açıklama</label>
+
+      <textarea id="fDescription">${escapeHtml(item.description || "")}</textarea>
+    </div>
+
+
+    <div class="form-group full">
+      <label>Adres</label>
+
+      <input
+        id="fAddress"
+        value="${escapeHtml(item.address || "")}"
+      >
+    </div>
+
+
+    <div class="form-group">
+      <label>Telefon</label>
+
+      <input
+        id="fPhone"
+        value="${escapeHtml(item.phone || "")}"
+      >
+    </div>
+
+
+    <div class="form-group">
+      <label>Çalışma Saatleri</label>
+
+      <input
+        id="fHours"
+        value="${escapeHtml(item.hours || "")}"
+      >
+    </div>
+
+
+    <div class="form-group">
+      <label>Görsel</label>
+
+      <input
+        id="fImage"
+        value="${escapeHtml(item.image || "")}"
+      >
+    </div>
+
+
+    <div class="form-group">
+      <label>Emoji</label>
+
+      <input
+        id="fEmoji"
+        value="${escapeHtml(item.emoji || "🍽️")}"
+      >
+    </div>
+
+
+    <div class="form-group full">
+
+      <label class="checkbox">
+        <input
+          id="fFeatured"
+          type="checkbox"
+          ${item.featured ? "checked" : ""}
+        >
+
+        Öne çıkar
+      </label>
+
+      <br>
+
+      <label class="checkbox">
+        <input
+          id="fActive"
+          type="checkbox"
+          ${item.active === 0 ? "" : "checked"}
+        >
+
+        Aktif
+      </label>
+
+    </div>
+
+  `;
+
+
+  document
+    .getElementById("fFilter")
+    .value =
+      item.filter || "kebap";
+
+
+  openModal();
+
+}
+
+
+/* PLACE FORM */
+
+
+function openPlaceForm(id = null) {
+
+  editType =
+    "place";
+
+  editId =
+    id;
+
+
+  const item =
+    places.find(
+      x =>
+        Number(x.id) ===
+        Number(id)
+    ) || {};
+
+
+  document
+    .getElementById("modalTitle")
+    .textContent =
+      id
+        ? "Yer Düzenle"
+        : "Yeni Yer";
+
+
+  formFields.innerHTML = `
+
+    <div class="form-group">
+      <label>Ad *</label>
+
+      <input
+        id="fName"
+        value="${escapeHtml(item.name || "")}"
+        required
+      >
+    </div>
+
+
+    <div class="form-group">
+      <label>Kategori *</label>
+
+      <input
+        id="fCategory"
+        value="${escapeHtml(item.category || "")}"
+        required
+      >
+    </div>
+
+
+    <div class="form-group full">
+      <label>Açıklama</label>
+
+      <textarea id="fDescription">${escapeHtml(item.description || "")}</textarea>
+    </div>
+
+
+    <div class="form-group full">
+      <label>Adres</label>
+
+      <input
+        id="fAddress"
+        value="${escapeHtml(item.address || "")}"
+      >
+    </div>
+
+
+    <div class="form-group">
+      <label>Görsel</label>
+
+      <input
+        id="fImage"
+        value="${escapeHtml(item.image || "")}"
+      >
+    </div>
+
+
+    <div class="form-group">
+      <label>Emoji</label>
+
+      <input
+        id="fEmoji"
+        value="${escapeHtml(item.emoji || "📍")}"
+      >
+    </div>
+
+
+    <div class="form-group full">
+
+      <label class="checkbox">
+
+        <input
+          id="fActive"
+          type="checkbox"
+          ${item.active === 0 ? "" : "checked"}
+        >
+
+        Aktif
+
+      </label>
+
+    </div>
+
+  `;
+
+
+  openModal();
+
+}
+
+
+/* SAVE */
+
+
+document
+  .getElementById("editForm")
+  .addEventListener(
+    "submit",
+    async event => {
+
+      event.preventDefault();
+
+
+      if (
+        editType ===
+        "restaurant"
+      ) {
 
         const payload = {
+
           name:
-            document.getElementById(
-              "restaurantName"
-            ).value.trim(),
+            document.getElementById("fName").value,
 
           category:
-            document.getElementById(
-              "restaurantCategory"
-            ).value.trim(),
+            document.getElementById("fCategory").value,
 
           filter:
-            document.getElementById(
-              "restaurantFilter"
-            ).value,
+            document.getElementById("fFilter").value,
 
           rating:
             Number(
-              document.getElementById(
-                "restaurantRating"
-              ).value || 0
+              document.getElementById("fRating").value
             ),
 
           description:
-            document.getElementById(
-              "restaurantDescription"
-            ).value.trim(),
+            document.getElementById("fDescription").value,
 
           address:
-            document.getElementById(
-              "restaurantAddress"
-            ).value.trim(),
+            document.getElementById("fAddress").value,
 
           phone:
-            document.getElementById(
-              "restaurantPhone"
-            ).value.trim(),
+            document.getElementById("fPhone").value,
 
           hours:
-            document.getElementById(
-              "restaurantHours"
-            ).value.trim(),
+            document.getElementById("fHours").value,
 
           image:
-            document.getElementById(
-              "restaurantImage"
-            ).value.trim(),
+            document.getElementById("fImage").value,
 
           emoji:
-            document.getElementById(
-              "restaurantEmoji"
-            ).value.trim(),
+            document.getElementById("fEmoji").value,
 
           featured:
-            document.getElementById(
-              "restaurantFeatured"
-            ).checked,
+            document.getElementById("fFeatured").checked,
 
           active:
-            document.getElementById(
-              "restaurantActive"
-            ).checked
+            document.getElementById("fActive").checked
+
         };
 
-        try {
-          const response =
-            await adminFetch(
-              id
-                ? `/api/admin/restaurants/${id}`
-                : "/api/admin/restaurants",
-              {
-                method:
-                  id
-                    ? "PATCH"
-                    : "POST",
 
-                headers: {
-                  "Content-Type":
-                    "application/json"
-                },
+        await adminFetch(
 
-                body:
-                  JSON.stringify(payload)
-              }
-            );
+          editId
 
-          const data =
-            await response.json();
+            ? `/api/admin/restaurants/${editId}`
 
-          if (!response.ok) {
-            throw new Error(
-              data.error ||
-              "Kaydetme başarısız."
-            );
+            : "/api/admin/restaurants",
+
+          {
+            method:
+              editId
+                ? "PATCH"
+                : "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body:
+              JSON.stringify(
+                payload
+              )
           }
 
-          restaurantFormStatus.className =
-            "form-status success";
-
-          restaurantFormStatus.textContent =
-            "Kaydedildi.";
-
-          await loadRestaurants();
-
-          setTimeout(
-            closeRestaurantModal,
-            350
-          );
-
-        } catch (error) {
-          restaurantFormStatus.className =
-            "form-status error";
-
-          restaurantFormStatus.textContent =
-            error.message;
-        }
-      }
-    );
-
-
-    async function deleteRestaurant(id) {
-      const item =
-        restaurants.find(
-          restaurant =>
-            Number(restaurant.id) ===
-            Number(id)
         );
 
-      const confirmed =
-        confirm(
-          `${item?.name || "Bu restoran"} gerçekten silinsin mi?`
-        );
-
-      if (!confirmed) {
-        return;
-      }
-
-      try {
-        const response =
-          await adminFetch(
-            `/api/admin/restaurants/${id}`,
-            {
-              method: "DELETE"
-            }
-          );
-
-        const data =
-          await response.json();
-
-        if (!response.ok) {
-          throw new Error(
-            data.error ||
-            "Silme başarısız."
-          );
-        }
 
         await loadRestaurants();
 
-      } catch (error) {
-        alert(error.message);
       }
-    }
 
 
-    document
-      .querySelectorAll(
-        "[data-tab]"
-      )
-      .forEach(button => {
-        button.addEventListener(
-          "click",
-          () => {
-            const tab =
-              button.dataset.tab;
+      if (
+        editType ===
+        "place"
+      ) {
 
-            document
-              .querySelectorAll(
-                ".tab-btn"
+        const payload = {
+
+          name:
+            document.getElementById("fName").value,
+
+          category:
+            document.getElementById("fCategory").value,
+
+          description:
+            document.getElementById("fDescription").value,
+
+          address:
+            document.getElementById("fAddress").value,
+
+          image:
+            document.getElementById("fImage").value,
+
+          emoji:
+            document.getElementById("fEmoji").value,
+
+          active:
+            document.getElementById("fActive").checked
+
+        };
+
+
+        await adminFetch(
+
+          editId
+
+            ? `/api/admin/places/${editId}`
+
+            : "/api/admin/places",
+
+          {
+            method:
+              editId
+                ? "PATCH"
+                : "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body:
+              JSON.stringify(
+                payload
               )
-              .forEach(item =>
-                item.classList.remove(
-                  "active"
-                )
-              );
-
-            button.classList.add(
-              "active"
-            );
-
-            document
-              .querySelectorAll(
-                ".tab-panel"
-              )
-              .forEach(panel =>
-                panel.classList.remove(
-                  "active"
-                )
-              );
-
-            document
-              .getElementById(
-                tab === "requests"
-                  ? "requestsPanel"
-                  : "restaurantsPanel"
-              )
-              .classList.add(
-                "active"
-              );
           }
+
         );
-      });
 
 
-    loginButton.addEventListener(
-      "click",
-      login
-    );
+        await loadPlaces();
 
-    passwordInput.addEventListener(
-      "keydown",
-      event => {
-        if (
-          event.key === "Enter"
-        ) {
-          login();
-        }
       }
-    );
 
-    document.getElementById(
-      "refreshRequestsButton"
-    ).addEventListener(
-      "click",
-      loadRequests
-    );
 
-    document.getElementById(
-      "refreshRestaurantsButton"
-    ).addEventListener(
-      "click",
-      loadRestaurants
-    );
+      closeModal();
 
-    document.getElementById(
-      "newRestaurantButton"
-    ).addEventListener(
-      "click",
-      openNewRestaurant
-    );
+    }
+  );
 
-    document.getElementById(
-      "restaurantModalClose"
-    ).addEventListener(
-      "click",
-      closeRestaurantModal
-    );
 
-    document.getElementById(
-      "cancelRestaurantButton"
-    ).addEventListener(
-      "click",
-      closeRestaurantModal
-    );
+/* DELETE RESTAURANT */
 
-    restaurantModal.addEventListener(
-      "click",
-      event => {
-        if (
-          event.target ===
-          restaurantModal
-        ) {
-          closeRestaurantModal();
-        }
-      }
-    );
-  </script>
+
+async function deleteRestaurant(id) {
+
+  if (
+    !confirm(
+      "Restoran silinsin mi?"
+    )
+  ) {
+    return;
+  }
+
+
+  await adminFetch(
+    `/api/admin/restaurants/${id}`,
+    {
+      method: "DELETE"
+    }
+  );
+
+
+  loadRestaurants();
+
+}
+
+
+/* DELETE PLACE */
+
+
+async function deletePlace(id) {
+
+  if (
+    !confirm(
+      "Yer silinsin mi?"
+    )
+  ) {
+    return;
+  }
+
+
+  await adminFetch(
+    `/api/admin/places/${id}`,
+    {
+      method: "DELETE"
+    }
+  );
+
+
+  loadPlaces();
+
+}
+
+
+/* BUTTONS */
+
+
+document
+  .getElementById("newRestaurant")
+  .addEventListener(
+    "click",
+    () =>
+      openRestaurantForm()
+  );
+
+
+document
+  .getElementById("newPlace")
+  .addEventListener(
+    "click",
+    () =>
+      openPlaceForm()
+  );
+
+
+document
+  .getElementById("refreshRequests")
+  .addEventListener(
+    "click",
+    loadRequests
+  );
+
+
+document
+  .getElementById("refreshRestaurants")
+  .addEventListener(
+    "click",
+    loadRestaurants
+  );
+
+
+document
+  .getElementById("refreshPlaces")
+  .addEventListener(
+    "click",
+    loadPlaces
+  );
+
+
+</script>
+
 
 </body>
+
 </html>
