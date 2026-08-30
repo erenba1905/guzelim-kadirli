@@ -9,15 +9,10 @@
 
   <meta
     name="description"
-    content="Kadirli'de gezilecek yerler, yemek, etkinlikler, yerel işletmeler ve önemli bilgiler."
+    content="Kadirli'de gezilecek yerler, restoranlar, kafeler, etkinlikler ve yerel işletmeler."
   >
 
   <style>
-
-    /* =========================
-       GRUNDEINSTELLUNGEN
-    ========================== */
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -41,7 +36,8 @@
     }
 
     img {
-      max-width: 100%;
+      width: 100%;
+      display: block;
     }
 
     section {
@@ -49,7 +45,6 @@
     }
 
     .container {
-      width: 100%;
       max-width: 1150px;
       margin: 0 auto;
     }
@@ -61,10 +56,10 @@
 
     .section-title span {
       color: #1f7a4d;
-      font-weight: bold;
-      font-size: 14px;
-      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 13px;
       letter-spacing: 2px;
+      text-transform: uppercase;
     }
 
     .section-title h2 {
@@ -74,22 +69,17 @@
     }
 
     .section-title p {
+      color: #67736c;
       max-width: 650px;
       margin: 12px auto 0;
-      color: #66726b;
     }
-
-
-    /* =========================
-       NAVIGATION
-    ========================== */
 
     nav {
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(255, 255, 255, 0.96);
-      border-bottom: 1px solid #e5e7e5;
+      background: rgba(255,255,255,0.96);
+      border-bottom: 1px solid #e4e9e5;
     }
 
     .nav-container {
@@ -113,17 +103,15 @@
     }
 
     .nav-links {
-      display: flex;
-      gap: 25px;
       list-style: none;
+      display: flex;
+      gap: 24px;
       align-items: center;
     }
 
     .nav-links a {
       font-size: 14px;
       font-weight: 600;
-      color: #37423c;
-      transition: 0.2s;
     }
 
     .nav-links a:hover {
@@ -132,37 +120,32 @@
 
     .nav-button {
       background: #1f7a4d;
-      color: white !important;
+      color: white;
       padding: 10px 17px;
       border-radius: 8px;
     }
 
-
-    /* =========================
-       HERO
-    ========================== */
-
     .hero {
-      min-height: 610px;
+      min-height: 620px;
 
       display: flex;
       align-items: center;
       justify-content: center;
+
+      padding: 100px 20px;
 
       text-align: center;
       color: white;
 
       background:
         linear-gradient(
-          rgba(13, 45, 28, 0.68),
-          rgba(13, 45, 28, 0.78)
+          rgba(13, 45, 28, 0.70),
+          rgba(13, 45, 28, 0.82)
         ),
-        url("https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1600&q=80");
+        url("https://trthaberstatic.cdn.wp.trt.com.tr/resimler/1326000/1327783.jpg");
 
       background-size: cover;
       background-position: center;
-
-      padding: 80px 20px;
     }
 
     .hero-content {
@@ -171,23 +154,22 @@
 
     .hero-badge {
       display: inline-block;
-      padding: 7px 15px;
       border: 1px solid rgba(255,255,255,0.5);
-      border-radius: 50px;
-      margin-bottom: 20px;
-      font-size: 14px;
       background: rgba(255,255,255,0.1);
+      padding: 8px 15px;
+      border-radius: 30px;
+      margin-bottom: 20px;
     }
 
     .hero h1 {
-      font-size: clamp(44px, 8vw, 82px);
-      line-height: 1.05;
+      font-size: clamp(48px, 8vw, 84px);
+      line-height: 1;
       margin-bottom: 20px;
     }
 
     .hero p {
       font-size: 20px;
-      max-width: 700px;
+      max-width: 720px;
       margin: 0 auto 30px;
       color: #edf5ef;
     }
@@ -195,25 +177,19 @@
     .hero-buttons {
       display: flex;
       justify-content: center;
-      gap: 15px;
+      gap: 14px;
       flex-wrap: wrap;
     }
 
     .button {
-      display: inline-block;
-      padding: 14px 24px;
+      padding: 14px 23px;
       border-radius: 9px;
       font-weight: 700;
-      transition: 0.2s;
     }
 
     .button-primary {
-      background: #ffffff;
+      background: white;
       color: #1f7a4d;
-    }
-
-    .button-primary:hover {
-      transform: translateY(-2px);
     }
 
     .button-secondary {
@@ -221,36 +197,32 @@
       color: white;
     }
 
-
-    /* =========================
-       ÜBER KADIRLI
-    ========================== */
-
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 50px;
+      gap: 45px;
       align-items: center;
     }
 
-    .about-box {
-      background: #e7f1eb;
-      border-radius: 24px;
-      min-height: 360px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 110px;
+    .about-image {
+      border-radius: 22px;
+      overflow: hidden;
+      min-height: 420px;
+    }
+
+    .about-image img {
+      height: 420px;
+      object-fit: cover;
     }
 
     .about-content h2 {
       font-size: 38px;
-      margin-bottom: 20px;
+      margin: 10px 0 20px;
     }
 
     .about-content p {
-      color: #66726b;
-      margin-bottom: 18px;
+      color: #68736d;
+      margin-bottom: 16px;
     }
 
     .facts {
@@ -262,171 +234,147 @@
 
     .fact {
       background: white;
-      padding: 18px;
+      border: 1px solid #e5e9e6;
       border-radius: 12px;
+      padding: 18px;
       text-align: center;
-      border: 1px solid #e8ebe9;
     }
 
     .fact strong {
       display: block;
       color: #1f7a4d;
+      font-size: 20px;
+    }
+
+    .categories {
+      background: #edf2ee;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .category-card {
+      background: white;
+      padding: 30px;
+      border-radius: 18px;
+      border: 1px solid #e4e8e5;
+      transition: 0.2s;
+    }
+
+    .category-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 35px rgba(0,0,0,0.07);
+    }
+
+    .category-icon {
+      font-size: 34px;
+      margin-bottom: 16px;
+    }
+
+    .category-card h3 {
+      margin-bottom: 8px;
       font-size: 21px;
     }
 
-
-    /* =========================
-       KATEGORIEN
-    ========================== */
-
-    .categories {
-      background: #eef2ef;
+    .category-card p {
+      color: #68736d;
     }
 
-    .card-grid {
+    .place-grid,
+    .restaurant-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 25px;
     }
 
-    .card {
-      background: white;
-      border-radius: 18px;
-      padding: 30px;
-      border: 1px solid #e8ebe9;
-      transition: 0.25s;
-    }
-
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 18px 40px rgba(0,0,0,0.07);
-    }
-
-    .card-icon {
-      width: 60px;
-      height: 60px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #e8f2ec;
-      font-size: 28px;
-      margin-bottom: 22px;
-    }
-
-    .card h3 {
-      font-size: 22px;
-      margin-bottom: 10px;
-    }
-
-    .card p {
-      color: #68746d;
-      margin-bottom: 18px;
-    }
-
-    .card-link {
-      color: #1f7a4d;
-      font-weight: bold;
-    }
-
-
-    /* =========================
-       FEATURED PLACES
-    ========================== */
-
-    .place-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-    }
-
-    .place-card {
+    .place-card,
+    .restaurant-card {
       overflow: hidden;
-      background: white;
       border-radius: 18px;
-      border: 1px solid #e6eae7;
+      background: white;
+      border: 1px solid #e5e9e6;
+      transition: 0.2s;
     }
 
-    .place-image {
-      height: 210px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      font-size: 70px;
-
-      background:
-        linear-gradient(135deg, #dcecdf, #f1e7ce);
+    .place-card:hover,
+    .restaurant-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 35px rgba(0,0,0,0.07);
     }
 
-    .place-content {
-      padding: 24px;
+    .card-image {
+      height: 220px;
+      overflow: hidden;
+      background: #dde5df;
     }
 
-    .place-content small {
+    .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 23px;
+    }
+
+    .card-content small {
       color: #1f7a4d;
-      font-weight: bold;
+      font-weight: 700;
+      letter-spacing: 1px;
     }
 
-    .place-content h3 {
+    .card-content h3 {
       margin: 8px 0;
       font-size: 21px;
     }
 
-    .place-content p {
-      color: #69746e;
+    .card-content p {
+      color: #68736d;
       font-size: 14px;
     }
 
-
-    /* =========================
-       EVENT
-    ========================== */
-
-    .events {
+    .restaurant-section {
       background: #172a20;
       color: white;
     }
 
-    .events .section-title h2 {
+    .restaurant-section .section-title h2 {
       color: white;
     }
 
-    .events .section-title p {
-      color: #c8d3cc;
+    .restaurant-section .section-title p {
+      color: #c7d4cc;
     }
 
-    .event-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .event-card {
+    .restaurant-card {
       background: #21392c;
-      padding: 25px;
-      border-radius: 15px;
+      border: 1px solid #31503e;
     }
 
-    .event-date {
-      color: #e7b75f;
+    .restaurant-card .card-content p {
+      color: #c7d3cc;
+    }
+
+    .restaurant-card .card-content h3 {
+      color: white;
+    }
+
+    .rating {
+      color: #f2be62;
       font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .event-card h3 {
-      margin-bottom: 8px;
-    }
-
-    .event-card p {
-      color: #c9d4ce;
+      margin-top: 12px;
       font-size: 14px;
     }
 
-
-    /* =========================
-       UNTERNEHMEN
-    ========================== */
+    .details {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #bac8c0;
+    }
 
     .business-grid {
       display: grid;
@@ -435,11 +383,11 @@
     }
 
     .business {
-      background: white;
       padding: 25px 15px;
-      border-radius: 14px;
       text-align: center;
+      background: white;
       border: 1px solid #e5e9e6;
+      border-radius: 14px;
     }
 
     .business div {
@@ -447,17 +395,8 @@
       margin-bottom: 8px;
     }
 
-    .business h3 {
-      font-size: 16px;
-    }
-
-
-    /* =========================
-       WICHTIGE INFOS
-    ========================== */
-
     .important {
-      background: #eef2ef;
+      background: #edf2ee;
     }
 
     .info-grid {
@@ -468,8 +407,8 @@
 
     .info-card {
       background: white;
-      padding: 25px;
       border-radius: 14px;
+      padding: 25px;
       text-align: center;
     }
 
@@ -478,7 +417,7 @@
     }
 
     .info-card h3 {
-      margin: 10px 0 5px;
+      margin-top: 9px;
     }
 
     .info-card p {
@@ -486,16 +425,11 @@
       font-size: 14px;
     }
 
-
-    /* =========================
-       KARTE
-    ========================== */
-
     .map-container {
+      height: 430px;
       border-radius: 20px;
       overflow: hidden;
-      height: 420px;
-      border: 1px solid #e1e4e2;
+      border: 1px solid #e0e4e1;
     }
 
     .map-container iframe {
@@ -504,38 +438,32 @@
       border: 0;
     }
 
-
-    /* =========================
-       CTA
-    ========================== */
-
     .cta {
-      padding: 80px 20px;
+      padding: 70px 20px;
     }
 
     .cta-box {
-      background: #1f7a4d;
-      color: white;
-
       max-width: 1150px;
       margin: auto;
 
-      padding: 55px 40px;
-      border-radius: 24px;
+      background: #1f7a4d;
+      color: white;
+
+      padding: 50px 40px;
+      border-radius: 22px;
 
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 30px;
+      gap: 25px;
     }
 
     .cta-box h2 {
-      font-size: 32px;
+      font-size: 30px;
     }
 
     .cta-box p {
       color: #dbece2;
-      margin-top: 7px;
     }
 
     .cta-button {
@@ -543,19 +471,14 @@
       color: #1f7a4d;
       padding: 14px 22px;
       border-radius: 9px;
-      white-space: nowrap;
       font-weight: bold;
+      white-space: nowrap;
     }
-
-
-    /* =========================
-       FOOTER
-    ========================== */
 
     footer {
       background: #111b15;
       color: white;
-      padding: 55px 20px 25px;
+      padding: 50px 20px 25px;
     }
 
     .footer-grid {
@@ -565,10 +488,6 @@
       display: grid;
       grid-template-columns: 2fr 1fr 1fr;
       gap: 50px;
-    }
-
-    footer h3 {
-      margin-bottom: 15px;
     }
 
     footer p,
@@ -587,32 +506,23 @@
 
     .copyright {
       max-width: 1150px;
-      margin: 35px auto 0;
+      margin: 30px auto 0;
       padding-top: 20px;
-      border-top: 1px solid #29362f;
-      color: #87958c;
-      font-size: 13px;
       text-align: center;
+      border-top: 1px solid #29362f;
+      color: #85938a;
+      font-size: 13px;
     }
 
-
-    /* =========================
-       SMARTPHONE
-    ========================== */
-
     @media (max-width: 850px) {
-
       .nav-links {
         display: none;
       }
 
-      .about-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .card-grid,
+      .about-grid,
+      .category-grid,
       .place-grid,
-      .event-grid {
+      .restaurant-grid {
         grid-template-columns: 1fr;
       }
 
@@ -625,23 +535,17 @@
         grid-template-columns: 1fr;
       }
 
-      .cta-box {
-        flex-direction: column;
-        text-align: center;
-      }
-
       .footer-grid {
         grid-template-columns: 1fr;
       }
 
-      .hero {
-        min-height: 520px;
+      .cta-box {
+        flex-direction: column;
+        text-align: center;
       }
-
     }
 
     @media (max-width: 500px) {
-
       section {
         padding: 60px 16px;
       }
@@ -654,791 +558,815 @@
       .section-title h2 {
         font-size: 30px;
       }
-
     }
-
   </style>
-
 </head>
-
 
 <body>
 
+<nav>
+  <div class="nav-container">
 
-  <!-- NAVIGATION -->
+    <a class="logo" href="#">
+      Güzelim <span>Kadirli</span>
+    </a>
 
-  <nav>
+    <ul class="nav-links">
+      <li><a href="#hakkinda">Kadirli</a></li>
+      <li><a href="#gezilecek">Gezilecek Yerler</a></li>
+      <li><a href="#yeme">Yeme & İçme</a></li>
+      <li><a href="#isletmeler">İşletmeler</a></li>
+      <li><a href="#harita">Harita</a></li>
+      <li><a class="nav-button" href="#iletisim">Bize Ulaş</a></li>
+    </ul>
 
-    <div class="nav-container">
+  </div>
+</nav>
 
-      <a href="#" class="logo">
-        Güzelim <span>Kadirli</span>
+
+<header class="hero">
+
+  <div class="hero-content">
+
+    <div class="hero-badge">
+      📍 Kadirli • Osmaniye
+    </div>
+
+    <h1>Kadirli'yi Keşfet</h1>
+
+    <p>
+      Tarihi yerler, yöresel lezzetler, kafeler,
+      restoranlar ve şehir yaşamı tek bir yerde.
+    </p>
+
+    <div class="hero-buttons">
+
+      <a href="#gezilecek" class="button button-primary">
+        Gezilecek Yerleri Gör
       </a>
 
-      <ul class="nav-links">
-
-        <li><a href="#hakkinda">Kadirli</a></li>
-
-        <li><a href="#gezilecek">Gezilecek Yerler</a></li>
-
-        <li><a href="#yeme">Yeme & İçme</a></li>
-
-        <li><a href="#etkinlikler">Etkinlikler</a></li>
-
-        <li><a href="#isletmeler">İşletmeler</a></li>
-
-        <li>
-          <a href="#iletisim" class="nav-button">
-            Bize Ulaş
-          </a>
-        </li>
-
-      </ul>
+      <a href="#yeme" class="button button-secondary">
+        Nerede Yemek Yenir?
+      </a>
 
     </div>
 
-  </nav>
+  </div>
+
+</header>
 
 
+<section id="hakkinda">
 
-  <!-- HERO -->
+  <div class="container">
 
-  <header class="hero">
+    <div class="about-grid">
 
-    <div class="hero-content">
-
-      <div class="hero-badge">
-        📍 Osmaniye • Kadirli
+      <div class="about-image">
+        <img
+          src="https://trthaberstatic.cdn.wp.trt.com.tr/resimler/1326000/1327783.jpg"
+          alt="Kadirli Ala Camii"
+        >
       </div>
 
-      <h1>
-        Kadirli'yi Keşfet
-      </h1>
+      <div class="about-content">
 
-      <p>
-        Tarihi, doğası, lezzetleri ve yerel yaşamıyla
-        Kadirli'yi keşfetmenin en kolay yolu.
-      </p>
-
-      <div class="hero-buttons">
-
-        <a href="#gezilecek" class="button button-primary">
-          Gezilecek Yerleri Gör
-        </a>
-
-        <a href="#isletmeler" class="button button-secondary">
-          Yerel İşletmeler
-        </a>
-
-      </div>
-
-    </div>
-
-  </header>
-
-
-
-  <!-- KADIRLI HAKKINDA -->
-
-  <section id="hakkinda">
-
-    <div class="container">
-
-      <div class="about-grid">
-
-        <div class="about-box">
-          🌿
-        </div>
-
-        <div class="about-content">
-
-          <span style="color:#1f7a4d;font-weight:bold;">
-            KADİRLİ HAKKINDA
-          </span>
-
-          <h2>
-            Çukurova'nın güzel ilçelerinden biri
-          </h2>
-
-          <p>
-            Kadirli, Osmaniye iline bağlı; tarihi,
-            kültürü, doğal güzellikleri ve zengin mutfağıyla
-            dikkat çeken bir ilçedir.
-          </p>
-
-          <p>
-            Güzelim Kadirli ile şehirde gezilecek yerleri,
-            restoranları, etkinlikleri ve yerel işletmeleri
-            tek bir yerde bulabilirsin.
-          </p>
-
-          <div class="facts">
-
-            <div class="fact">
-              <strong>Osmaniye</strong>
-              İl
-            </div>
-
-            <div class="fact">
-              <strong>Akdeniz</strong>
-              Bölge
-            </div>
-
-            <div class="fact">
-              <strong>Kadirli</strong>
-              Keşfet
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- KATEGORIEN -->
-
-  <section class="categories" id="gezilecek">
-
-    <div class="container">
-
-      <div class="section-title">
-
-        <span>Kadirli'de ne yapılır?</span>
-
-        <h2>
-          Kadirli'yi Keşfet
-        </h2>
-
-        <p>
-          Gezilecek yerlerden yöresel lezzetlere kadar
-          Kadirli hakkında aradığın her şey.
-        </p>
-
-      </div>
-
-
-      <div class="card-grid">
-
-
-        <div class="card">
-
-          <div class="card-icon">
-            🏛️
-          </div>
-
-          <h3>
-            Gezilecek Yerler
-          </h3>
-
-          <p>
-            Tarihi yapılar, doğal alanlar ve
-            Kadirli'nin görülmeye değer noktaları.
-          </p>
-
-          <a href="#mekanlar" class="card-link">
-            Yerleri keşfet →
-          </a>
-
-        </div>
-
-
-        <div class="card" id="yeme">
-
-          <div class="card-icon">
-            🍽️
-          </div>
-
-          <h3>
-            Yeme & İçme
-          </h3>
-
-          <p>
-            Restoranlar, kafeler ve Kadirli'nin
-            yöresel lezzetlerini keşfet.
-          </p>
-
-          <a href="#isletmeler" class="card-link">
-            Mekanları gör →
-          </a>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="card-icon">
-            🎉
-          </div>
-
-          <h3>
-            Etkinlikler
-          </h3>
-
-          <p>
-            Konserler, festivaller, pazarlar ve
-            şehirde gerçekleşen etkinlikler.
-          </p>
-
-          <a href="#etkinlikler" class="card-link">
-            Etkinlikleri gör →
-          </a>
-
-        </div>
-
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- PLACES -->
-
-  <section id="mekanlar">
-
-    <div class="container">
-
-      <div class="section-title">
-
-        <span>Öne Çıkanlar</span>
-
-        <h2>
-          Görülmeye Değer Yerler
-        </h2>
-
-        <p>
-          Kadirli ve çevresinde keşfedebileceğin
-          önemli noktalar.
-        </p>
-
-      </div>
-
-
-      <div class="place-grid">
-
-
-        <div class="place-card">
-
-          <div class="place-image">
-            🏛️
-          </div>
-
-          <div class="place-content">
-
-            <small>
-              TARİH
-            </small>
-
-            <h3>
-              Tarihi Yerler
-            </h3>
-
-            <p>
-              Kadirli'nin tarihi geçmişini
-              keşfedebileceğin önemli yapılar.
-            </p>
-
-          </div>
-
-        </div>
-
-
-        <div class="place-card">
-
-          <div class="place-image">
-            🌲
-          </div>
-
-          <div class="place-content">
-
-            <small>
-              DOĞA
-            </small>
-
-            <h3>
-              Doğal Güzellikler
-            </h3>
-
-            <p>
-              Ailen veya arkadaşlarınla vakit
-              geçirebileceğin doğal alanlar.
-            </p>
-
-          </div>
-
-        </div>
-
-
-        <div class="place-card">
-
-          <div class="place-image">
-            ☕
-          </div>
-
-          <div class="place-content">
-
-            <small>
-              ŞEHİR YAŞAMI
-            </small>
-
-            <h3>
-              Popüler Mekanlar
-            </h3>
-
-            <p>
-              Kadirli'de insanların sık tercih
-              ettiği mekanları keşfet.
-            </p>
-
-          </div>
-
-        </div>
-
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- EVENTS -->
-
-  <section class="events" id="etkinlikler">
-
-    <div class="container">
-
-      <div class="section-title">
-
-        <span>
-          Şehirde Neler Oluyor?
+        <span style="color:#1f7a4d;font-weight:bold;">
+          KADİRLİ HAKKINDA
         </span>
 
         <h2>
-          Yaklaşan Etkinlikler
+          Tarih, doğa ve yerel yaşam
         </h2>
 
         <p>
-          Kadirli'deki etkinlikleri,
-          organizasyonları ve önemli tarihleri takip et.
+          Kadirli, Osmaniye'nin önemli ilçelerinden biridir.
+          İlçe; tarihi yapıları, Çukurova kültürü, yöresel
+          yemekleri ve çevresindeki doğal alanlarla öne çıkar.
         </p>
 
-      </div>
+        <p>
+          Güzelim Kadirli projesinin amacı, ziyaretçilerin ve
+          şehirde yaşayanların ihtiyaç duyduğu yerel bilgileri
+          tek bir platformda toplamaktır.
+        </p>
 
+        <div class="facts">
 
-      <div class="event-grid">
-
-
-        <div class="event-card">
-
-          <div class="event-date">
-            Yakında
+          <div class="fact">
+            <strong>Osmaniye</strong>
+            İl
           </div>
 
-          <h3>
-            Yerel Etkinlikler
-          </h3>
-
-          <p>
-            Kadirli'deki güncel etkinlikler
-            burada yayınlanacak.
-          </p>
-
-        </div>
-
-
-        <div class="event-card">
-
-          <div class="event-date">
-            Yakında
+          <div class="fact">
+            <strong>Akdeniz</strong>
+            Bölge
           </div>
 
-          <h3>
-            Festival & Konser
-          </h3>
-
-          <p>
-            Festival, konser ve kültürel
-            etkinlikleri takip et.
-          </p>
-
-        </div>
-
-
-        <div class="event-card">
-
-          <div class="event-date">
-            Yakında
+          <div class="fact">
+            <strong>Kadirli</strong>
+            Yerel Rehber
           </div>
 
-          <h3>
-            Pazar & Organizasyon
-          </h3>
-
-          <p>
-            Yerel pazarlar ve farklı
-            organizasyonlar burada yer alacak.
-          </p>
-
         </div>
-
 
       </div>
 
     </div>
 
-  </section>
+  </div>
+
+</section>
 
 
+<section class="categories">
 
-  <!-- BUSINESSES -->
+  <div class="container">
 
-  <section id="isletmeler">
+    <div class="section-title">
+      <span>Keşfet</span>
+      <h2>Kadirli'de Ne Yapılır?</h2>
+      <p>
+        Tarihten yeme içmeye kadar şehirde aradığın
+        şeylere hızlıca ulaş.
+      </p>
+    </div>
 
-    <div class="container">
+    <div class="category-grid">
 
-      <div class="section-title">
-
-        <span>Yerel Rehber</span>
-
-        <h2>
-          Kadirli İşletmeleri
-        </h2>
-
+      <div class="category-card">
+        <div class="category-icon">🏛️</div>
+        <h3>Gezilecek Yerler</h3>
         <p>
-          İhtiyacın olan yerel işletmeleri
-          hızlıca bul.
+          Tarihi yapılar, müzeler ve doğal güzellikler.
         </p>
-
       </div>
 
-
-      <div class="business-grid">
-
-
-        <div class="business">
-          <div>🍴</div>
-          <h3>Restoranlar</h3>
-        </div>
-
-
-        <div class="business">
-          <div>☕</div>
-          <h3>Kafeler</h3>
-        </div>
-
-
-        <div class="business">
-          <div>🔧</div>
-          <h3>Servis & Tamir</h3>
-        </div>
-
-
-        <div class="business">
-          <div>💇</div>
-          <h3>Kuaför</h3>
-        </div>
-
-
-        <div class="business">
-          <div>🏠</div>
-          <h3>Emlak</h3>
-        </div>
-
-
-        <div class="business">
-          <div>🛍️</div>
-          <h3>Mağazalar</h3>
-        </div>
-
-
-        <div class="business">
-          <div>👷</div>
-          <h3>Ustalar</h3>
-        </div>
-
-
-        <div class="business">
-          <div>➕</div>
-          <h3>Tüm İşletmeler</h3>
-        </div>
-
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- IMPORTANT -->
-
-  <section class="important">
-
-    <div class="container">
-
-      <div class="section-title">
-
-        <span>Hızlı Bilgi</span>
-
-        <h2>
-          Önemli Noktalar
-        </h2>
-
-      </div>
-
-
-      <div class="info-grid">
-
-
-        <div class="info-card">
-
-          <span>🏥</span>
-
-          <h3>Hastane</h3>
-
-          <p>
-            Sağlık kuruluşları
-          </p>
-
-        </div>
-
-
-        <div class="info-card">
-
-          <span>💊</span>
-
-          <h3>Eczane</h3>
-
-          <p>
-            Eczaneler ve nöbetçi eczaneler
-          </p>
-
-        </div>
-
-
-        <div class="info-card">
-
-          <span>🚓</span>
-
-          <h3>Polis</h3>
-
-          <p>
-            Güvenlik ve acil durum
-          </p>
-
-        </div>
-
-
-        <div class="info-card">
-
-          <span>🚌</span>
-
-          <h3>Ulaşım</h3>
-
-          <p>
-            Otobüs ve ulaşım bilgileri
-          </p>
-
-        </div>
-
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- MAP -->
-
-  <section>
-
-    <div class="container">
-
-      <div class="section-title">
-
-        <span>Konum</span>
-
-        <h2>
-          Kadirli Haritası
-        </h2>
-
+      <div class="category-card">
+        <div class="category-icon">🍽️</div>
+        <h3>Yeme & İçme</h3>
         <p>
-          Kadirli'nin konumunu ve çevresini incele.
+          Kebap, lahmacun, kahvaltı, restoranlar ve kafeler.
         </p>
-
       </div>
 
-
-      <div class="map-container">
-
-        <iframe
-          src="https://www.openstreetmap.org/export/embed.html?bbox=35.95%2C37.25%2C36.25%2C37.50&layer=mapnik&marker=37.373%2C36.096"
-          loading="lazy"
-        ></iframe>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- CTA -->
-
-  <section class="cta" id="iletisim">
-
-    <div class="cta-box">
-
-      <div>
-
-        <h2>
-          Kadirli'de bir işletmen mi var?
-        </h2>
-
+      <div class="category-card">
+        <div class="category-icon">🏪</div>
+        <h3>Yerel İşletmeler</h3>
         <p>
-          İşletmeni Güzelim Kadirli'ye eklemek
-          veya bize öneride bulunmak için iletişime geç.
+          Kadirli'deki hizmetleri ve işletmeleri keşfet.
         </p>
-
       </div>
-
-
-      <a
-        href="mailto:info@guzelimkadirli.com"
-        class="cta-button"
-      >
-        Bize Ulaş
-      </a>
 
     </div>
 
-  </section>
+  </div>
+
+</section>
 
 
+<section id="gezilecek">
 
-  <!-- FOOTER -->
+  <div class="container">
 
-  <footer>
+    <div class="section-title">
+      <span>Gezilecek Yerler</span>
+      <h2>Kadirli ve Çevresinde Görülmesi Gerekenler</h2>
+      <p>
+        Bölgenin önemli tarihi ve kültürel noktalarından bazıları.
+      </p>
+    </div>
 
-    <div class="footer-grid">
+    <div class="place-grid">
 
+      <article class="place-card">
 
-      <div>
+        <div class="card-image">
+          <img
+            src="https://trthaberstatic.cdn.wp.trt.com.tr/resimler/1326000/1327783.jpg"
+            alt="Kadirli Ala Camii"
+          >
+        </div>
 
-        <h3>
-          Güzelim Kadirli
-        </h3>
+        <div class="card-content">
+          <small>TARİH</small>
+          <h3>Ala Camii</h3>
+          <p>
+            Roma döneminden başlayıp farklı dönemlerde farklı
+            amaçlarla kullanılan, Kadirli'nin en dikkat çekici
+            tarihi yapılarından biri.
+          </p>
+        </div>
 
-        <p>
-          Kadirli'yi keşfetmenin,
-          yerel işletmeleri bulmanın ve
-          şehirde neler olduğunu öğrenmenin
-          kolay yolu.
-        </p>
-
-      </div>
-
-
-      <div>
-
-        <h3>
-          Keşfet
-        </h3>
-
-        <ul>
-
-          <li>
-            <a href="#gezilecek">
-              Gezilecek Yerler
-            </a>
-          </li>
-
-          <li>
-            <a href="#yeme">
-              Yeme & İçme
-            </a>
-          </li>
-
-          <li>
-            <a href="#etkinlikler">
-              Etkinlikler
-            </a>
-          </li>
-
-        </ul>
-
-      </div>
+      </article>
 
 
-      <div>
+      <article class="place-card">
 
-        <h3>
-          Güzelim Kadirli
-        </h3>
+        <div class="card-image">
+          <img
+            src="https://img.restaurantguru.com/rfb9-meals-Y-ld-z-n-Bahcesi.jpg"
+            alt="Kadirli yerel yaşam"
+          >
+        </div>
 
-        <ul>
+        <div class="card-content">
+          <small>YEREL YAŞAM</small>
+          <h3>Kadirli Şehir Merkezi</h3>
+          <p>
+            Çarşı, kafeler, restoranlar ve yerel işletmelerle
+            Kadirli'nin günlük yaşamını keşfet.
+          </p>
+        </div>
 
-          <li>
-            <a href="#hakkinda">
-              Hakkımızda
-            </a>
-          </li>
+      </article>
 
-          <li>
-            <a href="#isletmeler">
-              İşletmeler
-            </a>
-          </li>
 
-          <li>
-            <a href="#iletisim">
-              İletişim
-            </a>
-          </li>
+      <article class="place-card">
 
-        </ul>
+        <div class="card-image">
+          <img
+            src="https://trthaberstatic.cdn.wp.trt.com.tr/resimler/1326000/1327783.jpg"
+            alt="Karatepe Aslantas bölgesi"
+          >
+        </div>
 
-      </div>
+        <div class="card-content">
+          <small>TARİH & DOĞA</small>
+          <h3>Karatepe-Aslantaş</h3>
+          <p>
+            Kadirli çevresindeki en önemli tarihi ve doğal
+            bölgelerden biri. Açık hava müzesi ve milli parkıyla
+            öne çıkar.
+          </p>
+        </div>
 
+      </article>
 
     </div>
 
+  </div>
 
-    <div class="copyright">
+</section>
 
-      © <span id="year"></span>
-      Güzelim Kadirli • Kadirli, Osmaniye
+
+<section class="restaurant-section" id="yeme">
+
+  <div class="container">
+
+    <div class="section-title">
+      <span>Yeme & İçme</span>
+      <h2>Kadirli'de Restoranlar ve Kafeler</h2>
+      <p>
+        Gerçek Kadirli işletmelerinden seçilmiş ilk mekanlar.
+      </p>
+    </div>
+
+    <div class="restaurant-grid">
+
+
+      <article class="restaurant-card">
+
+        <div class="card-image">
+          <img
+            src="https://img.restaurantguru.com/rfb9-meals-Y-ld-z-n-Bahcesi.jpg"
+            alt="Yıldız'ın Bahçesi Restoran"
+          >
+        </div>
+
+        <div class="card-content">
+
+          <small>KEBAP & KAHVALTI</small>
+
+          <h3>Yıldız'ın Bahçesi Restoran</h3>
+
+          <p>
+            Bahçe ortamında yemek ve kahvaltı seçenekleri sunan
+            yerel restoranlardan biri.
+          </p>
+
+          <div class="rating">
+            ★ 4.5
+          </div>
+
+          <div class="details">
+            Tufanpaşa • Abdulvahap Kocaman Cd. No:87
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="restaurant-card">
+
+        <div class="card-image">
+          <img
+            src="https://img.restaurantguru.com/rfb9-meals-Y-ld-z-n-Bahcesi.jpg"
+            alt="Pembe Köşk Cafe Restaurant"
+          >
+        </div>
+
+        <div class="card-content">
+
+          <small>CAFE & RESTAURANT</small>
+
+          <h3>Pembe Köşk Cafe & Restaurant</h3>
+
+          <p>
+            Kahvaltı, öğle ve akşam yemeği seçenekleri bulunan
+            Kadirli'nin bilinen mekanlarından biri.
+          </p>
+
+          <div class="rating">
+            ★ 4.3
+          </div>
+
+          <div class="details">
+            Pazar • Mehmet Can Cd. No:44
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="restaurant-card">
+
+        <div class="card-image">
+          <div style="
+            height:100%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:80px;
+            background:#314c3b;">
+            🍲
+          </div>
+        </div>
+
+        <div class="card-content">
+
+          <small>LOKANTA</small>
+
+          <h3>Aktürkler Lokantası</h3>
+
+          <p>
+            Kadirli'de uzun süredir hizmet veren
+            yerel lokantalardan biri.
+          </p>
+
+          <div class="rating">
+            ★ 4.3
+          </div>
+
+          <div class="details">
+            Savrun • Mehmet Orhun Döğüşçü Cd. No:5
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="restaurant-card">
+
+        <div class="card-image">
+          <div style="
+            height:100%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:80px;
+            background:#314c3b;">
+            🍕
+          </div>
+        </div>
+
+        <div class="card-content">
+
+          <small>LAHMACUN</small>
+
+          <h3>Kadirli Lahmacun Restaurant</h3>
+
+          <p>
+            Lahmacun ve yöresel yemek seçenekleriyle
+            hizmet veren Kadirli restoranı.
+          </p>
+
+          <div class="rating">
+            ★ 4.6
+          </div>
+
+          <div class="details">
+            7 Mart • Sütçü İmam Cd.
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="restaurant-card">
+
+        <div class="card-image">
+          <div style="
+            height:100%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:80px;
+            background:#314c3b;">
+            🔥
+          </div>
+        </div>
+
+        <div class="card-content">
+
+          <small>KEBAP</small>
+
+          <h3>Duman Kebap Salonu</h3>
+
+          <p>
+            Kadirli'de kebap üzerine hizmet veren
+            yerel mekanlardan biri.
+          </p>
+
+          <div class="rating">
+            ★ 4.8
+          </div>
+
+          <div class="details">
+            Kamil Kara Blv. No:396
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="restaurant-card">
+
+        <div class="card-image">
+          <div style="
+            height:100%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:80px;
+            background:#314c3b;">
+            ☕
+          </div>
+        </div>
+
+        <div class="card-content">
+
+          <small>CAFE</small>
+
+          <h3>Akdo Kahve</h3>
+
+          <p>
+            Kahve ve oturma alanıyla Kadirli'deki
+            yerel kafelerden biri.
+          </p>
+
+          <div class="rating">
+            ★ 4.2
+          </div>
+
+          <div class="details">
+            Savrun • 18. Sokak
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="restaurant-card">
+
+        <div class="card-image">
+          <div style="
+            height:100%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:80px;
+            background:#314c3b;">
+            🥩
+          </div>
+        </div>
+
+        <div class="card-content">
+
+          <small>ET RESTORANI</small>
+
+          <h3>Piknik Et Lokantası</h3>
+
+          <p>
+            Et yemekleri üzerine hizmet veren
+            Kadirli restoranlarından biri.
+          </p>
+
+          <div class="rating">
+            ★ 4.1
+          </div>
+
+          <div class="details">
+            Söğütlüdere • 549. Sokak
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="restaurant-card">
+
+        <div class="card-image">
+          <div style="
+            height:100%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:80px;
+            background:#314c3b;">
+            ☕
+          </div>
+        </div>
+
+        <div class="card-content">
+
+          <small>ESPRESSO BAR</small>
+
+          <h3>Pinda Espresso Bar</h3>
+
+          <p>
+            Kahve ve espresso seçenekleriyle
+            hizmet veren modern kafelerden biri.
+          </p>
+
+          <div class="rating">
+            ★ 4.4
+          </div>
+
+          <div class="details">
+            Cemal Paşa • Adalet Cd.
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="restaurant-card">
+
+        <div class="card-image">
+          <div style="
+            height:100%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:80px;
+            background:#314c3b;">
+            ☕
+          </div>
+        </div>
+
+        <div class="card-content">
+
+          <small>COFFEE</small>
+
+          <h3>Karma Coffee</h3>
+
+          <p>
+            Kahve ve sosyal ortamıyla Kadirli'deki
+            yeni nesil kahve mekanlarından biri.
+          </p>
+
+          <div class="rating">
+            ★ 4.6
+          </div>
+
+          <div class="details">
+            Cemalpaşa • 1667. Sokak
+          </div>
+
+        </div>
+
+      </article>
 
     </div>
 
-  </footer>
+  </div>
+
+</section>
 
 
+<section id="isletmeler">
 
-  <!-- JAVASCRIPT -->
+  <div class="container">
 
-  <script>
+    <div class="section-title">
+      <span>Yerel Rehber</span>
+      <h2>İşletme Kategorileri</h2>
+      <p>
+        Daha sonra bu bölümleri gerçek işletme listelerine bağlayacağız.
+      </p>
+    </div>
 
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
+    <div class="business-grid">
 
-  </script>
+      <div class="business">
+        <div>🍴</div>
+        <h3>Restoranlar</h3>
+      </div>
 
+      <div class="business">
+        <div>☕</div>
+        <h3>Kafeler</h3>
+      </div>
+
+      <div class="business">
+        <div>🔧</div>
+        <h3>Servis & Tamir</h3>
+      </div>
+
+      <div class="business">
+        <div>💇</div>
+        <h3>Kuaför</h3>
+      </div>
+
+      <div class="business">
+        <div>🏠</div>
+        <h3>Emlak</h3>
+      </div>
+
+      <div class="business">
+        <div>🛒</div>
+        <h3>Mağazalar</h3>
+      </div>
+
+      <div class="business">
+        <div>👷</div>
+        <h3>Ustalar</h3>
+      </div>
+
+      <div class="business">
+        <div>➕</div>
+        <h3>Tüm İşletmeler</h3>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="important">
+
+  <div class="container">
+
+    <div class="section-title">
+      <span>Hızlı Bilgi</span>
+      <h2>Önemli Noktalar</h2>
+    </div>
+
+    <div class="info-grid">
+
+      <div class="info-card">
+        <span>🏥</span>
+        <h3>Hastane</h3>
+        <p>Sağlık kuruluşları</p>
+      </div>
+
+      <div class="info-card">
+        <span>💊</span>
+        <h3>Eczaneler</h3>
+        <p>Eczane ve nöbetçi eczane bilgileri</p>
+      </div>
+
+      <div class="info-card">
+        <span>🚓</span>
+        <h3>Polis</h3>
+        <p>Acil durum ve güvenlik</p>
+      </div>
+
+      <div class="info-card">
+        <span>🚌</span>
+        <h3>Ulaşım</h3>
+        <p>Otobüs ve ulaşım bilgileri</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section id="harita">
+
+  <div class="container">
+
+    <div class="section-title">
+      <span>Konum</span>
+      <h2>Kadirli Haritası</h2>
+      <p>
+        Şehir merkezini ve çevresini incele.
+      </p>
+    </div>
+
+    <div class="map-container">
+
+      <iframe
+        src="https://www.openstreetmap.org/export/embed.html?bbox=36.04%2C37.31%2C36.15%2C37.43&layer=mapnik&marker=37.373%2C36.096"
+        loading="lazy">
+      </iframe>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="cta" id="iletisim">
+
+  <div class="cta-box">
+
+    <div>
+      <h2>Kadirli'de bir işletmen mi var?</h2>
+
+      <p>
+        İşletmeni Güzelim Kadirli'ye eklemek
+        veya yanlış bilgiyi bildirmek için bize ulaş.
+      </p>
+    </div>
+
+    <a
+      class="cta-button"
+      href="mailto:info@guzelimkadirli.com">
+      Bize Ulaş
+    </a>
+
+  </div>
+
+</section>
+
+
+<footer>
+
+  <div class="footer-grid">
+
+    <div>
+      <h3>Güzelim Kadirli</h3>
+
+      <p>
+        Kadirli için yerel şehir, mekan ve işletme rehberi.
+      </p>
+    </div>
+
+
+    <div>
+      <h3>Keşfet</h3>
+
+      <ul>
+        <li><a href="#gezilecek">Gezilecek Yerler</a></li>
+        <li><a href="#yeme">Yeme & İçme</a></li>
+        <li><a href="#isletmeler">İşletmeler</a></li>
+      </ul>
+    </div>
+
+
+    <div>
+      <h3>Bilgi</h3>
+
+      <ul>
+        <li><a href="#hakkinda">Kadirli Hakkında</a></li>
+        <li><a href="#harita">Harita</a></li>
+        <li><a href="#iletisim">İletişim</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+
+  <div class="copyright">
+
+    © <span id="year"></span>
+    Güzelim Kadirli • Kadirli, Osmaniye
+
+  </div>
+
+</footer>
+
+
+<script>
+  document.getElementById("year").textContent =
+    new Date().getFullYear();
+</script>
 
 </body>
-
 </html>
