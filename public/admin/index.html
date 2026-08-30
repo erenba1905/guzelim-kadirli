@@ -169,48 +169,47 @@
       color: #68736d;
     }
 
+    .primary,
+    .secondary,
+    .danger,
+    .warning,
+    .edit {
+      border-radius: 9px;
+      font-weight: bold;
+    }
+
     .primary {
       padding: 10px 15px;
       border: 0;
-      border-radius: 9px;
       background: #1f7a4d;
       color: white;
-      font-weight: bold;
     }
 
     .secondary {
       padding: 10px 15px;
       border: 1px solid #d8dfda;
-      border-radius: 9px;
       background: white;
-      font-weight: bold;
     }
 
     .danger {
       padding: 9px 13px;
       border: 0;
-      border-radius: 8px;
       background: #b84444;
       color: white;
-      font-weight: bold;
     }
 
     .warning {
       padding: 9px 13px;
       border: 0;
-      border-radius: 8px;
       background: #d59b31;
       color: white;
-      font-weight: bold;
     }
 
     .edit {
       padding: 9px 13px;
       border: 0;
-      border-radius: 8px;
       background: #e5eee8;
       color: #1f7a4d;
-      font-weight: bold;
     }
 
     .list {
@@ -251,7 +250,8 @@
       color: #755600;
     }
 
-    .approved {
+    .approved,
+    .active-status {
       background: #def3e6;
       color: #176338;
     }
@@ -259,11 +259,6 @@
     .rejected {
       background: #f9dddd;
       color: #962e2e;
-    }
-
-    .active-status {
-      background: #def3e6;
-      color: #176338;
     }
 
     .inactive-status {
@@ -416,6 +411,42 @@
       display: flex;
       gap: 9px;
       margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    .upload-box {
+      border: 1px dashed #b9c6bd;
+      border-radius: 12px;
+      padding: 14px;
+      background: #f8faf9;
+    }
+
+    .upload-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .image-preview {
+      display: none;
+      width: 100%;
+      max-width: 340px;
+      height: 190px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-top: 12px;
+      border: 1px solid #dfe5e0;
+    }
+
+    .image-preview.show {
+      display: block;
+    }
+
+    .upload-status {
+      margin-top: 8px;
+      font-size: 13px;
+      color: #68736d;
     }
 
     @media (max-width: 650px) {
@@ -440,10 +471,7 @@
 
 <div id="loginView" class="login">
   <h2>Admin Girişi</h2>
-
-  <p>
-    Yönetim paneline giriş yap.
-  </p>
+  <p>Yönetim paneline giriş yap.</p>
 
   <input
     id="password"
@@ -452,37 +480,22 @@
     autocomplete="current-password"
   >
 
-  <button
-    id="loginButton"
-    type="button"
-  >
+  <button id="loginButton" type="button">
     Giriş Yap
   </button>
 
-  <div
-    id="loginError"
-    class="login-error"
-  ></div>
+  <div id="loginError" class="login-error"></div>
 </div>
 
 
-<div
-  id="adminView"
-  style="display:none;"
->
+<div id="adminView" style="display:none;">
 
 <header>
   <div class="header-inner">
-
-    <h2>
-      Güzelim Kadirli Admin
-    </h2>
+    <h2>Güzelim Kadirli Admin</h2>
 
     <div class="header-actions">
-
-      <a href="/">
-        ← Siteye dön
-      </a>
+      <a href="/">← Siteye dön</a>
 
       <button
         id="logoutButton"
@@ -491,9 +504,7 @@
       >
         Çıkış
       </button>
-
     </div>
-
   </div>
 </header>
 
@@ -533,19 +544,11 @@
     id="requests"
     class="panel active"
   >
-
     <div class="box">
-
       <div class="box-head">
-
         <div>
-          <h2>
-            İşletme Başvuruları
-          </h2>
-
-          <p>
-            Başvuruları yönet.
-          </p>
+          <h2>İşletme Başvuruları</h2>
+          <p>Başvuruları yönet.</p>
         </div>
 
         <button
@@ -555,13 +558,10 @@
         >
           Yenile
         </button>
-
       </div>
 
       <div id="requestList"></div>
-
     </div>
-
   </section>
 
 
@@ -569,23 +569,14 @@
     id="restaurants"
     class="panel"
   >
-
     <div class="box">
-
       <div class="box-head">
-
         <div>
-          <h2>
-            Restoran Yönetimi
-          </h2>
-
-          <p>
-            Restoranları yönet.
-          </p>
+          <h2>Restoran Yönetimi</h2>
+          <p>Restoranları yönet.</p>
         </div>
 
         <div class="actions">
-
           <button
             id="refreshRestaurants"
             class="secondary"
@@ -601,15 +592,11 @@
           >
             + Yeni Restoran
           </button>
-
         </div>
-
       </div>
 
       <div id="restaurantList"></div>
-
     </div>
-
   </section>
 
 
@@ -617,23 +604,14 @@
     id="places"
     class="panel"
   >
-
     <div class="box">
-
       <div class="box-head">
-
         <div>
-          <h2>
-            Gezilecek Yerler
-          </h2>
-
-          <p>
-            Gezilecek yerleri yönet.
-          </p>
+          <h2>Gezilecek Yerler</h2>
+          <p>Gezilecek yerleri yönet.</p>
         </div>
 
         <div class="actions">
-
           <button
             id="refreshPlaces"
             class="secondary"
@@ -649,15 +627,11 @@
           >
             + Yeni Yer
           </button>
-
         </div>
-
       </div>
 
       <div id="placeList"></div>
-
     </div>
-
   </section>
 
 </main>
@@ -665,11 +639,7 @@
 </div>
 
 
-<div
-  id="editModal"
-  class="modal"
->
-
+<div id="editModal" class="modal">
   <div class="modal-box">
 
     <button
@@ -690,7 +660,6 @@
       ></div>
 
       <div class="form-actions">
-
         <button
           class="primary"
           type="submit"
@@ -705,13 +674,11 @@
         >
           İptal
         </button>
-
       </div>
 
     </form>
 
   </div>
-
 </div>
 
 
@@ -769,9 +736,7 @@ async function adminFetch(
       }
     );
 
-  if (
-    response.status === 401
-  ) {
+  if (response.status === 401) {
     showLogin();
   }
 
@@ -780,20 +745,14 @@ async function adminFetch(
 
 
 function showLogin() {
-  adminView.style.display =
-    "none";
-
-  loginView.style.display =
-    "block";
+  adminView.style.display = "none";
+  loginView.style.display = "block";
 }
 
 
 function showAdmin() {
-  loginView.style.display =
-    "none";
-
-  adminView.style.display =
-    "block";
+  loginView.style.display = "none";
+  adminView.style.display = "block";
 }
 
 
@@ -803,17 +762,14 @@ async function checkSession() {
       await fetch(
         "/api/admin/session",
         {
-          credentials:
-            "same-origin"
+          credentials: "same-origin"
         }
       );
 
     const data =
       await response.json();
 
-    if (
-      data.authenticated
-    ) {
+    if (data.authenticated) {
       showAdmin();
 
       await Promise.all([
@@ -821,7 +777,6 @@ async function checkSession() {
         loadRestaurants(),
         loadPlaces()
       ]);
-
     } else {
       showLogin();
     }
@@ -856,15 +811,11 @@ async function login() {
         "/api/admin/login",
         {
           method: "POST",
-
-          credentials:
-            "same-origin",
-
+          credentials: "same-origin",
           headers: {
             "Content-Type":
               "application/json"
           },
-
           body:
             JSON.stringify({
               password
@@ -906,8 +857,7 @@ async function logout() {
     "/api/admin/logout",
     {
       method: "POST",
-      credentials:
-        "same-origin"
+      credentials: "same-origin"
     }
   );
 
@@ -936,9 +886,7 @@ document
   .addEventListener(
     "keydown",
     event => {
-      if (
-        event.key === "Enter"
-      ) {
+      if (event.key === "Enter") {
         login();
       }
     }
@@ -948,41 +896,30 @@ document
 document
   .querySelectorAll(".tab")
   .forEach(button => {
-
     button.addEventListener(
       "click",
       () => {
-
         document
           .querySelectorAll(".tab")
           .forEach(item =>
-            item.classList.remove(
-              "active"
-            )
+            item.classList.remove("active")
           );
 
         document
           .querySelectorAll(".panel")
           .forEach(item =>
-            item.classList.remove(
-              "active"
-            )
+            item.classList.remove("active")
           );
 
-        button.classList.add(
-          "active"
-        );
+        button.classList.add("active");
 
         document
           .getElementById(
             button.dataset.tab
           )
-          .classList.add(
-            "active"
-          );
+          .classList.add("active");
       }
     );
-
   });
 
 
@@ -1014,17 +951,13 @@ async function loadRequests() {
   const wrapper =
     document.createElement("div");
 
-  wrapper.className =
-    "list";
+  wrapper.className = "list";
 
   requests.forEach(item => {
     const card =
-      document.createElement(
-        "article"
-      );
+      document.createElement("article");
 
-    card.className =
-      "item";
+    card.className = "item";
 
     card.innerHTML = `
       <div class="item-top">
@@ -1044,7 +977,6 @@ async function loadRequests() {
       </div>
 
       <div class="info-grid">
-
         <div class="info">
           <strong>Telefon</strong>
           ${escapeHtml(item.phone || "-")}
@@ -1054,7 +986,6 @@ async function loadRequests() {
           <strong>Adres</strong>
           ${escapeHtml(item.address || "-")}
         </div>
-
       </div>
 
       <div class="message">
@@ -1064,8 +995,7 @@ async function loadRequests() {
       <div class="actions">
 
         ${
-          item.status !==
-          "approved"
+          item.status !== "approved"
             ? `
               <button
                 class="primary"
@@ -1101,10 +1031,7 @@ async function loadRequests() {
   });
 
   requestList.innerHTML = "";
-
-  requestList.appendChild(
-    wrapper
-  );
+  requestList.appendChild(wrapper);
 
   requestList
     .querySelectorAll(
@@ -1159,14 +1086,7 @@ async function approveRequest(id) {
       }
     );
 
-  const data =
-    await response.json();
-
   if (!response.ok) {
-    alert(
-      data.error ||
-      "Onaylama başarısız."
-    );
     return;
   }
 
@@ -1182,12 +1102,10 @@ async function rejectRequest(id) {
     `/api/admin/requests/${id}`,
     {
       method: "PATCH",
-
       headers: {
         "Content-Type":
           "application/json"
       },
-
       body:
         JSON.stringify({
           status: "rejected"
@@ -1252,21 +1170,16 @@ function renderRestaurants() {
   const wrapper =
     document.createElement("div");
 
-  wrapper.className =
-    "list";
+  wrapper.className = "list";
 
   restaurants.forEach(item => {
     const card =
-      document.createElement(
-        "article"
-      );
+      document.createElement("article");
 
-    card.className =
-      "item";
+    card.className = "item";
 
     card.innerHTML = `
       <div class="item-top">
-
         <div>
           <div class="item-name">
             ${escapeHtml(item.name)}
@@ -1288,11 +1201,9 @@ function renderRestaurants() {
               : "inactive"
           }
         </span>
-
       </div>
 
       <div class="info-grid">
-
         <div class="info">
           <strong>Puan</strong>
           ${escapeHtml(item.rating)}
@@ -1302,7 +1213,6 @@ function renderRestaurants() {
           <strong>Telefon</strong>
           ${escapeHtml(item.phone || "-")}
         </div>
-
       </div>
 
       <div class="message">
@@ -1310,7 +1220,6 @@ function renderRestaurants() {
       </div>
 
       <div class="actions">
-
         <button
           class="edit"
           data-edit-restaurant="${item.id}"
@@ -1326,7 +1235,6 @@ function renderRestaurants() {
         >
           Sil
         </button>
-
       </div>
     `;
 
@@ -1334,10 +1242,7 @@ function renderRestaurants() {
   });
 
   restaurantList.innerHTML = "";
-
-  restaurantList.appendChild(
-    wrapper
-  );
+  restaurantList.appendChild(wrapper);
 
   restaurantList
     .querySelectorAll(
@@ -1404,21 +1309,16 @@ function renderPlaces() {
   const wrapper =
     document.createElement("div");
 
-  wrapper.className =
-    "list";
+  wrapper.className = "list";
 
   places.forEach(item => {
     const card =
-      document.createElement(
-        "article"
-      );
+      document.createElement("article");
 
-    card.className =
-      "item";
+    card.className = "item";
 
     card.innerHTML = `
       <div class="item-top">
-
         <div>
           <div class="item-name">
             ${escapeHtml(item.name)}
@@ -1440,7 +1340,6 @@ function renderPlaces() {
               : "inactive"
           }
         </span>
-
       </div>
 
       <div class="message">
@@ -1448,7 +1347,6 @@ function renderPlaces() {
       </div>
 
       <div class="actions">
-
         <button
           class="edit"
           data-edit-place="${item.id}"
@@ -1464,7 +1362,6 @@ function renderPlaces() {
         >
           Sil
         </button>
-
       </div>
     `;
 
@@ -1472,10 +1369,7 @@ function renderPlaces() {
   });
 
   placeList.innerHTML = "";
-
-  placeList.appendChild(
-    wrapper
-  );
+  placeList.appendChild(wrapper);
 
   placeList
     .querySelectorAll(
@@ -1519,6 +1413,155 @@ function closeModal() {
 }
 
 
+function imageUploadHtml(image = "") {
+  return `
+    <div class="form-group full">
+
+      <label>Görsel</label>
+
+      <div class="upload-box">
+
+        <input
+          id="fImageFile"
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+        >
+
+        <div class="upload-actions">
+
+          <button
+            id="uploadImageButton"
+            class="secondary"
+            type="button"
+          >
+            Görseli Yükle
+          </button>
+
+        </div>
+
+        <div
+          id="uploadStatus"
+          class="upload-status"
+        ></div>
+
+        <img
+          id="imagePreview"
+          class="image-preview ${image ? "show" : ""}"
+          src="${escapeHtml(image)}"
+          alt="Görsel önizleme"
+        >
+
+      </div>
+
+      <input
+        id="fImage"
+        type="hidden"
+        value="${escapeHtml(image)}"
+      >
+
+    </div>
+  `;
+}
+
+
+async function uploadSelectedImage() {
+  const fileInput =
+    document.getElementById(
+      "fImageFile"
+    );
+
+  const status =
+    document.getElementById(
+      "uploadStatus"
+    );
+
+  const imageField =
+    document.getElementById(
+      "fImage"
+    );
+
+  const preview =
+    document.getElementById(
+      "imagePreview"
+    );
+
+  const file =
+    fileInput.files[0];
+
+  if (!file) {
+    status.textContent =
+      "Önce bir görsel seç.";
+    return;
+  }
+
+  status.textContent =
+    "Yükleniyor...";
+
+  const formData =
+    new FormData();
+
+  formData.append(
+    "image",
+    file
+  );
+
+  try {
+    const response =
+      await adminFetch(
+        "/api/admin/upload",
+        {
+          method: "POST",
+          body: formData
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.error ||
+        "Yükleme başarısız."
+      );
+    }
+
+    imageField.value =
+      data.url;
+
+    preview.src =
+      data.url;
+
+    preview.classList.add(
+      "show"
+    );
+
+    status.textContent =
+      "Görsel yüklendi.";
+
+  } catch (error) {
+    status.textContent =
+      error.message;
+  }
+}
+
+
+function bindUploadButton() {
+  const button =
+    document.getElementById(
+      "uploadImageButton"
+    );
+
+  if (!button) {
+    return;
+  }
+
+  button.addEventListener(
+    "click",
+    uploadSelectedImage
+  );
+}
+
+
 document
   .getElementById("modalClose")
   .addEventListener(
@@ -1558,7 +1601,6 @@ function openRestaurantForm(
   formFields.innerHTML = `
     <div class="form-group">
       <label>Ad *</label>
-
       <input
         id="fName"
         value="${escapeHtml(item.name || "")}"
@@ -1568,7 +1610,6 @@ function openRestaurantForm(
 
     <div class="form-group">
       <label>Kategori *</label>
-
       <input
         id="fCategory"
         value="${escapeHtml(item.category || "")}"
@@ -1578,7 +1619,6 @@ function openRestaurantForm(
 
     <div class="form-group">
       <label>Filtre *</label>
-
       <select id="fFilter">
         <option value="kebap">Kebap</option>
         <option value="lokanta">Lokanta</option>
@@ -1589,7 +1629,6 @@ function openRestaurantForm(
 
     <div class="form-group">
       <label>Puan</label>
-
       <input
         id="fRating"
         type="number"
@@ -1602,13 +1641,11 @@ function openRestaurantForm(
 
     <div class="form-group full">
       <label>Açıklama</label>
-
       <textarea id="fDescription">${escapeHtml(item.description || "")}</textarea>
     </div>
 
     <div class="form-group full">
       <label>Adres</label>
-
       <input
         id="fAddress"
         value="${escapeHtml(item.address || "")}"
@@ -1617,7 +1654,6 @@ function openRestaurantForm(
 
     <div class="form-group">
       <label>Telefon</label>
-
       <input
         id="fPhone"
         value="${escapeHtml(item.phone || "")}"
@@ -1626,25 +1662,16 @@ function openRestaurantForm(
 
     <div class="form-group">
       <label>Çalışma Saatleri</label>
-
       <input
         id="fHours"
         value="${escapeHtml(item.hours || "")}"
       >
     </div>
 
-    <div class="form-group">
-      <label>Görsel</label>
-
-      <input
-        id="fImage"
-        value="${escapeHtml(item.image || "")}"
-      >
-    </div>
+    ${imageUploadHtml(item.image || "")}
 
     <div class="form-group">
       <label>Emoji</label>
-
       <input
         id="fEmoji"
         value="${escapeHtml(item.emoji || "🍽️")}"
@@ -1682,6 +1709,8 @@ function openRestaurantForm(
       item.filter ||
       "kebap";
 
+  bindUploadButton();
+
   openModal();
 }
 
@@ -1709,7 +1738,6 @@ function openPlaceForm(
   formFields.innerHTML = `
     <div class="form-group">
       <label>Ad *</label>
-
       <input
         id="fName"
         value="${escapeHtml(item.name || "")}"
@@ -1719,7 +1747,6 @@ function openPlaceForm(
 
     <div class="form-group">
       <label>Kategori *</label>
-
       <input
         id="fCategory"
         value="${escapeHtml(item.category || "")}"
@@ -1729,31 +1756,21 @@ function openPlaceForm(
 
     <div class="form-group full">
       <label>Açıklama</label>
-
       <textarea id="fDescription">${escapeHtml(item.description || "")}</textarea>
     </div>
 
     <div class="form-group full">
       <label>Adres</label>
-
       <input
         id="fAddress"
         value="${escapeHtml(item.address || "")}"
       >
     </div>
 
-    <div class="form-group">
-      <label>Görsel</label>
-
-      <input
-        id="fImage"
-        value="${escapeHtml(item.image || "")}"
-      >
-    </div>
+    ${imageUploadHtml(item.image || "")}
 
     <div class="form-group">
       <label>Emoji</label>
-
       <input
         id="fEmoji"
         value="${escapeHtml(item.emoji || "📍")}"
@@ -1761,7 +1778,6 @@ function openPlaceForm(
     </div>
 
     <div class="form-group full">
-
       <label class="checkbox">
         <input
           id="fActive"
@@ -1770,9 +1786,10 @@ function openPlaceForm(
         >
         Aktif
       </label>
-
     </div>
   `;
+
+  bindUploadButton();
 
   openModal();
 }
@@ -1785,10 +1802,7 @@ document
     async event => {
       event.preventDefault();
 
-      if (
-        editType ===
-        "restaurant"
-      ) {
+      if (editType === "restaurant") {
         const payload = {
           name:
             document.getElementById("fName").value,
@@ -1857,10 +1871,8 @@ document
         await loadRestaurants();
       }
 
-      if (
-        editType ===
-        "place"
-      ) {
+
+      if (editType === "place") {
         const payload = {
           name:
             document.getElementById("fName").value,
@@ -1917,9 +1929,7 @@ document
   );
 
 
-async function deleteRestaurant(
-  id
-) {
+async function deleteRestaurant(id) {
   if (
     !confirm(
       "Restoran silinsin mi?"
@@ -1939,9 +1949,7 @@ async function deleteRestaurant(
 }
 
 
-async function deletePlace(
-  id
-) {
+async function deletePlace(id) {
   if (
     !confirm(
       "Yer silinsin mi?"
