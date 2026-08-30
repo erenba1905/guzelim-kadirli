@@ -6,7 +6,9 @@
   "assets": {
     "directory": "./public/",
     "binding": "ASSETS",
-    "run_worker_first": ["/api/*"]
+    "run_worker_first": [
+      "/api/*"
+    ]
   },
 
   "d1_databases": [
@@ -14,6 +16,13 @@
       "binding": "DB",
       "database_name": "guzelim-kadirli-db",
       "database_id": "cfcfaacf-9084-4b75-852b-cf9f0eee198f"
+    }
+  ],
+
+  "r2_buckets": [
+    {
+      "binding": "IMAGES",
+      "bucket_name": "guzelim-kadirli-images"
     }
   ]
 }
