@@ -7,12 +7,17 @@ function json(data, status = 200) {
   });
 }
 
+
 function error(message, status = 400) {
-  return json({
-    success: false,
-    error: message
-  }, status);
+  return json(
+    {
+      success: false,
+      error: message
+    },
+    status
+  );
 }
+
 
 function isAdmin(request, env) {
   const provided =
@@ -27,13 +32,18 @@ function isAdmin(request, env) {
   );
 }
 
+
 function requireAdmin(request, env) {
   if (!isAdmin(request, env)) {
-    return error("Yetkisiz erişim.", 401);
+    return error(
+      "Yetkisiz erişim.",
+      401
+    );
   }
 
   return null;
 }
+
 
 function validId(id) {
   const value = Number(id);
@@ -48,9 +58,10 @@ function validId(id) {
   return value;
 }
 
-/* =================================
+
+/* =====================================
    PUBLIC RESTAURANTS
-================================= */
+===================================== */
 
 async function getRestaurants(env) {
   const result = await env.DB
@@ -80,9 +91,10 @@ async function getRestaurants(env) {
   });
 }
 
-/* =================================
+
+/* =====================================
    PUBLIC PLACES
-================================= */
+===================================== */
 
 async function getPlaces(env) {
   const result = await env.DB
@@ -107,11 +119,15 @@ async function getPlaces(env) {
   });
 }
 
-/* =================================
-   PUBLIC BUSINESS REQUEST
-================================= */
 
-async function createBusinessRequest(request, env) {
+/* =====================================
+   PUBLIC BUSINESS REQUEST
+===================================== */
+
+async function createBusinessRequest(
+  request,
+  env
+) {
   let body;
 
   try {
@@ -120,48 +136,81 @@ async function createBusinessRequest(request, env) {
     return error("Geçersiz JSON.");
   }
 
+
   const businessName =
-    String(body.business_name || "").trim();
+    String(
+      body.business_name || ""
+    ).trim();
 
   const category =
-    String(body.category || "").trim();
+    String(
+      body.category || ""
+    ).trim();
 
   const phone =
-    String(body.phone || "").trim();
+    String(
+      body.phone || ""
+    ).trim();
 
   const address =
-    String(body.address || "").trim();
+    String(
+      body.address || ""
+    ).trim();
 
   const message =
-    String(body.message || "").trim();
+    String(
+      body.message || ""
+    ).trim();
+
 
   if (!businessName) {
-    return error("İşletme adı zorunludur.");
+    return error(
+      "İşletme adı zorunludur."
+    );
   }
+
 
   if (!category) {
-    return error("Kategori zorunludur.");
+    return error(
+      "Kategori zorunludur."
+    );
   }
+
 
   if (businessName.length > 120) {
-    return error("İşletme adı çok uzun.");
+    return error(
+      "İşletme adı çok uzun."
+    );
   }
+
 
   if (category.length > 80) {
-    return error("Kategori çok uzun.");
+    return error(
+      "Kategori çok uzun."
+    );
   }
+
 
   if (phone.length > 40) {
-    return error("Telefon bilgisi çok uzun.");
+    return error(
+      "Telefon bilgisi çok uzun."
+    );
   }
+
 
   if (address.length > 300) {
-    return error("Adres çok uzun.");
+    return error(
+      "Adres çok uzun."
+    );
   }
 
+
   if (message.length > 1500) {
-    return error("Mesaj çok uzun.");
+    return error(
+      "Mesaj çok uzun."
+    );
   }
+
 
   const result = await env.DB
     .prepare(`
@@ -185,23 +234,33 @@ async function createBusinessRequest(request, env) {
     )
     .run();
 
-  return json({
-    success: true,
-    id: result.meta.last_row_id,
-    message: "Başvurunuz kaydedildi."
-  }, 201);
+
+  return json(
+    {
+      success: true,
+      id: result.meta.last_row_id,
+      message: "Başvurunuz kaydedildi."
+    },
+    201
+  );
 }
 
-/* =================================
-   ADMIN REQUESTS
-================================= */
 
-async function getAdminRequests(request, env) {
-  const denied = requireAdmin(request, env);
+/* =====================================
+   ADMIN REQUESTS
+===================================== */
+
+async function getAdminRequests(
+  request,
+  env
+) {
+  const denied =
+    requireAdmin(request, env);
 
   if (denied) {
     return denied;
   }
+
 
   const result = await env.DB
     .prepare(`
@@ -226,28 +285,217 @@ async function getAdminRequests(request, env) {
     `)
     .all();
 
+
   return json({
     success: true,
     requests: result.results || []
   });
 }
 
-async function updateAdminRequest(
+
+/* =====================================
+   APPROVE REQUEST
+   Restaurant / Cafe -> create restaurant
+===================================== */
+
+async function approveAdminRequest(
   request,
   env,
   id
 ) {
-  const denied = requireAdmin(request, env);
+  const denied =
+    requireAdmin(request, env);
 
   if (denied) {
     return denied;
   }
 
-  const numericId = validId(id);
+
+  const numericId =
+    validId(id);
+
 
   if (!numericId) {
     return error("Geçersiz ID.");
   }
+
+
+  const application =
+    await env.DB
+      .prepare(`
+        SELECT *
+        FROM business_requests
+        WHERE id = ?
+      `)
+      .bind(numericId)
+      .first();
+
+
+  if (!application) {
+    return error(
+      "Başvuru bulunamadı.",
+      404
+    );
+  }
+
+
+  if (
+    application.status === "approved"
+  ) {
+    return error(
+      "Bu başvuru zaten onaylanmış."
+    );
+  }
+
+
+  const normalizedCategory =
+    String(
+      application.category || ""
+    ).toLocaleLowerCase("tr-TR");
+
+
+  const isRestaurant =
+    normalizedCategory.includes("restoran");
+
+
+  const isCafe =
+    normalizedCategory.includes("cafe");
+
+
+  let createdRestaurant =
+    false;
+
+
+  /*
+    Restaurant veya Cafe başvurusuysa
+    otomatik olarak restaurants tablosuna eklenir.
+  */
+
+  if (
+    isRestaurant ||
+    isCafe
+  ) {
+    const existing =
+      await env.DB
+        .prepare(`
+          SELECT id
+          FROM restaurants
+          WHERE LOWER(name) = LOWER(?)
+          LIMIT 1
+        `)
+        .bind(
+          application.business_name
+        )
+        .first();
+
+
+    if (!existing) {
+
+      const filter =
+        isCafe
+          ? "cafe"
+          : "lokanta";
+
+
+      const category =
+        isCafe
+          ? "Cafe"
+          : "Restaurant";
+
+
+      const emoji =
+        isCafe
+          ? "☕"
+          : "🍽️";
+
+
+      await env.DB
+        .prepare(`
+          INSERT INTO restaurants
+          (
+            name,
+            category,
+            filter,
+            description,
+            rating,
+            address,
+            phone,
+            hours,
+            image,
+            emoji,
+            featured,
+            active
+          )
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `)
+        .bind(
+          application.business_name,
+          category,
+          filter,
+          application.message || "",
+          0,
+          application.address || "",
+          application.phone || "",
+          "Bilgi doğrulanacak",
+          "",
+          emoji,
+          0,
+          1
+        )
+        .run();
+
+
+      createdRestaurant =
+        true;
+    }
+  }
+
+
+  await env.DB
+    .prepare(`
+      UPDATE business_requests
+      SET status = 'approved'
+      WHERE id = ?
+    `)
+    .bind(numericId)
+    .run();
+
+
+  return json({
+    success: true,
+    id: numericId,
+    status: "approved",
+    restaurant_created:
+      createdRestaurant
+  });
+}
+
+
+/* =====================================
+   REQUEST STATUS
+===================================== */
+
+async function updateAdminRequest(
+  request,
+  env,
+  id
+) {
+  const denied =
+    requireAdmin(request, env);
+
+  if (denied) {
+    return denied;
+  }
+
+
+  const numericId =
+    validId(id);
+
+
+  if (!numericId) {
+    return error("Geçersiz ID.");
+  }
+
 
   let body;
 
@@ -257,31 +505,43 @@ async function updateAdminRequest(
     return error("Geçersiz JSON.");
   }
 
+
   const status =
-    String(body.status || "").trim();
+    String(
+      body.status || ""
+    ).trim();
+
 
   if (
     ![
       "pending",
-      "approved",
       "rejected"
     ].includes(status)
   ) {
-    return error("Geçersiz durum.");
+    return error(
+      "Geçersiz durum."
+    );
   }
 
-  const existing = await env.DB
-    .prepare(`
-      SELECT id
-      FROM business_requests
-      WHERE id = ?
-    `)
-    .bind(numericId)
-    .first();
+
+  const existing =
+    await env.DB
+      .prepare(`
+        SELECT id
+        FROM business_requests
+        WHERE id = ?
+      `)
+      .bind(numericId)
+      .first();
+
 
   if (!existing) {
-    return error("Başvuru bulunamadı.", 404);
+    return error(
+      "Başvuru bulunamadı.",
+      404
+    );
   }
+
 
   await env.DB
     .prepare(`
@@ -295,6 +555,7 @@ async function updateAdminRequest(
     )
     .run();
 
+
   return json({
     success: true,
     id: numericId,
@@ -302,22 +563,32 @@ async function updateAdminRequest(
   });
 }
 
+
+/* =====================================
+   DELETE REQUEST
+===================================== */
+
 async function deleteAdminRequest(
   request,
   env,
   id
 ) {
-  const denied = requireAdmin(request, env);
+  const denied =
+    requireAdmin(request, env);
 
   if (denied) {
     return denied;
   }
 
-  const numericId = validId(id);
+
+  const numericId =
+    validId(id);
+
 
   if (!numericId) {
     return error("Geçersiz ID.");
   }
+
 
   await env.DB
     .prepare(`
@@ -327,53 +598,60 @@ async function deleteAdminRequest(
     .bind(numericId)
     .run();
 
+
   return json({
     success: true,
     deleted_id: numericId
   });
 }
 
-/* =================================
+
+/* =====================================
    ADMIN RESTAURANTS
-================================= */
+===================================== */
 
 async function getAdminRestaurants(
   request,
   env
 ) {
-  const denied = requireAdmin(request, env);
+  const denied =
+    requireAdmin(request, env);
 
   if (denied) {
     return denied;
   }
 
-  const result = await env.DB
-    .prepare(`
-      SELECT
-        id,
-        name,
-        category,
-        filter,
-        description,
-        rating,
-        address,
-        phone,
-        hours,
-        image,
-        emoji,
-        featured,
-        active,
-        created_at
-      FROM restaurants
-      ORDER BY featured DESC, id ASC
-    `)
-    .all();
+
+  const result =
+    await env.DB
+      .prepare(`
+        SELECT
+          id,
+          name,
+          category,
+          filter,
+          description,
+          rating,
+          address,
+          phone,
+          hours,
+          image,
+          emoji,
+          featured,
+          active,
+          created_at
+        FROM restaurants
+        ORDER BY featured DESC, id ASC
+      `)
+      .all();
+
 
   return json({
     success: true,
     restaurants: result.results || []
   });
 }
+
 
 function normalizeRestaurant(body) {
   return {
@@ -415,6 +693,7 @@ function normalizeRestaurant(body) {
   };
 }
 
+
 function validateRestaurant(item) {
   if (!item.name) {
     return "Restoran adı zorunludur.";
@@ -439,15 +718,18 @@ function validateRestaurant(item) {
   return null;
 }
 
+
 async function createAdminRestaurant(
   request,
   env
 ) {
-  const denied = requireAdmin(request, env);
+  const denied =
+    requireAdmin(request, env);
 
   if (denied) {
     return denied;
   }
+
 
   let body;
 
@@ -457,56 +739,66 @@ async function createAdminRestaurant(
     return error("Geçersiz JSON.");
   }
 
+
   const item =
     normalizeRestaurant(body);
 
+
   const validationError =
     validateRestaurant(item);
+
 
   if (validationError) {
     return error(validationError);
   }
 
-  const result = await env.DB
-    .prepare(`
-      INSERT INTO restaurants
-      (
-        name,
-        category,
-        filter,
-        description,
-        rating,
-        address,
-        phone,
-        hours,
-        image,
-        emoji,
-        featured,
-        active
-      )
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `)
-    .bind(
-      item.name,
-      item.category,
-      item.filter,
-      item.description,
-      item.rating,
-      item.address,
-      item.phone,
-      item.hours,
-      item.image,
-      item.emoji,
-      item.featured,
-      item.active
-    )
-    .run();
 
-  return json({
-    success: true,
-    id: result.meta.last_row_id
-  }, 201);
+  const result =
+    await env.DB
+      .prepare(`
+        INSERT INTO restaurants
+        (
+          name,
+          category,
+          filter,
+          description,
+          rating,
+          address,
+          phone,
+          hours,
+          image,
+          emoji,
+          featured,
+          active
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `)
+      .bind(
+        item.name,
+        item.category,
+        item.filter,
+        item.description,
+        item.rating,
+        item.address,
+        item.phone,
+        item.hours,
+        item.image,
+        item.emoji,
+        item.featured,
+        item.active
+      )
+      .run();
+
+
+  return json(
+    {
+      success: true,
+      id: result.meta.last_row_id
+    },
+    201
+  );
 }
+
 
 async function updateAdminRestaurant(
   request,
@@ -520,11 +812,15 @@ async function updateAdminRestaurant(
     return denied;
   }
 
-  const numericId = validId(id);
+
+  const numericId =
+    validId(id);
+
 
   if (!numericId) {
     return error("Geçersiz ID.");
   }
+
 
   let body;
 
@@ -534,31 +830,19 @@ async function updateAdminRestaurant(
     return error("Geçersiz JSON.");
   }
 
+
   const item =
     normalizeRestaurant(body);
 
+
   const validationError =
     validateRestaurant(item);
+
 
   if (validationError) {
     return error(validationError);
   }
 
-  const existing = await env.DB
-    .prepare(`
-      SELECT id
-      FROM restaurants
-      WHERE id = ?
-    `)
-    .bind(numericId)
-    .first();
-
-  if (!existing) {
-    return error(
-      "Restoran bulunamadı.",
-      404
-    );
-  }
 
   await env.DB
     .prepare(`
@@ -595,11 +879,13 @@ async function updateAdminRestaurant(
     )
     .run();
 
+
   return json({
     success: true,
     id: numericId
   });
 }
+
 
 async function deleteAdminRestaurant(
   request,
@@ -613,11 +899,15 @@ async function deleteAdminRestaurant(
     return denied;
   }
 
-  const numericId = validId(id);
+
+  const numericId =
+    validId(id);
+
 
   if (!numericId) {
     return error("Geçersiz ID.");
   }
+
 
   await env.DB
     .prepare(`
@@ -627,23 +917,295 @@ async function deleteAdminRestaurant(
     .bind(numericId)
     .run();
 
+
   return json({
     success: true,
     deleted_id: numericId
   });
 }
 
-/* =================================
+
+/* =====================================
+   ADMIN PLACES
+===================================== */
+
+async function getAdminPlaces(
+  request,
+  env
+) {
+  const denied =
+    requireAdmin(request, env);
+
+  if (denied) {
+    return denied;
+  }
+
+
+  const result =
+    await env.DB
+      .prepare(`
+        SELECT
+          id,
+          name,
+          category,
+          description,
+          address,
+          image,
+          emoji,
+          active,
+          created_at
+        FROM places
+        ORDER BY id ASC
+      `)
+      .all();
+
+
+  return json({
+    success: true,
+    places: result.results || []
+  });
+}
+
+
+function normalizePlace(body) {
+  return {
+    name:
+      String(body.name || "").trim(),
+
+    category:
+      String(body.category || "").trim(),
+
+    description:
+      String(body.description || "").trim(),
+
+    address:
+      String(body.address || "").trim(),
+
+    image:
+      String(body.image || "").trim(),
+
+    emoji:
+      String(body.emoji || "📍").trim(),
+
+    active:
+      body.active === false ? 0 : 1
+  };
+}
+
+
+function validatePlace(item) {
+  if (!item.name) {
+    return "Yer adı zorunludur.";
+  }
+
+  if (!item.category) {
+    return "Kategori zorunludur.";
+  }
+
+  return null;
+}
+
+
+async function createAdminPlace(
+  request,
+  env
+) {
+  const denied =
+    requireAdmin(request, env);
+
+  if (denied) {
+    return denied;
+  }
+
+
+  let body;
+
+  try {
+    body = await request.json();
+  } catch {
+    return error("Geçersiz JSON.");
+  }
+
+
+  const item =
+    normalizePlace(body);
+
+
+  const validationError =
+    validatePlace(item);
+
+
+  if (validationError) {
+    return error(validationError);
+  }
+
+
+  const result =
+    await env.DB
+      .prepare(`
+        INSERT INTO places
+        (
+          name,
+          category,
+          description,
+          address,
+          image,
+          emoji,
+          active
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+      `)
+      .bind(
+        item.name,
+        item.category,
+        item.description,
+        item.address,
+        item.image,
+        item.emoji,
+        item.active
+      )
+      .run();
+
+
+  return json(
+    {
+      success: true,
+      id: result.meta.last_row_id
+    },
+    201
+  );
+}
+
+
+async function updateAdminPlace(
+  request,
+  env,
+  id
+) {
+  const denied =
+    requireAdmin(request, env);
+
+  if (denied) {
+    return denied;
+  }
+
+
+  const numericId =
+    validId(id);
+
+
+  if (!numericId) {
+    return error("Geçersiz ID.");
+  }
+
+
+  let body;
+
+  try {
+    body = await request.json();
+  } catch {
+    return error("Geçersiz JSON.");
+  }
+
+
+  const item =
+    normalizePlace(body);
+
+
+  const validationError =
+    validatePlace(item);
+
+
+  if (validationError) {
+    return error(validationError);
+  }
+
+
+  await env.DB
+    .prepare(`
+      UPDATE places
+      SET
+        name = ?,
+        category = ?,
+        description = ?,
+        address = ?,
+        image = ?,
+        emoji = ?,
+        active = ?
+      WHERE id = ?
+    `)
+    .bind(
+      item.name,
+      item.category,
+      item.description,
+      item.address,
+      item.image,
+      item.emoji,
+      item.active,
+      numericId
+    )
+    .run();
+
+
+  return json({
+    success: true,
+    id: numericId
+  });
+}
+
+
+async function deleteAdminPlace(
+  request,
+  env,
+  id
+) {
+  const denied =
+    requireAdmin(request, env);
+
+  if (denied) {
+    return denied;
+  }
+
+
+  const numericId =
+    validId(id);
+
+
+  if (!numericId) {
+    return error("Geçersiz ID.");
+  }
+
+
+  await env.DB
+    .prepare(`
+      DELETE FROM places
+      WHERE id = ?
+    `)
+    .bind(numericId)
+    .run();
+
+
+  return json({
+    success: true,
+    deleted_id: numericId
+  });
+}
+
+
+/* =====================================
    MAIN
-================================= */
+===================================== */
 
 export default {
+
   async fetch(request, env) {
+
     const url =
       new URL(request.url);
 
     const pathname =
       url.pathname;
+
 
     try {
 
@@ -656,12 +1218,14 @@ export default {
         return await getRestaurants(env);
       }
 
+
       if (
         request.method === "GET" &&
         pathname === "/api/places"
       ) {
         return await getPlaces(env);
       }
+
 
       if (
         request.method === "POST" &&
@@ -672,6 +1236,7 @@ export default {
           env
         );
       }
+
 
       /* ADMIN REQUESTS */
 
@@ -685,10 +1250,30 @@ export default {
         );
       }
 
+
       const requestMatch =
         pathname.match(
           /^\/api\/admin\/requests\/(\d+)$/
         );
+
+
+      const approveMatch =
+        pathname.match(
+          /^\/api\/admin\/requests\/(\d+)\/approve$/
+        );
+
+
+      if (
+        approveMatch &&
+        request.method === "POST"
+      ) {
+        return await approveAdminRequest(
+          request,
+          env,
+          approveMatch[1]
+        );
+      }
+
 
       if (
         requestMatch &&
@@ -701,6 +1286,7 @@ export default {
         );
       }
 
+
       if (
         requestMatch &&
         request.method === "DELETE"
@@ -711,6 +1297,7 @@ export default {
           requestMatch[1]
         );
       }
+
 
       /* ADMIN RESTAURANTS */
 
@@ -724,6 +1311,7 @@ export default {
         );
       }
 
+
       if (
         request.method === "POST" &&
         pathname === "/api/admin/restaurants"
@@ -734,10 +1322,12 @@ export default {
         );
       }
 
+
       const restaurantMatch =
         pathname.match(
           /^\/api\/admin\/restaurants\/(\d+)$/
         );
+
 
       if (
         restaurantMatch &&
@@ -750,6 +1340,7 @@ export default {
         );
       }
 
+
       if (
         restaurantMatch &&
         request.method === "DELETE"
@@ -760,6 +1351,61 @@ export default {
           restaurantMatch[1]
         );
       }
+
+
+      /* ADMIN PLACES */
+
+      if (
+        request.method === "GET" &&
+        pathname === "/api/admin/places"
+      ) {
+        return await getAdminPlaces(
+          request,
+          env
+        );
+      }
+
+
+      if (
+        request.method === "POST" &&
+        pathname === "/api/admin/places"
+      ) {
+        return await createAdminPlace(
+          request,
+          env
+        );
+      }
+
+
+      const placeMatch =
+        pathname.match(
+          /^\/api\/admin\/places\/(\d+)$/
+        );
+
+
+      if (
+        placeMatch &&
+        request.method === "PATCH"
+      ) {
+        return await updateAdminPlace(
+          request,
+          env,
+          placeMatch[1]
+        );
+      }
+
+
+      if (
+        placeMatch &&
+        request.method === "DELETE"
+      ) {
+        return await deleteAdminPlace(
+          request,
+          env,
+          placeMatch[1]
+        );
+      }
+
 
       /* UNKNOWN API */
 
@@ -772,17 +1418,26 @@ export default {
         );
       }
 
+
       /* STATIC FILES */
 
-      return env.ASSETS.fetch(request);
+      return env.ASSETS.fetch(
+        request
+      );
+
 
     } catch (err) {
+
       console.error(err);
+
 
       return error(
         "Sunucu hatası oluştu.",
         500
       );
+
     }
+
   }
+
 };
